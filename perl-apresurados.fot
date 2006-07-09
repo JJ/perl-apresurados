@@ -1,0 +1,459 @@
+<?xml version="1.0"?>
+<fot>
+<a name="0"/>
+<text>
+</text>
+<a name="1"/>
+<text>  </text>
+<a name="2"/>
+<text>Perl para los apresurados</text>
+<text>
+</text>
+<text>  </text>
+<a name="3"/>
+<a name="4"/>
+<text>Juan Juli&#225;n</text>
+<text>
+</text>
+<text>          </text>
+<a name="5"/>
+<text>Merelo Guerv&#243;s</text>
+<text>
+</text>
+<a name="6"/>
+<text>JJ</text>
+<text>
+</text>
+<a name="7"/>
+<text>     </text>
+<a name="8"/>
+<text>        </text>
+<a name="9"/>
+<text>1.0</text>
+<text>
+</text>
+<text>        </text>
+<a name="10"/>
+<text>Jul 2006</text>
+<text>
+</text>
+<text>        </text>
+<a name="11"/>
+<text>Preparando la primera versi&#243;n para el curso de
+</text>
+<text>Extremadura</text>
+<text>  
+</text>
+<text>     </text>
+<text>
+</text>
+<text>    
+</text>
+<text>  </text>
+<text>
+</text>
+<text>
+</text>
+<a name="12"/>
+<a name="13"/>
+<text>&#191;Qui&#233;n eres t&#250;?</text>
+<text>
+</text>
+<a name="14"/>
+<text>&#191;A qui&#233;n va dirigido este tutorial </text>
+<a name="15"/>
+<text>para apresurados</text>
+<text>?</text>
+<text>
+</text>
+<text>
+</text>
+<a name="16"/>
+<text>Eso mismo te estar&#225;s preguntando, que qui&#233;n diablos eres, que a
+</text>
+<text>qu&#233; dedicas el tiempo libre, todo eso. As&#237; que te vamos a echar una
+</text>
+<text>mano. Supongo que ya sabes programar, que el concepto de
+</text>
+<a name="17"/>
+<text>variable</text>
+<text> no va para ti asociado a la nubosidad ni
+</text>
+<text>el de </text>
+<a name="18"/>
+<text>bucle</text>
+<text> a la cabeza de Nellie Olleson. Puede
+</text>
+<text>que conozcas el C, s&#243;lo para precavidos, o hables con lengua de
+</text>
+<text>serpiente (</text>
+<a name="19"/>
+<text>pit&#243;n</text>
+<text>), o incluso que el s&#237;mbolo mayor y menor van para t&#237;
+</text>
+<text>asociados de forma indisoluble a un </text>
+<a name="20"/>
+<text>acr&#243;nimo capic&#250;a</text>
+<text>.</text>
+<text>
+</text>
+<text>
+</text>
+<a name="21"/>
+<text>Vamos, que puede extra&#241;arte las formas ignotas en las que un nuevo
+</text>
+<text>lenguaje de programaci&#243;n repite cachos de c&#243;digo o mete valores en
+</text>
+<text>variables o representa listas de datos, pero los conceptos en s&#237; no
+</text>
+<text>son nada nuevo para t&#237;. A t&#237;, pues, va dirigido este
+</text>
+<text>mini-tutorial.</text>
+<text>
+</text>
+<text>
+</text>
+<a name="22"/>
+<text>Supongo tambi&#233;n que tienes prisa. Si no, no estar&#237;as leyendo
+</text>
+<text>este tutorial para </text>
+<a name="23"/>
+<text>apresurados</text>
+<text>. Estar&#237;as leyendo
+</text>
+<text>uno titulado, por ejemplo, </text>
+<a name="24"/>
+<text>Perl para los que tienen todo el
+</text>
+<text>tiempo del mundo</text>
+<text>. Es decir, que es necesariamente breve,
+</text>
+<text>con la idea de poder ser impartido (y espero que asimilado) en unas
+</text>
+<text>dos horas. Igual no te da tiempo a teclear todos los ejemplos de
+</text>
+<text>c&#243;digo, pero este ordenador que est&#225;s mirando tiene una cosa
+</text>
+<text>maravillosa llamada &quot;corta y pega&quot; con la que sin duda est&#225;s
+</text>
+<text>familiarizado, y que podr&#225;s usar para tu provecho y el de la
+</text>
+<text>Humanidad. </text>
+<text>
+</text>
+<text>
+</text>
+<a name="25"/>
+<text>Y quiz&#225;s todav&#237;a no lo sabes, pero
+</text>
+<a name="26"/>
+<text>necesitas</text>
+<text> saber Perl. Para vigilar ese fichero de
+</text>
+<text>registro y crear alertas que te avisen de lo inesperado. Para ese CGI
+</text>
+<text>terriblemente complicado. Para convertir una p&#225;gina web demasiado
+</text>
+<text>compleja en algo que tambi&#233;n es complejo, pero que puedes leer con tu
+</text>
+<text>lector de cosas complejas favorito. En fin, donde quiera que haga
+</text>
+<text>falta convertir cosas en otras cosas, ah&#237; hace falta saber
+</text>
+<text>Perl.</text>
+<text>
+</text>
+<text>
+</text>
+<a name="27"/>
+<text>Y con ello damos entrada a la primera
+</text>
+<a name="28"/>
+<text>flamewar</text>
+<text> de este tutorial, que es donde t&#250;, que
+</text>
+<text>est&#225;s entre el p&#250;blico, dices aquello de </text>
+<a name="29"/>
+<text>Pues yo hago todo
+</text>
+<text>eso, y m&#225;s, en (Fortran|Postscript|Haskell)</text>
+<text>. Que vale, que
+</text>
+<text>si. Los lenguajes de programaci&#243;n son universales. Se puede hacer de
+</text>
+<text>todo con ellos. Y siempre es m&#225;s f&#225;cil hacer algo en el lenguaje que
+</text>
+<text>uno conoce mejor. Pero al menos tendr&#225;s m&#225;s donde elegir, &#191;no?</text>
+<text>
+</text>
+<text>
+</text>
+<a name="30"/>
+<text>Sobre todo, que no cunda el p&#225;nico. Y no te olvides de la </text>
+<a name="31"/>
+<text>toalla</text>
+<text>.</text>
+<text>
+</text>
+<text>
+</text>
+<text>
+</text>
+<a name="32"/>
+<a name="33"/>
+<text>Todo listo para despegar</text>
+<text>
+</text>
+<a name="34"/>
+<text>Herramientas necesarias para programar en Perl</text>
+<text>
+</text>
+<text>
+</text>
+<a name="35"/>
+<text>Lo primero que necesitas en tu lista de comprobaci&#243;n son las
+</text>
+<text>cualidades de todo programador en Perl: la pereza, el </text>
+<text>orgullo y la
+</text>
+<text>curiosidad. No te preocupes si no tienes ninguna de ellas, las ir&#225;s
+</text>
+<text>adquiriendo con el tiempo. Sobre todo la pereza. Y una cierta
+</text>
+<text>habilidad de entender lenguas muertas como el caldeo y el
+</text>
+<text>d&#225;lmata. </text>
+<text>
+</text>
+<text>
+</text>
+<a name="36"/>
+<text>Segundo, necesitas amar a los cam&#233;lidos. El Perl no es como esos
+</text>
+<text>otros lenguajes que incitan a la avaricia a trav&#233;s de la adoraci&#243;n de
+</text>
+<text>las </text>
+<a name="37"/>
+<text>piedras preciosas</text>
+<text>, o
+</text>
+<text>a la hiperactividad por ingesti&#243;n de </text>
+<a name="38"/>
+<text>bebidas excitantes</text>
+<text>. Los camellos son
+</text>
+<text>buenos. Los camellos son &#250;tiles. Llevan cosas encima. Tienen
+</text>
+<text>joroba. Amemos a los cam&#233;lidos (las </text>
+<a name="39"/>
+<text>llamas tambi&#233;n son
+</text>
+<text>cam&#233;lidos</text>
+<text>).</text>
+<text>
+</text>
+<text>
+</text>
+<a name="40"/>
+<text>No menos importante es tener un ordenador con sistema
+</text>
+<text>operativo. Incluso </text>
+<a name="41"/>
+<text>sin
+</text>
+<text>&#233;l</text>
+<text>. Ejecuta lo siguiente para saber si lo tienes:
+</text>
+<a name="42"/>
+<text>perl -v</text>
+<text>
+</text>
+<text>a lo que el ordenador debidamente contestar&#225; algo as&#237;:
+</text>
+<a name="43"/>
+<text>This is perl, v5.8.7 built for i486-linux-gnu-thread-multi
+</text>
+<text>(with 1 registered patch, see perl -V for more detail)
+</text>
+<text>
+</text>
+<text>Copyright 1987-2005, Larry Wall
+</text>
+<text>
+</text>
+<text>Perl may be copied only under the terms of either the Artistic License or the
+</text>
+<text>GNU General Public License, which may be found in the Perl 5 source kit.
+</text>
+<text>
+</text>
+<text>Complete documentation for Perl, including FAQ lists, should be found on
+</text>
+<text>this system using `man perl' or `perldoc perl'.  If you have access to the
+</text>
+<text>Internet, point your browser at http://www.perl.org/, the Perl Home Page.
+</text>
+<text>
+</text>
+<text>si es que est&#225; instalado. Si no lo est&#225;, es poco probable que conteste
+</text>
+<text>eso. Incluso imposible. Dir&#225; algo as&#237; como
+</text>
+<a name="44"/>
+<text>bash: perl: command not found</text>
+<text>
+</text>
+<text>e incluso pitar&#225;. El muy desagradable.</text>
+<text>
+</text>
+<text>
+</text>
+<a name="45"/>
+<text>No hay que dejarse descorazonar por tal
+</text>
+<text>eventualidad. Encomend&#225;ndonos al </text>
+<a name="46"/>
+<text>Gran Cam&#233;lido</text>
+<text>,
+</text>
+<text>y sin necesidad de ver una vez m&#225;s Ishtar, diremos en voz alta
+</text>
+<text>&quot;Abracadabra&quot; mientras que escribimos
+</text>
+<a name="47"/>
+<text>sudo yum install perl</text>
+<text>
+</text>
+<text>o bien
+</text>
+<a name="48"/>
+<text>sudo apt-get install perl</text>
+<text>
+</text>
+<text>Si es que est&#225;n en un linux no-debianita (en el primer caso) o en uno
+</text>
+<text>debianita (en el segundo). Habr&#225; gente que incluso lo haga sin necesidad de bajarse del
+</text>
+<text>rat&#243;n. Pero los apresurados no usan el rat&#243;n salvo que sea
+</text>
+<text>estrictamente necesario. Que no es el caso. En otros sistemas
+</text>
+<text>operativos, lo mejor es ir a </text>
+<a name="49"/>
+<text>Perl.com
+</text>
+<text>(si es que no has ido todav&#237;a)</text>
+<text> y te bajes la versi&#243;n
+</text>
+<text>compilada. </text>
+<text>
+</text>
+<text>
+</text>
+<a name="50"/>
+<text>Tambi&#233;n puedes compilarlo t&#250;. Pero no creo que lo hagas, porque
+</text>
+<text>eres un apresurado, y la compilaci&#243;n no est&#225; hecha para los
+</text>
+<text>apresurados (si eres usuario de </text>
+<a name="51"/>
+<text>Gentoo</text>
+<text>, es el momento de abandonar
+</text>
+<text>este tutorial).</text>
+<text>
+</text>
+<text>
+</text>
+<a name="52"/>
+<text>Lo que tienes o has instalado es un int&#233;rprete de Perl. Perl es
+</text>
+<text>generalmente un lenguaje interpretado, con lo que no hace falta ning&#250;n
+</text>
+<text>encantamiento intermedio para pasar de un programa escrito en Perl a
+</text>
+<text>su ejecuci&#243;n. Si te har&#225; falta un editor. No </text>
+<a name="53"/>
+<text>un</text>
+<text>
+</text>
+<text>editor. </text>
+<a name="54"/>
+<text>El</text>
+<text> editor.</text>
+<text>
+</text>
+<a name="55"/>
+<a name="56"/>
+<text>Los que apoyen al &#237;nclito </text>
+<a name="57"/>
+<text>(x)emacs</text>
+<text> de
+</text>
+<text>este lado del </text>
+<a name="58"/>
+<text>flamewar</text>
+<text>, los que se queden con el
+</text>
+<text>s&#243;lido pero escu&#225;lido </text>
+<a name="59"/>
+<text>vi(m)</text>
+<text>, de este otro
+</text>
+<text>lado. Los que est&#233;n con </text>
+<a name="60"/>
+<text>kate</text>
+<text>,
+</text>
+<a name="61"/>
+<text>jot</text>
+<text>, o incluso el
+</text>
+<a name="62"/>
+<text>kwrite</text>
+<text>, que elijan armas y padrinos y que
+</text>
+<text>pidan hora.</text>
+<text>
+</text>
+<text>
+</text>
+<a name="63"/>
+<text>Vuelvo contigo [hablar de entornos de edici&#243;n y programaci&#243;n ilustrados]</text>
+<text>
+</text>
+<text>
+</text>
+<text>
+</text>
+<a name="64"/>
+<a name="65"/>
+<text> Comenzando una nueva carrera</text>
+<text>
+</text>
+<a name="66"/>
+<text>Primer programa en Perl: el cl&#225;sico </text>
+<a name="67"/>
+<text>Hola
+</text>
+<text>Mundo</text>
+<text>
+</text>
+<text>
+</text>
+<text>
+</text>
+<a name="69"/>
+<a name="70"/>
+<text>Vi&#233;ndole las tripas al producto</text>
+<text>
+</text>
+<a name="71"/>
+<text>Ejecutando el programa paso a paso</text>
+<text>
+</text>
+<text>
+</text>
+<text>
+</text>
+</fot>

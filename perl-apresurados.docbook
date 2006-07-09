@@ -1,0 +1,170 @@
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V4.4//EN">
+<article>
+
+<articleinfo>
+  <title>Perl para los apresurados</title>
+  <author><firstname>Juan Julián</firstname>
+          <surname>Merelo Guervós</surname></author>
+<authorinitials>JJ</authorinitials>
+<revhistory>
+     <revision>
+        <revnumber>1.0</revnumber>
+        <date>Jul 2006</date>
+        <revremark>Preparando la primera versión para el curso de
+Extremadura</revremark>  
+     </revision>
+    
+  </revhistory>
+</articleinfo>
+
+<sect1>
+<title>¿Quién eres tú?</title>
+<subtitle>
+¿A quién va dirigido este tutorial <emphasis>para apresurados</emphasis>?
+</subtitle>
+
+<para>Eso mismo te estarás preguntando, que quién diablos eres, que a
+qué dedicas el tiempo libre, todo eso. Así que te vamos a echar una
+mano. Supongo que ya sabes programar, que el concepto de
+<emphasis>variable</emphasis> no va para ti asociado a la nubosidad ni
+el de <emphasis>bucle</emphasis> a la cabeza de Nellie Olleson. Puede
+que conozcas el C, sólo para precavidos, o hables con lengua de
+serpiente (<ulink url='http://www.python.org'>pitón</ulink>), o incluso que el símbolo mayor y menor van para tí
+asociados de forma indisoluble a un <ulink url='http://www.php.org'>acrónimo capicúa</ulink>.</para>
+
+<para>Vamos, que puede extrañarte las formas ignotas en las que un nuevo
+lenguaje de programación repite cachos de código o mete valores en
+variables o representa listas de datos, pero los conceptos en sí no
+son nada nuevo para tí. A tí, pues, va dirigido este
+mini-tutorial.</para>
+
+<para>Supongo también que tienes prisa. Si no, no estarías leyendo
+este tutorial para <emphasis>apresurados</emphasis>. Estarías leyendo
+uno titulado, por ejemplo, <emphasis>Perl para los que tienen todo el
+tiempo del mundo</emphasis>. Es decir, que es necesariamente breve,
+con la idea de poder ser impartido (y espero que asimilado) en unas
+dos horas. Igual no te da tiempo a teclear todos los ejemplos de
+código, pero este ordenador que estás mirando tiene una cosa
+maravillosa llamada "corta y pega" con la que sin duda estás
+familiarizado, y que podrás usar para tu provecho y el de la
+Humanidad. </para>
+
+<para>Y quizás todavía no lo sabes, pero
+<emphasis>necesitas</emphasis> saber Perl. Para vigilar ese fichero de
+registro y crear alertas que te avisen de lo inesperado. Para ese CGI
+terriblemente complicado. Para convertir una página web demasiado
+compleja en algo que también es complejo, pero que puedes leer con tu
+lector de cosas complejas favorito. En fin, donde quiera que haga
+falta convertir cosas en otras cosas, ahí hace falta saber
+Perl.</para>
+
+<tip><para>Y con ello damos entrada a la primera
+<emphasis>flamewar</emphasis> de este tutorial, que es donde tú, que
+estás entre el público, dices aquello de <emphasis>Pues yo hago todo
+eso, y más, en (Fortran|Postscript|Haskell)</emphasis>. Que vale, que
+si. Los lenguajes de programación son universales. Se puede hacer de
+todo con ellos. Y siempre es más fácil hacer algo en el lenguaje que
+uno conoce mejor. Pero al menos tendrás más donde elegir, ¿no?</para></tip>
+
+<para>Sobre todo, que no cunda el pánico. Y no te olvides de la <ulink
+url='http://es.wikipedia.org/wiki/Dia_de_la_Toalla'>toalla</ulink>.</para>
+
+</sect1>
+
+<sect1><title>Todo listo para despegar</title>
+<subtitle>Herramientas necesarias para programar en Perl</subtitle>
+
+<para>Lo primero que necesitas en tu lista de comprobación son las
+cualidades de todo programador en Perl: la pereza, el orgullo y la
+curiosidad. No te preocupes si no tienes ninguna de ellas, las irás
+adquiriendo con el tiempo. Sobre todo la pereza. Y una cierta
+habilidad de entender lenguas muertas como el caldeo y el
+dálmata. </para>
+
+<para>Segundo, necesitas amar a los camélidos. El Perl no es como esos
+otros lenguajes que incitan a la avaricia a través de la adoración de
+las <ulink url='http://www.ruby-lang.org'>piedras preciosas</ulink>, o
+a la hiperactividad por ingestión de <ulink
+url='http://www.java.com'>bebidas excitantes</ulink>. Los camellos son
+buenos. Los camellos son útiles. Llevan cosas encima. Tienen
+joroba. Amemos a los camélidos (las <ulink
+url='http://es.wikipedia.org/wiki/llama'>llamas también son
+camélidos</ulink>).</para>
+
+<para>No menos importante es tener un ordenador con sistema
+operativo. Incluso <ulink url='http://www.windows.com'>sin
+él</ulink>. Ejecuta lo siguiente para saber si lo tienes:
+<userinput>perl -v</userinput>
+a lo que el ordenador debidamente contestará algo así:
+<computeroutput>
+This is perl, v5.8.7 built for i486-linux-gnu-thread-multi
+(with 1 registered patch, see perl -V for more detail)
+
+Copyright 1987-2005, Larry Wall
+
+Perl may be copied only under the terms of either the Artistic License or the
+GNU General Public License, which may be found in the Perl 5 source kit.
+
+Complete documentation for Perl, including FAQ lists, should be found on
+this system using `man perl' or `perldoc perl'.  If you have access to the
+Internet, point your browser at http://www.perl.org/, the Perl Home Page.
+
+</computeroutput>
+si es que está instalado. Si no lo está, es poco probable que conteste
+eso. Incluso imposible. Dirá algo así como
+<computeroutput>bash: perl: command not found</computeroutput>
+e incluso pitará. El muy desagradable.</para>
+
+<para>No hay que dejarse descorazonar por tal
+eventualidad. Encomendándonos al <emphasis>Gran Camélido</emphasis>,
+y sin necesidad de ver una vez más Ishtar, diremos en voz alta
+"Abracadabra" mientras que escribimos
+<userinput>sudo yum install perl</userinput>
+o bien
+<userinput>sudo apt-get install perl</userinput>
+Si es que están en un linux no-debianita (en el primer caso) o en uno
+debianita (en el segundo). Habrá gente que incluso lo haga sin necesidad de bajarse del
+ratón. Pero los apresurados no usan el ratón salvo que sea
+estrictamente necesario. Que no es el caso. En otros sistemas
+operativos, lo mejor es ir a <ulink url='http://www.perl.com'>Perl.com
+(si es que no has ido todavía)</ulink> y te bajes la versión
+compilada. </para>
+
+<para>También puedes compilarlo tú. Pero no creo que lo hagas, porque
+eres un apresurado, y la compilación no está hecha para los
+apresurados (si eres usuario de <ulink
+url='http://www.gentoo.org'>Gentoo</ulink>, es el momento de abandonar
+este tutorial).</para>
+
+<para>Lo que tienes o has instalado es un intérprete de Perl. Perl es
+generalmente un lenguaje interpretado, con lo que no hace falta ningún
+encantamiento intermedio para pasar de un programa escrito en Perl a
+su ejecución. Si te hará falta un editor. No <emphasis>un</emphasis>
+editor. <emphasis>El</emphasis> editor.</para>
+<tip>
+<para>Los que apoyen al ínclito <productname>(x)emacs</productname> de
+este lado del <emphasis>flamewar</emphasis>, los que se queden con el
+sólido pero escuálido <productname>vi(m)</productname>, de este otro
+lado. Los que estén con <productname>kate</productname>,
+<productname>jot</productname>, o incluso el
+<productname>kwrite</productname>, que elijan armas y padrinos y que
+pidan hora.</para></tip>
+
+<para>Vuelvo contigo [hablar de entornos de edición y programación ilustrados]</para>
+
+</sect1>
+
+<sect1><title> Comenzando una nueva carrera</title>
+<subtitle>Primer programa en Perl: el clásico <emphasis>Hola
+Mundo</emphasis></subtitle>
+<para></para>
+</sect1>
+
+<sect1>
+<title>Viéndole las tripas al producto</title>
+<subtitle>Ejecutando el programa paso a paso</subtitle>
+<para></para>
+</sect1>
+
+
+</article>

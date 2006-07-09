@@ -1,0 +1,325 @@
+<!DOCTYPE Article PUBLIC "-//OASIS//DTD DocBook V4.2//EN">
+<article lang="es">
+
+<articleinfo>
+  <title>Perl para apresurados</title>
+  <author><firstname>Juan Julián</firstname>
+          <surname>Merelo Guervós</surname>
+<email>jjmerelo@gmail.com</email>
+</author>
+<authorinitials>JJ</authorinitials>
+
+<revhistory>
+     <revision>
+        <revnumber>1.0</revnumber>
+        <date>Jul 2006</date>
+        <revremark>Preparando la primera versión para el curso de
+Extremadura</revremark>  
+     </revision>
+    
+  </revhistory>
+</articleinfo>
+
+<sect1 id='sect.id'>
+<title>¿Quién eres tú?</title>
+<subtitle>
+¿A quién va dirigido este tutorial <emphasis>para apresurados</emphasis>?
+</subtitle>
+
+<para>Eso mismo te estarás preguntando, que quién diablos eres, que a
+qué dedicas el tiempo libre, todo eso. Así que te vamos a echar una
+mano. Supongo que ya sabes programar, que el concepto de
+<emphasis>variable</emphasis> no va para ti asociado a la nubosidad ni
+el de <emphasis>bucle</emphasis> a la cabeza de Nellie Olleson. Puede
+que conozcas el C, sólo para precavidos, o hables con lengua de
+serpiente (<ulink url='http://www.python.org'>pitón</ulink>), o incluso que el símbolo mayor y menor van para tí
+asociados de forma indisoluble a un <ulink url='http://www.php.org'>acrónimo capicúa</ulink>.</para>
+
+<para>Vamos, que puede extrañarte las formas ignotas en las que un nuevo
+lenguaje de programación repite cachos de código o mete valores en
+variables o representa listas de datos, pero los conceptos en sí no
+son nada nuevo para tí. A tí, pues, va dirigido este
+mini-tutorial.</para>
+
+<para>Supongo también que tienes prisa. Si no, no estarías leyendo
+este tutorial para <emphasis>apresurados</emphasis>. Estarías leyendo
+uno titulado, por ejemplo, <emphasis>Perl para los que tienen todo el
+tiempo del mundo</emphasis>. Es decir, que es necesariamente breve,
+con la idea de poder ser impartido (y espero que asimilado) en unas
+dos horas. Igual no te da tiempo a teclear todos los ejemplos de
+código, pero este ordenador que estás mirando tiene una cosa
+maravillosa llamada "corta y pega" con la que sin duda estás
+familiarizado, y que podrás usar para tu provecho y el de la
+Humanidad. </para>
+
+<para>Y quizás todavía no lo sabes, pero
+<emphasis>necesitas</emphasis> saber Perl. Para vigilar ese fichero de
+registro y crear alertas que te avisen de lo inesperado. Para ese CGI
+terriblemente complicado. Para convertir una página web demasiado
+compleja en algo que también es complejo, pero que puedes leer con tu
+lector de cosas complejas favorito. Para hacer lo que siempre quisiste
+hacer: escribir <ulink url='http://www.perlmonks.org/index.pl?node=Perl%20Poetry'>poesía</ulink> en tu lenguaje de
+programación favorito. En fin, donde quiera que haga
+falta convertir cosas en otras cosas, ahí hace falta saber
+Perl. </para>
+
+<tip><para>Y con ello damos entrada a la primera
+<emphasis>flamewar</emphasis> de este tutorial, que es donde tú, que
+estás entre el público, dices aquello de <emphasis>Pues yo hago todo
+eso, y más, en (Fortran|Postscript|Haskell)</emphasis>. Que vale, que
+si. Los lenguajes de programación son universales. Se puede hacer de
+todo con ellos. Y siempre es más fácil hacer algo en el lenguaje que
+uno conoce mejor. Pero al menos tendrás más donde elegir, ¿no?</para></tip>
+
+<para>Sobre todo, que no cunda el pánico. Y no te olvides de la <ulink
+url='http://es.wikipedia.org/wiki/Dia_de_la_Toalla'>toalla</ulink>.</para>
+
+</sect1>
+
+<sect1><title>Todo listo para despegar</title>
+<subtitle>Herramientas necesarias para programar en Perl</subtitle>
+
+    <sidebar>
+      <para>Si ya has usado algún lenguaje de scripting, lo más
+probable es que te aburras como un bivalvo en esta sección. Así que
+ahórrate un bostezo y pasa directamente a la <link linkend="sect.hola">siguiente</link>. O si
+no <ulink url='http://www.cpan.org/src/latest.tar.gz'>descárgate los fuentes</ulink> y echas un ratillo
+compilándolos en silencio, para no desmoralizarme a la parroquia.
+</para>
+    </sidebar>
+
+<para>Lo primero que necesitas en tu lista de comprobación son las
+cualidades de todo programador en Perl: la pereza, el orgullo y la
+curiosidad. No te preocupes si no tienes ninguna de ellas, las irás
+adquiriendo con el tiempo. Sobre todo la pereza. Y una cierta
+habilidad de entender lenguas muertas como el caldeo y el
+dálmata. </para>
+
+<para>Segundo, necesitas amar a los camélidos. El Perl no es como esos
+otros lenguajes que incitan a la avaricia a través de la adoración de
+las <ulink url='http://www.ruby-lang.org'>piedras preciosas</ulink>, o
+a la hiperactividad por ingestión de <ulink
+url='http://www.java.com'>bebidas excitantes</ulink>. Los camellos son
+buenos. Los camellos son útiles. Llevan cosas encima. Tienen
+joroba. Amemos a los camélidos (las <ulink
+url='http://es.wikipedia.org/wiki/llama'>llamas también son
+camélidos</ulink>).</para>
+
+<para>No menos importante es tener un ordenador con sistema
+operativo. Incluso <ulink url='http://www.windows.com'>sin
+él</ulink>. Ejecuta lo siguiente para saber si lo tienes:
+<userinput>perl -v</userinput>
+a lo que el ordenador debidamente contestará algo así:<figure>
+	<title>Contestación de un ordenador educado a <userinput>perl -v</userinput></title>
+	<screen><computeroutput>
+This is perl, v5.8.7 built for i486-linux-gnu-thread-multi
+(with 1 registered patch, see perl -V for more detail)
+
+Copyright 1987-2005, Larry Wall
+
+Perl may be copied only under the terms of either the Artistic License or the
+GNU General Public License, which may be found in the Perl 5 source kit.
+
+Complete documentation for Perl, including FAQ lists, should be found on
+this system using `man perl' or `perldoc perl'.  If you have access to the
+Internet, point your browser at http://www.perl.org/, the Perl Home Page.
+
+</computeroutput></screen>
+	
+      </figure>
+
+si es que está instalado. Si no lo está, es poco probable que conteste
+eso. Incluso imposible. Dirá algo así como
+<computeroutput>bash: perl: command not found</computeroutput>
+e incluso pitará. El muy desagradable.</para>
+
+<para>No hay que dejarse descorazonar por tal
+eventualidad. Encomendándonos al <emphasis>Gran Camélido</emphasis>,
+y sin necesidad de ver una vez más Ishtar, diremos en voz alta
+"Abracadabra" mientras que escribimos
+<userinput>sudo yum install perl</userinput>
+o bien
+<userinput>sudo apt-get install perl</userinput>
+Si es que están en un linux no-debianita (en el primer caso) o en uno
+debianita (en el segundo). Habrá gente que incluso lo haga sin necesidad de bajarse del
+ratón. Pero los apresurados no usan el ratón salvo que sea
+estrictamente necesario. Que no es el caso. En otros sistemas
+operativos, lo mejor es ir a <ulink url='http://www.perl.com'>Perl.com
+(si es que no has ido todavía)</ulink> y te bajes la versión
+compilada. </para>
+
+<para>También puedes compilarlo tú. Pero no creo que lo hagas, porque
+eres un apresurado, y la compilación no está hecha para los
+apresurados (si eres usuario de <ulink
+url='http://www.gentoo.org'>Gentoo</ulink>, es el momento de abandonar
+este tutorial).</para>
+
+<para>Lo que tienes o has instalado es un intérprete de Perl. Perl es
+generalmente un lenguaje interpretado, con lo que no hace falta ningún
+encantamiento intermedio para pasar de un programa escrito en Perl a
+su ejecución. Si te hará falta un editor. No <emphasis>un</emphasis>
+editor. <emphasis>El</emphasis> editor.</para>
+<tip>
+<para>Los que apoyen al ínclito <productname>(x)emacs</productname> de
+este lado del <emphasis>flamewar</emphasis>, los que se queden con el
+sólido pero escuálido <productname>vi(m)</productname>, de este otro
+lado. Los que estén con <productname>kate</productname>,
+<productname>jot</productname>, o incluso el
+<productname>kwrite</productname>, que elijan armas y padrinos y que
+pidan hora.</para></tip>
+
+<para>Vuelvo contigo entre el fragor de la batalla hablarte de otras
+opciones. No es que haya muchas, pero hay alguna. Por ejemplo, puedes
+usar el conocido entorno <ulink url='http://eclipse.org'>Eclipse</ulink> con el plugin
+<ulink url='http://e-p-i-c.sourceforge.net'>EPIC</ulink> para
+desarrollar proyectos, como se muestra en la figura siguiente.
+
+<figure>
+	<title>Iniciando un proyecto en Perl con EPIC/Eclipse</title>
+	<screenshot>
+	  <graphic fileref="img/e-p-i-c.png" scale="33" >
+	</screenshot>
+      </figure>
+ </para>
+
+<para>Otros entornos de desarrollo, como PerlIDE o Komodo, o bien no
+siempre funcionan o bien son de pago. Si consigues que te lo compren,
+suertudo de ti. Si no, apoya proyectos de software libre. Suficientes
+personas han estado desarrollando sobre esos entornos durante el
+suficiente tiempo como para que presenten la sana apariencia que se
+muestra en la figura de abajo.
+<figure>
+	<title>Editando un programilla con gvim</title>
+	<screenshot>
+	  <graphic fileref="img/gvim-perl.png" scale="50" >
+	</screenshot>
+      </figure> 
+</para>
+
+    <para>Un editor decente tiene que tener colorines. Y también
+cerrar paréntesis. Ninguno va a evitar que cometas errores, pero va a
+hacértelo lo más complicado posible.</para>
+
+    <important>
+      
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>¿Tienes un intérprete de Perl instalado en tu sistema?
+¿Tienes un editor (chulo, si es posible) para editar programas en
+Perl? Si la respuesta a alguno de ellos es <emphasis>no</emphasis>, ¿a
+qué esperas para tenerlos? Venga, te espero.</para>
+      </formalpara>
+    </important>
+
+</sect1>
+
+<sect1 id='sect.hola'><title> Comenzando una nueva carrera</title>
+<subtitle>Primer programa en Perl: el clásico <emphasis>Hola
+Mundo</emphasis></subtitle>
+<para>Si has llegado hasta aquí, supongo que se te llevarán todos los
+diablos, porque con la hora que es, las camas están sin hacer y lo que
+s dice picar código, todavía no has picado nada. Y eso está bien: hay
+que convertir esa rabia en energía creativa, y aprovechando que uno de
+los diablos que se te llevan es cojuelo, escribir el siguiente
+fragmento de literatura:</para>
+<programlistingco>
+<areaspec>
+	<area id="hola.shebang" coords='1' >
+	<area id="hola.print" coords='2' >
+	<area id="hola.sn" coords='3' >
+</areaspec>
+    <programlisting linenumbering="numbered">
+<emphasis>#!/usr/bin/perl</emphasis>
+<function>print</function> "Daban en Madrid, por los fines de julio, las once de la noche en punto..."; 
+<function>print</function> "\n"; 
+
+</programlisting>
+<calloutlist>
+	<callout arearefs="hola.shebang"><para>Tratándose de diablos, lo
+mejor es usar los conjuros lo antes posible.                                                                         En esta línea, clásica de los
+lenguajes interpretados y denominada shebang se escribe el camino completo donde se halla el
+intérprete del lenguaje en cuestión. Si está en otro sitio, pues habrá que poner otro camino. Por
+ejemplo, podría ser <command>#!/usr/local/bin/perl</command> o bien<command> #!/usr/bin/perl6.0.por.fin</command>. O <command>#!perl</command> y que se
+busque la vida. Si se trabaja (es un decir) en Windows, esa línea no es necesaria, pero es convenientepara que el programa sea compatible con otros sistemas operativos. Cuando un Unix/GNU/Linux
+decente y trabajador encuentra esa línea, carga ese programa y le pasa el resto del fichero para que lo interprete.</para>
+	</callout>
+
+	<callout arearefs="hola.print">
+	  <para>Aquí se imprime, con el <emphasis>nihil
+obstat</emphasis> obtenido previamente. Obsérvense las comillas y el
+punto y coma. Las órdenes en Perl acaban con un punto y coma, para que quede bien claro dónde acaban y
+se puedan meter varias sentencias en una sola línea, con el objetivo
+de crear programas innecesariamente ofuscados. Lo que no se puede
+hacer en <emphasis>esos otros lenguajes</emphasis>. El
+<function>print</function> es herencia de aquellos primeros tiempos de
+los ordenadores, cuando el único periférico de salida era un convento
+de monjes trapenses dedicados a la sana tarea de copiar textos (y que
+se quedaron sin trabajo cuando el señor Hewlett se unió al señor Packard y crearon la impresora). En aquella época,
+la salida de un programa venía encuadernada en piel de cabrito y con todas las primeras letras de
+párrafo bellamente miniadas. Ah, tiempos aquellos, de los que sólo nos queda el nombre de una
+orden.
+ </para>
+	</callout>
+	<callout arearefs="hola.sn">
+	  <para>Y aquí pasamos a la línea siguiente. Borrón y cuenta
+nueva. Se acabó lo que se daba. Si ya conoces
+algún lenguaje de programación, que se supone que lo conoces, pillín, porque te lo he preguntado en
+la <link linkend='sect.id'>primera sección</link>, no hace falta que te explique que
+<constant>\n</constant> es un <emphasis>retorno de carro</emphasis>, ¿verdad?<footnote>
+	      <para>Lo que es recuerdo también de aquellos mismos tiempos en que <constant>STDOUT</constant> era un convento, en el que
+para seguir en la página siguiente tenían que esperar que retornara el carro que les traía las pieles de
+becerro curtidas en las que escribían lo que el programador les ordenaba.
+</para>
+	    </footnote>
+</para>
+	</callout>
+      </calloutlist>
+    </programlistingco>
+
+<para>Desde un editor que cambie el color (y los tipos de letra) de
+acuerdo con la sintaxis del programa que se está editando tal como el
+<filename>emacs</filename>, el resultado debería ser algo similar al
+que aparece en la <link linkend='fig.hola.emacs'>captura
+siguiente</link>
+</para>
+    <figure id='fig.hola.emacs'>
+      <title>Editando hola.pl en emacs</title>
+	<screenshot>
+	  <graphic fileref="img/hola_pl_emacs.png" scale="50" >
+	</screenshot>
+    </figure>
+
+    <warning>
+      <para>El usar este tipo de texto, que incluye caracteres con
+acento, es bastante intencionado. En algunos editores puede que
+aparezcan caracteres extraños; habrá que cambiar la
+<emphasis>codificación</emphasis> para que entienda el conjunto de
+caracteres <constant>iso-8858-1</constant> o
+<constant>latin1</constant>. </para>
+    </warning>
+
+
+<important>
+      
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Elegir un editor no es un tema baladí, porque te
+acompañará en tu vida como desarrollador. Prueba diferentes editores
+disponibles en tu sistema mirando sobre todo a las posibilidades que
+tienen de adaptación a diferentes cometidos (comprobar la sintaxis y
+depurar, por ejemplo). Nadie te ata a un editor de por vida, pero
+cuanto antes lo elijas, antes empezarás a ser productivo. Así que ya
+estás empezando a usar el (x)emacs. </para>
+      </formalpara>
+    </important>
+</sect1>
+
+<sect1>
+<title>Viéndole las tripas al producto</title>
+<subtitle>Ejecutando el programa paso a paso</subtitle>
+<para>Ejecutando el programa</para>
+<para>Nunca es tarde para aprender a hacer las cosas pasito a pasito. </para>
+</sect1>
+
+
+</article>
