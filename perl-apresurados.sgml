@@ -387,7 +387,78 @@ gestual y/o emocional y/o audiomotriz/parlanchín). </para>
 
 <para>Pero incluso así, puede que sea demasiado rápido para apreciar
 la sutileza de cada una de las órdenes, y haya que ejecutarlo paso a
-paso </para>
+paso. Más adelante tendrás que <emphasis>depurar</emphasis> tus
+programas, porque cometerás errores, si, errores y tendrás que
+corregirlos sobre la marcha. De la forma más inteligente, además. Pero
+no hay que preocuparse, porque Perl tiene un depurador
+integrado. Ejecuta el programa de esta forma:</para>
+<screen id='ej.depurador.1'><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$
+perl -d hola-y-duerme.pl</userinput>
+<computeroutput>Loading DB routines from perl5db.pl version 1.28
+Editor support available.
+
+Enter h or `h h' for help, or `man perldebug' for more help.
+
+main::(hola-y-duerme.pl:3):     print "A estas horas, el Estudiante, no creyendo su buen suceso y
+main::(hola-y-duerme.pl:4):     deshollinando con el vestido y los ojos el zaquizamí..\n"; 
+  DB<1> 
+</computeroutput></screen>
+<para>La opción <command>-d</command> del intérprete te introduce en
+el depurador, así, sin más prolegómenos. A partir de esa línea de
+comandos, puedes evaluar las expresiones de Perl que quieras, y, por
+supuesto, depurar el programa, ejecutándolo paso a paso, mirando
+variables, y todo ese protocolo inherente al mester de la
+programación. Para empezar, vamos a ejecutarlo pasito a pasito.
+<screen id='deb.iniciando'><userinput>DB<1> R</userinput>
+<computeroutput>Warning: some settings and command-line options may be lost!
+
+Loading DB routines from perl5db.pl version 1.28
+Editor support available.
+
+Enter h or `h h' for help, or `man perldebug' for more help.
+
+main::(hola-y-duerme.pl:3):     print "A estas horas, el Estudiante, no creyendo su buen suceso y
+main::(hola-y-duerme.pl:4):     deshollinando con el vestido y los ojos el zaquizamí..\n"; 
+</computeroutput></screen>
+, lo que empieza a hacerse ya un poco repetitivo. La orden
+<command>R</command> comienza a ejecutar el programa. En realidad,
+<link linkend='ej.depurador.1'>antes </link> lo único que habíamos
+hecho es indicarle (educadamente) al depurador el programa que íbamos
+a depurar; ahora es cuando lo estamos ejecutando en serio. Bueno,
+todavía no, porque en este punto todavía no hemos ejecutado ni
+siquiera la primera línea. La salida del depurador nos indica
+<<computeroutput>main::(hola-y-duerme.pl:3):</computeroutput> la
+siguiente línea del programa (<constant>3</constant>) que vamos a
+ejecutar (y la 4 de camino, que para eso la orden ocupa dos líneas). 
+<screenco>
+	<areaspec>
+	  <area coords="1" id="scr.deb.n">
+	  <area coords="3" id="scr.deb.salida">
+	  <area coords="4" id="scr.deb.sig">
+	</areaspec>
+	<screen></screen>
+      </screenco>
+<userinput>  DB<0> n</userinput>
+<computeroutput>A estas horas, el Estudiante, no creyendo su buen suceso y
+deshollinando con el vestido y los ojos el zaquizamí..
+main::(hola-y-duerme.pl:5):     sleep 10;
+</computeroutput>
+<calloutlist>
+	<callout arearefs="scr.deb.n">
+	  <para><command>n</command>, de <emphasis>next</emphasis>,
+siguiente, ejecutal la línea siguiente, es decir, justamente la que
+aparece al final de <link linkend='deb.iniciando'>el ejemplo anterior</link></para>
+	</callout>
+	<callout arearefs="scr.deb.salida">
+	  <para>Ésta es la salida de esa línea en particular; lo que
+hace es escribir lo que se encuentra entre las comillas.</para>
+	</callout>
+	<callout arearefs="scr.deb.sig">
+	  <para>Y muestra la
+línea siguiente a ejecutar.</para>
+	</callout>
+      </calloutlist>
+
 </sect1>
 
 
