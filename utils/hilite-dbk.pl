@@ -19,7 +19,7 @@ my $hl = new Syntax::Highlight::Engine::Kate(
        DataType => ["<font color=\"#0000ff\">", "</font>"],
        DecVal => ["<font color=\"#00007f\">", "</font>"],
        Error => ["<font color=\"#ff0000\"><b><i>", "</i></b></font>"],
-       Float => ["<font color=\"#00007f\">", "</font>"],
+       Float => ["<constant>", "</constant>"],
        Function => ["<function>", "</function>"],
        IString => ["<font color=\"#ff0000\">", ""],
        Keyword => ["<constant>", "</constant>"],

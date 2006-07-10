@@ -222,7 +222,7 @@ s dice picar código, todavía no has picado nada. Y eso está bien: hay
 que convertir esa rabia en energía creativa, y aprovechando que uno de
 los diablos que se te llevan es cojuelo, escribir el siguiente
 fragmento de literatura:</para>
-<programlistingco>
+<programlistingco id='prog.hola'>
 <areaspec>
 	<area id="hola.shebang" coords='1' >
 	<area id="hola.print" coords='2' >
@@ -235,12 +235,17 @@ fragmento de literatura:</para>
 
 </programlisting>
 <calloutlist>
-	<callout arearefs="hola.shebang"><para>Tratándose de diablos, lo
-mejor es usar los conjuros lo antes posible.                                                                         En esta línea, clásica de los
-lenguajes interpretados y denominada shebang se escribe el camino completo donde se halla el
-intérprete del lenguaje en cuestión. Si está en otro sitio, pues habrá que poner otro camino. Por
-ejemplo, podría ser <command>#!/usr/local/bin/perl</command> o bien<command> #!/usr/bin/perl6.0.por.fin</command>. O <command>#!perl</command> y que se
-busque la vida. Si se trabaja (es un decir) en Windows, esa línea no es necesaria, pero es convenientepara que el programa sea compatible con otros sistemas operativos. Cuando un Unix/GNU/Linux
+	<callout arearefs="hola.shebang"><para>Tratándose de diablos,
+	lo mejor es usar los conjuros lo antes posible.  En esta
+	línea, clásica de los lenguajes interpretados y denominada
+	shebang se escribe el camino completo donde se halla el
+	intérprete del lenguaje en cuestión. Si está en otro sitio,
+	pues habrá que poner otro camino. Por ejemplo, podría ser
+	<command>#!/usr/local/bin/perl</command> o bien<command>
+	#!/usr/bin/perl6.0.por.fin</command>. O
+	<command>#!perl</command> y que se busque la vida. Si se
+	trabaja
+(es un decir) en Windows, esa línea no es necesaria, pero es convenientepara que el programa sea compatible con otros sistemas operativos. Cuando un Unix/GNU/Linux
 decente y trabajador encuentra esa línea, carga ese programa y le pasa el resto del fichero para que lo interprete.</para>
 	</callout>
 
@@ -317,8 +322,72 @@ estás empezando a usar el (x)emacs. </para>
 <sect1>
 <title>Viéndole las tripas al producto</title>
 <subtitle>Ejecutando el programa paso a paso</subtitle>
-<para>Ejecutando el programa</para>
-<para>Nunca es tarde para aprender a hacer las cosas pasito a pasito. </para>
+<para>Mucho editar, mucho editar, pero de ejecutar programas nada de
+nada. Lo que hemos editado no deja de ser un fichero de texto, así que
+para ejecutarlo tendremos que llevar a cabo algún encantamiento para
+meterlo en el corredor de la ejecución.</para>
+
+<para>Tampoco hace falta. Lo más universal es irse a un intérprete de
+comandos, colocarse en el directorio donde hayamos salvado el fichero,
+y escribir <userinput>perl hola.pl</userinput>. Pero ya que estás
+puesta, puedes hacer algo más: escribir <userinput>chmod +x
+hola.pl</userinput>, lo que convertirá al fichero en ejecutable, es
+decir, en algo que podemos correr simplemente tecleando su nombre, de
+esta forma:
+<screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$./hola.pl</userinput>
+<computeroutput>Daban en Madrid, por los fines de julio, las once de la noche en punto, hora menguada...
+</computeroutput>
+</screen>
+Pero el encantamiento este actúa también a otros niveles, pudiendo
+ejecutar el programa directamente desde esos inventos del averno
+llamados <emphasis>entornos de ventanas</emphasis>, como se muestra en
+la <link linkend='fig.ejecutando'>figura siguiente</link>. 
+
+<figure id='fig.ejecutando'>
+      <title>Ejecutando un programa en Perl desde Gnome</title>
+	<screenshot>
+	  <graphic fileref="img/ejecutando.png" scale="50" >
+	</screenshot>
+    </figure>
+
+Como el Nautilus, el manejador de ficheros de Gnome es muy listo, se
+dice a si mismo (pero bajito): <command>Pardiez, este fichero es
+ejecutable. ¿Qué puedo hacer con él? ¿Lo ejecuto? ¿Lo abro sin
+ejecutarlo? La duda me carcome. Se lo preguntaré al honorable
+usuario</command>. El menú contextual (con el botón derecho del ratón)
+nos ofrecerá opciones similares. El problema es que si lo ejecutamos
+será visto y no visto.
+</para>
+
+<para>Vamos a dejar entonces que el programa se quede clavado hasta
+nueva orden, con una pequeña modificación, que aparece en el siguiente
+listado</para>
+    <programlisting linenumbering="numbered" id='hola-y-duerme'>
+<emphasis>#!/usr/bin/perl</emphasis>
+<function>print</function> "A estas horas, el Estudiante, no creyendo su buen suceso y
+deshollinando con el vestido y los ojos el zaquizamí...\n"; 
+<function>sleep</function> <constant>10</constant>;
+</programlisting>
+<para>Que, con un poco de suerte, nos permitirá capturar una pantalla
+como la siguiente:
+<figure id='fig.ejecutando.terminal'>
+	<title>Terminal con el resultado de ejecutar el programa
+<filename>hola-y-duerme.pl</filename></title>
+	<screenshot>
+	  <graphic fileref="img/ejecutando-terminal.png" scale="60" >
+	</screenshot>
+    </figure>
+En otros sistemas operativos, cambiará el icono y la apariencia del
+terminal donde está el resultado, pero por lo demás, el resultado será
+el mismo. La única diferencia con el <link linkend='prog.hola'>primer
+programa</link> es la última línea, que le indica al programa que se
+quede quieto parao (dormido, de hecho) durante 10 segundos. Y que diga
+<emphasis>cheeeeeese</emphasis> (solo en ordenadores con interfaz
+gestual y/o emocional y/o audiomotriz/parlanchín). </para>
+
+<para>Pero incluso así, puede que sea demasiado rápido para apreciar
+la sutileza de cada una de las órdenes, y haya que ejecutarlo paso a
+paso </para>
 </sect1>
 
 
