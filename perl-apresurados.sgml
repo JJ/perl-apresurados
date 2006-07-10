@@ -436,13 +436,13 @@ ejecutar (y la 4 de camino, que para eso la orden ocupa dos líneas).
 	  <area coords="3" id="scr.deb.salida">
 	  <area coords="4" id="scr.deb.sig">
 	</areaspec>
-	<screen></screen>
-      </screenco>
+	<screen>
 <userinput>  DB<0> n</userinput>
 <computeroutput>A estas horas, el Estudiante, no creyendo su buen suceso y
 deshollinando con el vestido y los ojos el zaquizamí..
 main::(hola-y-duerme.pl:5):     sleep 10;
 </computeroutput>
+</screen>
 <calloutlist>
 	<callout arearefs="scr.deb.n">
 	  <para><command>n</command>, de <emphasis>next</emphasis>,
@@ -458,7 +458,8 @@ hace es escribir lo que se encuentra entre las comillas.</para>
 línea siguiente a ejecutar.</para>
 	</callout>
       </calloutlist>
-
+      </screenco>
+</para>
 </sect1>
 
 
