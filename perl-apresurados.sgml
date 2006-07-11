@@ -71,6 +71,12 @@ si. Los lenguajes de programación son universales. Se puede hacer de
 todo con ellos. Y siempre es más fácil hacer algo en el lenguaje que
 uno conoce mejor. Pero al menos tendrás más donde elegir, ¿no?</para></tip>
 
+<para>Finalmente, aunque no es imprescindible, es conveniente que
+tengas un ordenador enfrente, y que puedas usarlo. La mayoría de los
+ordenadores modernos, y muchos de los antiguos, tienen versiones de
+Perl compiladas. La Nintendo DS todavía no, pero todo se
+andará.</para>
+
 <para>Sobre todo, que no cunda el pánico. Y no te olvides de la <ulink
 url='http://es.wikipedia.org/wiki/Dia_de_la_Toalla'>toalla</ulink>.</para>
 
@@ -651,10 +657,39 @@ efectivamente lo instala para que esté disponible para todos los
 programas que quieran usarlo (que no creo que sean muchos, pero alguno
 puede caer).</para>
 
-<para>Vamos a ver ahora como se usa ese pozo de sabiduría.</para>
+<para>Pero, ¿andestá la documentación? se preguntará el preocupado
+(aunque apresurado) lector. No preocuparse. Todo módulo en CPAN está
+documentado, y se accede a él usando el mismo sistema que se usa para
+todo Perl: el programa <filename>perldoc</filename>. En este caso,
+<userinput>perldoc Lingua::ES::Silabas</userinput> nos devolverá algo
+así:<screen>
+<computeroutput>Lingua::ES::Silabas(3)User Contributed Perl DocumentatioLingua::ES::Silabas(3)
+
+
+
+NOMBRE
+       Lingua::ES::Silabas - Divide una palabra en silabas
+
+SINOPSIS
+         use Lingua::ES::Silabas;
+
+         $palabra = âexternocleidomastoideoâ; # muchas silabas ;-)
+
+         ## en contexto de lista,
+         ## lista de silabas que componen la palabra
+         @silabas = silabas($palabra);
+
+         ## en contexto escalar,
+         ## el numero de silabas que componen la palabra
+         $num_silabas = silabas($palabra);
+</computeroutput></screen>
+  </para>
+
+<para>Vamos a ver ahora como se usa ese pozo de sabiduría para
+escribir un programa que toma una serie de frases, y las escribe
+divididas en sílabas.</para>
     <programlistingco>
       <areaspec>
-	<!-- one of (AREASET AREA) -->
 	<area coords="1" id="area.cpan.use">
 	<area coords="3" id="area.cpan.join">
 	<area coords="4" id="area.cpan.texto">
@@ -689,24 +724,151 @@ más esotéricos. Pero este espacio está bien organizado, porque luego
 vienen un par de caracteres que indican a qué lengua se aplica el
 módulo susodicho; en este caso, <filename>ES</filename>. Finalmente,
 el último apartado es el realmente específico.</para>
-
 	  <note>
 <para>En cada sistema de ficheros específico, el nombre también indica
 en el directorio en el que estará almacenado, dentro de los
 directorios donde se suelen almacenar los módulos.</para></note>
+
+<para>Si te das cuenta, no ha habido que especificar dónde diablos se
+busca ese módulo para incorporarlo al programa. Mágicamente, el
+intérprete de Perl busca que te busca en todos los directorios
+razonables, hasta que lo encuentra. Pero aunque mágico, no es
+telepático, y no sabe donde tú, precisamente, has podido instalar ese
+módulo. Especialmente si no tienes privilegios de superusuario y has
+tenido que instalarlo en tu <varname>${HOME}</varname>, tendrás que
+especificarle en qué directorio buscar, de esta forma:
+ <programlisting>
+<emphasis role="bold"><function>use lib</function> "/home/esesoyyo/lib/perl";</emphasis>  
+<constant>use</constant> <function>Lingua::ES</function>::<function>Silabas</function>;</programlisting>
+Es decir, <emphasis>antes</emphasis> de tratar de cargar el módulo.</para>
 	</callout>
+
 	<callout arearefs="area.cpan.join">
 	  <para>Aquí viene un embutido de diferentes órdenes en Perl,
 que, como suele ser habitual, es mejor leerlas de derecha a
 izquierda. O del punto y coma para el otro lado. Porque no me voy a
-poner a explicar la derecha de quién quiero decir. </para>
+poner a explicar la derecha de quién quiero decir. Lo del
+<constant>\n</constant> ya no lo sabemos, al menos, desde aquel <link
+linkend='prog.hola'>primer párrafo del primer tranco del diablo
+cojuelo</link>, pero lo que sigue es un poco más raro. Y requiere un punto y aparte.</para>
+
+	  <para>Aunque Perl sabe que existe una cosa llamada
+<productname>sintaxis</productname>, no se la toma muy en serio. Las
+cosas se pueden escribir de muchas formas diferentes. De hecho, hasta
+los programas en perl pueden cambiar su sintaxis, su semántica, y
+hasta su prosodia. Encontrarse con comas, o sin ellas, no debe inducir
+al pasmo, sino a una profunda reflexión. Así que a partir de ahora,
+agárrense a su toalla y prepárense a olvidarse de cualquier concepción
+rígida de lo que es la sintaxis de un lenguaje de programación</para>
+
+	  <warning>
+	    <para>Y es aquí es donde los programadores de COBOL y
+FORTRAN dejan este tutorial y vuelven definitivamente a su hogar del
+pensionista al jugar al Julepe.</para>
+	  </warning>
+
+<para>Y lo que nos encontramos que ofende a nuestra conciencia
+sintáctica es
+<literal>&lt;&lt;<constant>EOC</constant></literal>. O sea, la
+	  leche. Uno espera encontrarse una cadenita, tan mona, con
+	  sus comillas en los extremos, y se encuentra esto. Que no es
+	  otra cosa que un
+<emphasis>docaquí</emphasis><footnote><para>Traducción del sajón
+antiguo <emphasis>heredoc</emphasis>. Pero no es la única. Se admiten
+otras.</para>, como los más
+avispados ya habrán averiguado. Sirve para lo siguiente: cuando la
+cadena es muy larga, y ocupa varias líneas, es mejor escribirla tal
+cual. Así que en vez de meterla entre incómodas comillas, se usa esta
+construcción: <literal>&lt;&lt;<constant>CADENA</constant></literal>,
+donde <constant>CADENA</constant> es cualquier cosa que no aparezca
+dentro y que indique el fin de la misma. Cuando el intérprete se
+encuentra esa construcción, comienza a leer en la línea siguiente y
+sigue hasta que se encuentra el conjuro de fin de texto;
+<literal>EOC</literal> en este caso. ¿Lo cogen?</para>
+
+<para>Pero no hay descanso para los intrépidos, e inmediatamente nos
+encontramos con
+<programlisting><function>split</function>(/[<literal>\s,</literal>]/,</programlisting>.
+Empecemos por el <function>split</function> esta vez: split divide una
+cadena, es decir, la convierte en una serie (por ahora lo dejamos ahí)
+de palabras, eliminando los separadores, que son los que están entre
+corchetes (y lo dejamos ahí también). <function>split</function>
+recorre la cadena, se encuentra un espacio (<literal>\s</literal>) o
+una coma y desgaja un eslabón. La siguiente, un eslabón. Al final, lo
+que se encuentra uno es una serie de eslabones, sin nada de morralla
+enmedio. Que es lo que precisamente unimos (<function>join</function>)
+usando la cadena nula. Es decir, nos vamos a encontrar una sola cadena
+sin espacios ni comas. Una gran palabra, un abracadabra diabólico que
+contiene todas las palabras de las frases anteriores. Y ese
+abracadabra es el que le damos a la humilde función que hemos
+importado del módulo previamente, <emphasis>silabas</emphasis>, que
+precisamente nos devolverá una serie de eslabones, que volveremos a
+unir para dar el resultado esperable:
+<screen><computeroutput>Yo / soy / se / ñor / Li / cen / cia / do / que / es / to / ye / nes / ta / re / do / ma / a / don / de / me / tie / ne / pre / so / e / se / as / tró / lo / go / que / vi / ve / a / hí / a / ba / jo / por / que / tam / bién / tie / ne / su / pun / ta / de / la / má / gi / ca / ne / gra / yes / mial / cai / de / do / sa / ños / ha / brá.
+</computeroutput></screen>. Vale, no es perfecto. Pero es que llevamos una hora
+(o así) apresurada de aprender Perl, tampoco se le pueden pedir peras
+al olmo.</para>
 	</callout>
 	<callout arearefs="area.cpan.texto">
-	  <para>Lo del texto</para>
+	  <para>Y este es precisamente el texto que vamos a
+dividir. 'Nuff said.</para>
 	</callout>
       </calloutlist>
     </programlistingco>
+
+<important>
+      
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Hay gigas y gigas de módulos, a cada cuál más útil y
+sorprendente. Los módulos <filename>Acme::</filename>, por ejemplo,
+son absolutamente inútiles, y no tienen equivalente en ningún otro
+lenguaje. Instalar el módulo <literal>Acme::Clouseau</literal> por
+ejemplo, y ejecutar el programa de prueba que se incluye en su
+<emphasis>Sinopsis</emphasis>. </para>
+      </formalpara>
+    </important>
+
 </sect1>
 
+  <sect1 id="sect.mal">
+    <title>Ley de Murphy</title>
+    <subtitle>Un poco de <emphasis>troubleshooting</emphasis>: qué
+hacer cuando algo va mal.</subtitle>
+
+<para>Errar es humano, sobre todo cuando uno tiene tantos dedos, y tan
+pocas teclas y se juntan todas para que uno se equivoque. Y tampoco
+puede acordarse uno de la sintaxis de un lenguaje que no tiene
+sintaxis. Sería una paradoja que daría lugar al fin del universo tal
+como lo conocemos. Así que uno se equivoca. Pero como llegados los 67
+minutos de este Perl para apresurados tampoco sabe uno mucho (y se nos
+echa el tiempo encima) tampoco puede equivocarse uno mucho. Pero hay
+un par de errores que se cometen con bastante asiduidad. El primero
+puede ser algo así:
+<programlisting><command>#!/usr/bin/pelr</command>
+
+print "Da igual, porque va a petar";
+</programlisting>
+que, al ejecutarse, da un sorprendente:
+<screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados$
+code/peta1.pl</userinput>
+<computeroutput>bash: code/peta1.pl: /usr/bin/pelr: bad interpreter: No existe el fichero o el directorio
+</computeroutput>
+</screen>, que viene a decir que vale, que muy bien, pero que ese
+intérprete no existe. Cambiar alguno de los otros caracteres, la
+admiración (que es una expresión de admiración al creador del programa
+encarnado en el intérprete), la almohadilla, produce errores
+igualmente pintorescos. Por ejemplo, quitar la admiración o la almohadilla da este:
+<screen><computeroutput>Warning: unknown mime-type for "Da igual, porque va a petar" -- using "application/*"
+Error: no such file "Da igual, porque va a
+petar"</computeroutput></screen>
+Este error aparecerá también si pasas un fichero de Windows (que
+incluyen al final de línea dos caracteres, retorno de carro y fin de
+línea) a Unix/Linux/GNU (que incluye uno solo). El intérprete de
+órdenes, tan agudo en otras ocasiones, en esta ocasión interpretará el
+carácter extraño (representado con ^M en los editores) como parte del
+nombre, y dará el mismo tipo de error.</para>
+
+  </sect1>
 
 </article>
