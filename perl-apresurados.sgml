@@ -433,7 +433,7 @@ ejecutar (y la 4 de camino, que para eso la orden ocupa dos líneas).
 <screenco>
 	<areaspec>
 	  <area coords="1" id="scr.deb.n">
-	  <area coords="3" id="scr.deb.salida">
+	  <area coords="2" id="scr.deb.salida">
 	  <area coords="4" id="scr.deb.sig">
 	</areaspec>
 	<screen>
@@ -460,6 +460,198 @@ línea siguiente a ejecutar.</para>
       </calloutlist>
       </screenco>
 </para>
+
+<para>Como persona precavida vale por dos diablillos, no es mala idea
+tener siempre el depurador abierto para ir probando cosas. Te ahorrará
+más de una vuelta al editor a reescribir lo que ya está
+escrito. Además, es muy fácil. Si has elegido <productname>Un Buen
+Editor</productname> (o sea, el XEmacs), y te ha reconocido el
+programa como un fichero Perl, tendrás una opción del menú llamada
+<command>perl</command>; desplegando ese menú, te aparecerá la opción
+<command>debugger</command>, eligiéndola te dará un resultado similar
+al que se muestra en la siguiente captura de pantalla:
+<figure id='fig.depurando.xemacs'>
+	<title>Depurando un programa en el mismo editor XEmacs. La
+flecha está situada sobre la siguiente línea a ejecutar.</title>
+	<screenshot>
+	  <graphic fileref="img/debugging.png" scale="60" >
+	</screenshot>
+    </figure>
+Desde este depurador se trabaja de la misma forma que en la versión de
+la línea de comandos, pero se pueden colocar puntos de ruptura usando
+el ratón, por ejemplo, y puedes ver las líneas que se están ejecutando
+en su contexto. </para>
+
+<para>Con esto, ya estamos listos para abordar empresas más elevadas,
+y que nos llevarán mucho más lejos.</para>
+<important>
+      
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Familiarizarse con el depurador, creando un programa con
+las dos o tres cosas que se conocen, y viendo las diferentes órdenes;
+por ejemplo, cómo ejecutar un programa sin parar, o hasta una línea
+determinada, y cómo hacer que la ejecución se pare en una línea
+determinada. Recuerda, <command>h</command> es tu amiga. </para>
+      </formalpara>
+    </important>
+</sect1>
+
+<sect1 id='sect.cpan'>
+    <title>Usando la sabiduría colectiva</title>
+    <subtitle>Cómo descargar módulos de Perl, y como usar alguno de
+ellos. Algunas funciones útiles. </subtitle>
+
+<para>Escribir está bien. Hay dos o tres personas que incluso se ganan
+la vida con ello<footnote><para>Los monjes trapenses de la congregación
+	periférica de E/S ya no, desgraciadamente, y se dedican a la
+	elaboración de un delicioso licor de
+	alcachofa</para></footnote>. Pero hace falta hacer algo más. Copiar a
+Faulkner, por ejemplo. Pero no sólo copiarlo. Ser más Faulkner que
+Faulkner. O mezclar Faulkner con, pongamos por caso, David Sedaris. O
+quizás Hemingway con Sedaris. Y llegado a este punto, te voy a contar
+un secreto. No hace falta que programes absolutamente nada. Ya hay
+gente que ha hecho lo que tú piensas programar en este preciso
+instante. De hecho, un vietnamita y un chavalote de Mondoñedo que
+acaba de terminar un módulo de FP segundo grado. Pero ambos dos son
+buenas personas, y legan su trabajo a la humanidad toda (inclusive
+tú). Si hay una sola cosa que haga al Perl superior a otros lenguajes
+de programación, son esas cosas que ha hecho la gente, empaquetado y
+colocado en un sitio común, llamado <ulink
+url='http://search.cpan.org'>CPAN</ulink>. CPAN significa, como
+probablemente ya habías adivinado, <emphasis>comprehensive Perl
+Archive Network</emphasis>, y es un sitio donde hay cienes, qué digo
+cienes, millardos de módulos que hacen todas esas cosas que se te
+hayan podido ocurrir, y otras cuantas que, ni harto de vino, se te
+podrían haber ocurrido. Pero hay que saber usarlo, claro.</para>
+
+    <note>
+      <para>Si has tenido que pedirle a alguien que te instale el
+Perl, posiblemente sea el momento de que tengas a mano otra vez su
+teléfono o móvil, porque vas a volver a necesitarlo. No ahora. Más
+tarde. Mientras tanto, aunque no sea el <ulink
+url='http://www.sysadminday.com/'>día de apreciación del administrador
+del sistema</ulink>, aprovecha para pensar en él con cariño. Antes
+de que la falta de calor humano lo convierta en un <ulink
+url='http://es.wikipedia.org/wiki/Bofh'>operador bastardo del
+infierno</ulink>. Para instalar módulos de CPAN para que sean
+accesibles para todo el mundo hace falta tener privilegios de
+operador; sin embargo, puedes instalarlos sin problemas en tu propio
+directorio (por ejemplo, en
+<filename>/home/miusuario/lib/perl</filename>).</para>
+    </note>
+
+<para>En CPAN hay módulos para todo. En particular, para manejar
+textos en diferentes idiomas. Por ejemplo, un módulo para dividir en
+sílabas texto en castellano llamado <ulink
+url='http://search.cpan.org/~marcos/Lingua-ES-Silabas-0.01/'>Lingua::ES::Silabas</ulink>.
+Un módulo es simplemente una biblioteca de utilidades para un fin
+determinado (o ninguno) escritas en Perl, o, al menos, empaquetadas
+para que se pueda acceder a ellas desde un programa en Perl. Una
+librería crea una serie de funciones a las que podemos acceder desde
+nuestros programas. Pero antes hay que instalarla. Y antes todavía,
+hay que ejecutar CPAN por primera vez:
+<screen>
+<userinput>jmerelo@vega:~$ sudo cpan</userinput>
+<computeroutput>
+cpan shell -- CPAN exploration and modules installation (v1.83)
+ReadLine support enabled
+
+cpan> 
+</computeroutput>
+</screen>
+Si realmente es la primera vez que lo ejecutas, te preguntará una
+serie de cosas. En la mayoría es razonable contestar la opción que te
+ofrezcan por defecto, pero en un par de ellas si tienes que
+elegir:<itemizedlist>
+	<listitem>
+	  <para>Si no tienes privilegios de superusuario, tendrás
+	  que elegir un subdirectorio alternativo para colocar los
+	  módulos instalados.</para>
+	</listitem>
+	<listitem>
+	  <para>Es conveniente usar los repositorios más accesibles
+desde tu país, y por orden de frecuencia de actualización, para tener
+garantía de frescura de los módulos. Por ejemplo, dos buenas opciones
+pueden ser  http://debianitas.net/CPAN/ y
+http://cpan.imasd.elmundo.es/; aunque los otros repositorios con la
+extensión <command>.es</command> también suelen funcionar
+relativamente bien. 
+ </para>
+	</listitem>
+      </itemizedlist>
+
+</para>
+
+<para>Una vez configurado todo, ya se puede instalar el módulo
+susodicho. Lo puedes hacer directamente desde la línea de comandos con
+<screen>
+<userinput>install Lingua::ES::Silabas</userinput>
+<computeroutput>CPAN: Storable loaded ok
+LWP not available
+Fetching with Net::FTP:
+  ftp://ftp.rediris.es/mirror/CPAN/authors/01mailrc.txt.gz
+Going to read /home/jmerelo/.cpan5.9.3/sources/authors/01mailrc.txt.gz
+CPAN: Compress::Zlib loaded ok
+LWP not available
+[...más cosas...]
+Fetching with Net::FTP:
+  ftp://ftp.rediris.es/mirror/CPAN/authors/id/M/MA/MARCOS/CHECKSUMS
+
+  CPAN: Module::Signature security checks disabled because Module::Signature
+  not installed.  Please consider installing the Module::Signature module.  You may also need to be able to connect over the Internet to the public
+  keyservers like pgp.mit.edu (port 11371).
+
+Checksum for /home/jmerelo/.cpan5.9.3/sources/authors/id/M/MA/MARCOS/Lingua-ES-Silabas-0.01.tar.gz ok
+Scanning cache /home/jmerelo/.cpan5.9.3/build for sizes
+Lingua-ES-Silabas-0.01/
+Lingua-ES-Silabas-0.01/Silabas.pm
+Lingua-ES-Silabas-0.01/README
+Lingua-ES-Silabas-0.01/Makefile.PL
+Lingua-ES-Silabas-0.01/Changes
+Lingua-ES-Silabas-0.01/MANIFEST
+Lingua-ES-Silabas-0.01/test.pl
+
+  CPAN.pm: Going to build M/MA/MARCOS/Lingua-ES-Silabas-0.01.tar.gz
+
+Checking if your kit is complete...
+Looks good
+Writing Makefile for Lingua::ES::Silabas
+cp Silabas.pm blib/lib/Lingua/ES/Silabas.pm
+Manifying blib/man3/Lingua::ES::Silabas.3
+  /usr/bin/make  -- OK
+Running make test
+PERL_DL_NONLAZY=1 /usr/local/bin/perl5.9.3 "-Iblib/lib" "-Iblib/arch" test.pl
+1..9
+# Running under perl version 5.009003 for linux
+# Current time local: Mon Jul 10 23:34:36 2006
+# Current time GMT:   Mon Jul 10 21:34:36 2006
+# Using Test.pm version 1.25
+ok 1
+ok 2
+ok 3
+ok 4
+ok 5
+ok 6
+ok 7
+ok 8
+ok 9
+  /usr/bin/make test -- OK
+Running make install
+Installing /usr/local/lib/perl5/site_perl/5.9.3/Lingua/ES/Silabas.pm
+Installing /usr/local/share/man/man3/Lingua::ES::Silabas.3
+Writing /usr/local/lib/perl5/site_perl/5.9.3/i686-linux-thread-multi-ld/auto/Lingua/ES/Silabas/.packlist
+Appending installation info to /usr/local/lib/perl5/5.9.3/i686-linux-thread-multi-ld/perllocal.pod
+  sudo make install  -- OK
+</computeroutput></screen>
+que, efectivamente, descarga el módulo del repositorio espejo de CPAN
+más cercano (en este caso ftp.rediris.es), lo "compila", hace una
+serie de tests (sin los cuales no se instalaría siquiera), y
+efectivamente lo instala para que esté disponible para todos los
+programas que quieran usarlo (que no creo que sean muchos, pero alguno
+puede caer).</para>
+
+<para>Vamos a ver ahora como se usa ese pozo de sabiduría.</para>
 </sect1>
 
 
