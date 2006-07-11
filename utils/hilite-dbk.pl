@@ -12,7 +12,7 @@ my $hl = new Syntax::Highlight::Engine::Kate(
     },
     format_table => {
        Alert => ["<font color=\"#0000ff\">", "</font>"],
-       BaseN => ["<font color=\"#007f00\">", "</font>"],
+       BaseN => ["<literal>", "</literal>"],
        BString => ["<wordasword>", "</wordasword>"],
        Char => ["", ""],
        Comment => ["<emphasis>", "</emphasis>"],

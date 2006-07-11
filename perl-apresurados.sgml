@@ -652,6 +652,60 @@ programas que quieran usarlo (que no creo que sean muchos, pero alguno
 puede caer).</para>
 
 <para>Vamos a ver ahora como se usa ese pozo de sabiduría.</para>
+    <programlistingco>
+      <areaspec>
+	<!-- one of (AREASET AREA) -->
+	<area coords="1" id="area.cpan.use">
+	<area coords="3" id="area.cpan.join">
+	<area coords="4" id="area.cpan.texto">
+      </areaspec>
+      <programlisting>
+<constant>use</constant> <function>Lingua::ES</function>::<function>Silabas</function>;
+
+<function>print</function> <function>join</function>(" / ", silabas(<function>join</function>("", <function>split</function>(/[<literal>\s,</literal>]/,&lt;&lt;<constant>EOC</constant>)))), "\n";
+Yo soy, señor Licenciado, que estoy en esta redoma, adonde me tiene
+preso ese astrólogo que vive ahí abajo, porque también tiene su punta
+de la mágica negra, y es mi alcaide dos años habrá.
+<constant>EOC</constant>
+</programlisting>
+      <calloutlist>
+	<callout arearefs="area.cpan.use">
+	<para>Para empezar, que no cunda el pánico. Si estamos a Perl,
+estamos a Perl, y hay que ver cómo Perl hace las cosas de forma
+diferente a cualquier otro lenguaje de programación. Dicen que Perl no
+es amistoso para el usuario, pero lo cierto es que Perl
+<emphasis>elige a sus amigos</emphasis>. Así que es cuestión de ver a
+Perl como a un Calimero cualesquiera, y entender su peculiaridades,
+como las que aparecen aquí. Bueno, no aquí, más abajo. Por lo pronto,
+sólo que no cunda el pánico.</para>
+	  <para>En esta línea lo único que se hace es cargar la
+librería que antes, debidamente, hemos instalado. Y quizás merezca la
+pena señalar un poco la estructura del nombre. Todos los módulos en
+CPAN están organizados en espacios de nombres, para hacer más fácil su
+búsqueda y evitar colisiones de funcionalidad (y de nombre
+también). En este caso, el espacio de nombre es el
+<filename>Lingua</filename>, que incluye muchos más módulos cada vez
+más esotéricos. Pero este espacio está bien organizado, porque luego
+vienen un par de caracteres que indican a qué lengua se aplica el
+módulo susodicho; en este caso, <filename>ES</filename>. Finalmente,
+el último apartado es el realmente específico.</para>
+
+	  <note>
+<para>En cada sistema de ficheros específico, el nombre también indica
+en el directorio en el que estará almacenado, dentro de los
+directorios donde se suelen almacenar los módulos.</para></note>
+	</callout>
+	<callout arearefs="area.cpan.join">
+	  <para>Aquí viene un embutido de diferentes órdenes en Perl,
+que, como suele ser habitual, es mejor leerlas de derecha a
+izquierda. O del punto y coma para el otro lado. Porque no me voy a
+poner a explicar la derecha de quién quiero decir. </para>
+	</callout>
+	<callout arearefs="area.cpan.texto">
+	  <para>Lo del texto</para>
+	</callout>
+      </calloutlist>
+    </programlistingco>
 </sect1>
 
 
