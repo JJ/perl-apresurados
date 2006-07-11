@@ -1,7 +1,11 @@
 NAME=perl-apresurados
 VERSION=1.0
 SOURCE=perl-apresurados.sgml
-FILES=perl-apresurados.sgml Makefile code/hola.pl code/hola.py code/hola.rb code/hola-y-duerme.pl utils/hilite-dbk.pl utils/nocorchetes.pl img/e-p-i-c.png  img/gvim-perl.png  img/hola_pl_emacs.png
+MAIN=perl-apresurados.sgml Makefile 
+CODE= code/silabas-devil.pl code/hola.pl code/hola.py code/hola.rb code/hola-y-duerme.pl
+UTILS= utils/makeadd.pl  utils/hilite-dbk.pl utils/nocorchetes.pl 
+IMG= img/debugging.png  img/ejecutando-terminal.png  img/ejecutando.png img/e-p-i-c.png  img/gvim-perl.png  img/hola_pl_emacs.png
+FILES=$(MAIN) $(EJEMPLOS) $(UTILS) $(IMAGENES)
 
 all: html pdf rtf
 
