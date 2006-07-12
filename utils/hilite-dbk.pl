@@ -16,7 +16,7 @@ my $hl = new Syntax::Highlight::Engine::Kate(
        BString => ["<wordasword>", "</wordasword>"],
        Char => ["", ""],
        Comment => ["<emphasis>", "</emphasis>"],
-       DataType => ["<font color=\"#0000ff\">", "</font>"],
+       DataType => ["<varname>", "</varname>"],
        DecVal => ["<font color=\"#00007f\">", "</font>"],
        Error => ["<font color=\"#ff0000\"><b><i>", "</i></b></font>"],
        Float => ["<constant>", "</constant>"],

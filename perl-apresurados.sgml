@@ -922,14 +922,14 @@ línea. Pues para eso estamos (está Perl):
 	  <area coords="8" id="prog.escribe.cerrando">
 	</areaspec>
 <programlisting>
-<constant>my</constant> <font color="#0000ff">$leyendo</font> = <function>shift</function> 
+<constant>my</constant> <varname>$leyendo</varname> = <function>shift</function> 
   || <function>die</function> "Uso: <varname>$0<varname> &lt;nombre de fichero&gt;\n";
-<function>open</function> <constant>my</constant> <font color="#0000ff">$fh</font>, "&lt;", <font color="#0000ff">$leyendo</font> 
-  || <function>die</function> "No puedo abrir el fichero <font color="#0000ff">$leyendo</font> por <varname>$!<varname>\n";
-<constant>while</constant> (&lt;<font color="#0000ff">$fh</font>&gt;) {
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "&lt;", <varname>$leyendo</varname> 
+  || <function>die</function> "No puedo abrir el fichero <varname>$leyendo</varname> por <varname>$!<varname>\n";
+<constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
   <function>print</function> "<varname>$.<varname> <varname>$_<varname>\n";
 }
-<function>close</function> <font color="#0000ff">$fh</font>;
+<function>close</function> <varname>$fh</varname>;
 </programlisting>
 	<calloutlist>
 	  <callout arearefs="prog.escribe.my">
