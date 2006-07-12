@@ -6,9 +6,9 @@ use File::Slurp;
 
 my $text = read_file( 'Makefile' ) ;
 
-my ( @files ) = @ARGV || die "Uso: $0 <fichero>\n";
+@ARGV  || die "Uso: $0 <fichero>\n";
 
-for ( @files ) {
+for ( @ARGV ) {
   my ($cmd) = split("/", $_ );
   my $varname = uc $cmd;
   $text =~ s/$varname=/$varname= $_ /;
