@@ -869,6 +869,78 @@ línea) a Unix/Linux/GNU (que incluye uno solo). El intérprete de
 carácter extraño (representado con ^M en los editores) como parte del
 nombre, y dará el mismo tipo de error.</para>
 
+<para>El segundo tipo de error, y el más frecuente, se produce una vez
+que el intérprete se ha cargado correctamente, por ejemplo en el
+situiente programa:
+<programlisting><function>print</function> "Da igual, porque va a petar\n"
+<function>print</function> "Pero solo si el error no está en la última
+línea\n";</programlisting>
+que hace que el intérprete responda con un informativo
+<screen><computeroutput>syntax error at code/peta2.pl line 4, near "print"
+Execution of code/peta2.pl aborted due to compilation errors.
+</computeroutput></screen>
+y todo eso, por un humilde punto y coma. Si Guido van Rossum levantara
+la cabeza.</para>
+
+<para>Evidentemente, otros errores de sintaxis darán su mensaje
+correspondiente. En general, serán bastante más informativos. Y, en
+todo caso, Google es tu amigo.</para>
+
+    <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Este bloque no tiene ejercicios. No te voy a pedir que
+escribar un fichero con errores y digas <emphasis>Um, parece que tiene
+un error</emphasis>. Pero acuérdate de esta sección, te será util. O
+no.</para>
+      </formalpara>
+    </important>
+
   </sect1>
 
+  <sect1>
+    <title>Lo escrito, escrito está</title>
+    <subtitle>Usando y abusando de ficheros y demás facilidades de
+entrada/salida</subtitle>
+
+    <para><quote>Que si, que mucho Perl para apresurados y mucha gaita
+gallega, pero mira la hora que es y no nos hemos comido un
+jurel</quote>, estará diciendo a estas alturas el (apresurado)
+lector. Tenga paciencia vuecencia, que sin pausa pero sin prisa, todo
+llegará. En particular, llega que, no conforme con escribir cosas que
+estén <emphasis>dentro</emphasis> de un programa, alguien quiera
+escribir algo que esté, por el contrario, fuera de un programa. Y para
+más inri, con spoilers traseros y todo: añadiéndole números de
+línea. Pues para eso estamos (está Perl):
+<programlistingco>
+	<areaspec>
+	  <area coords="1" id="prog.escribe.my">
+	  <area coords="2" id="prog.escribe.die">
+	  <area coords="3" id="prog.esribe.open">
+	  <area coords="5" id="prog.escribe.bucle">
+	  <area coords="6" id="prog.escribe.en.el.bucle">
+	  <area coords="8" id="prog.escribe.cerrando">
+	</areaspec>
+<programlisting>
+<constant>my</constant> <font color="#0000ff">$leyendo</font> = <function>shift</function> 
+  || <function>die</function> "Uso: <varname>$0<varname> &lt;nombre de fichero&gt;\n";
+<function>open</function> <constant>my</constant> <font color="#0000ff">$fh</font>, "&lt;", <font color="#0000ff">$leyendo</font> 
+  || <function>die</function> "No puedo abrir el fichero <font color="#0000ff">$leyendo</font> por <varname>$!<varname>\n";
+<constant>while</constant> (&lt;<font color="#0000ff">$fh</font>&gt;) {
+  <function>print</function> "<varname>$.<varname> <varname>$_<varname>\n";
+}
+<function>close</function> <font color="#0000ff">$fh</font>;
+</programlisting>
+	<calloutlist>
+	  <callout arearefs="prog.escribe.my">
+	    <para>Vamos a dejar las cosas claras desde el
+principio. <varname>$leyendo</varname> es una variable. Una variable
+cara, porque lleva el dólar al principio. Y por eso es mía, y le he
+puesto el <constant>my</constant>. Sólo mía. Bueno, de hecho, es una
+variable de ámbito léxico, que será invisible fuera del bloque. Este
+bloque... 
+	  </callout>
+	</calloutlist>
+
+  </sect1>
 </article>
