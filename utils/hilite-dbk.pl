@@ -28,7 +28,7 @@ my $hl = new Syntax::Highlight::Engine::Kate(
        Others => ["<font color=\"#b03060\">", "</font>"],
        RegionMarker => ["<font color=\"#96b9ff\"><i>", "</i></font>"],
        Reserved => ["<font color=\"#9b30ff\"><b>", "</b></font>"],
-       String => ["", ""],
+       String => ["<literal>", "</literal>"],
        Variable => ["<varname>", "<varname>"],
        Warning => ["<font color=\"#0000ff\"><b><i>", "</b></i></font>"],
     },

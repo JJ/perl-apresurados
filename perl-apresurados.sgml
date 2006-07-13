@@ -788,7 +788,7 @@ sigue hasta que se encuentra el conjuro de fin de texto;
 
 <para>Pero no hay descanso para los intrépidos, e inmediatamente nos
 encontramos con
-<programlisting><function>split</function>(/[<literal>\s,</literal>]/,</programlisting>.
+<programlisting id='prog.frag.split'><function>split</function>(/[<literal>\s,</literal>]/,</programlisting>.
 Empecemos por el <function>split</function> esta vez: split divide una
 cadena, es decir, la convierte en una serie (por ahora lo dejamos ahí)
 de palabras, eliminando los separadores, que son los que están entre
@@ -923,12 +923,12 @@ línea. Pues para eso estamos (está Perl):
 	  <area coords="8" id="prog.escribe.cerrando">
 	</areaspec>
 <programlisting>
-<constant>my</constant> <varname>$leyendo</varname> = <function>shift</function> 
-  || <function>die</function> "Uso: <varname>$0<varname> &lt;nombre de fichero&gt;\n";
-<function>open</function> <constant>my</constant> <varname>$fh</varname>, "&lt;", <varname>$leyendo</varname> 
-  or <function>die</function> "No puedo abrir el fichero <varname>$leyendo</varname> por <varname>$!<varname>\n";
+<constant>my</constant> <varname>$leyendo</varname> = <function>shift</function>
+  || <function>die</function> "<literal>Uso: </literal><varname>$0<varname><literal> &lt;nombre de fichero&gt;</literal>\n";
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$leyendo</varname> 
+  or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> por </literal><varname>$!<varname>\n";
 <constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
-  <function>print</function> "<varname>$.<varname> <varname>$_<varname>";
+  <function>print</function> "<varname>$.<varname><varname>$_<varname>";
 }
 <function>close</function> <varname>$fh</varname>;
 </programlisting>
@@ -999,6 +999,10 @@ comandos. </para>
 <para>Esta construcción viene a ser un condicional, y el caso más
 general es &lt;expresión> &lt;condicional> &lt;sentencia>. Lo veremos
 mucho. </para>
+
+	    <para> Y de camino hemos visto como funciona la
+interpolación de variables en cadenas en Perl: una variable dentro de
+una cadena se sustituirá por su valor al ejecutar el programa. Y no es una variable cualquiera. Es una variable predefinida, que son variables globales cuyo valor depende de ciertas circunstancias. En este caso, la cadena con la que se ha invocado al programa.</para>
 	  </callout>
 
 	  <callout arearefs="prog.escribe.open">
@@ -1021,14 +1025,8 @@ fallezca, no sin un epitafio adecuado.
 </userinput>
 <computeroutput>No puedo abrir el fichero este.fichero.no.existe por No existe el fichero o el directorio</computeroutput>
 </screen>
-El epitafio lo proporciona $!, una de las <emphasis>variables por
-defecto o implícitas</emphasis> de Perl. Son variables globales, que
-toman el valor dependiendo de ciertas circunstancias. En este caso,
-toma el valor del último error que se haya producido; por eso se
-sustituye por <literal>No existe el fichero o el
-directorio</literal>. Y de camino hemos visto como funciona la
-interpolación de variables en cadenas en Perl: una variable dentro de
-una cadena se sustituirá por su valor al ejecutar el programa.</para>
+El epitafio lo proporciona $!, otra de las <emphasis>variables por
+defecto o implícitas</emphasis> de Perl que contiene el último mensaje de error del sistema.</para>
 	    <note>
 	      <para>Las variables predefinidas o implícitas se
 pueden consultar escribiendo <userinput>perldoc
@@ -1119,5 +1117,139 @@ opción <literal>-n</literal> que le pasamos al intérprete. </para>
 <para>Y si se puede hacer eso en Python, que venga Guido Van Rossum y
 lo vea.</para> 
     </note>
+
+
+<para>También se puede complicar más, claro. Por ejemplo, no me
+negaréis que esas líneas vacías con el numerito delante ofenden a la
+vista. No hay nada en esas líneas, nadie va a decir "Por favor, lean
+esta línea" porque está vacía. Así que lo mejor es quitarle también
+los números. Y, de camino, no está de más curarnos en salud antes de
+abrir un fichero comprobando si se puede leer o no:
+<programlistingco>
+	<areaspec>
+	  <area coords="3" id="prog.escrito.if.readable">
+	  <area coords="9" id="prog.escrito.if.chop">
+	</areaspec>
+	<programlisting><constant>my</constant> <varname>$leyendo</varname> = <function>shift</function>
+  || <function>die</function> "Uso: <varname>$0<varname> &lt;nombre de fichero&gt;\n";
+<constant>if</constant> ( ! -r <varname>$leyendo</varname> ) {
+  <function>die</function> "El fichero <varname>$leyendo</varname> no es legible\n";
+}
+
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "&lt;", <varname>$leyendo</varname> 
+  or <function>die</function> "No puedo abrir el fichero <varname>$leyendo</varname> por <varname>$!<varname>\n";
+<constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
+  <function>chop</function>; <function>chop</function>;
+  <function>print</function> "<varname>$.<varname> " <constant>if</constant> <varname>$_<varname>;
+  <function>print</function> "<varname>$_<varname>\n";
+}
+
+<function>close</function> <varname>$fh</varname>;
+</programlisting>
+	<calloutlist>
+	  <callout arearefs="prog.escrito.if.readable">
+	    <para>En este caso, usamos el <function>if</function> en
+su forma más tradicional, <programlisting>if (condición)
+{bloque}</programlisting>. Lo que no es tan tradicional es la
+condición: el operador <function>-r</function> comprueba si el fichero
+es legible (para el usuario), y devuelve falso si no lo es. De forma
+que:
+<screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ touch no-legible
+jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ chmod -r no-legible
+jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ ./escrito-if.pl no-legible</userinput>
+<computeroutput>El fichero no-legible no es legible</computeroutput></screen>
+</para>
+	  </callout>
+	  <callout arearefs="prog.escrito.if.chop">
+	    <para>Para quitar de enmedio las líneas vacías, primero
+hay que tener en cuenta que no lo están. Tienen al final dos
+caracteres (los de retorno de carro y salto de línea), que hay que
+eliminar con sendos <function>chop</function>, que hace precisamente
+eso, elimina un caracter al final de la línea. Y con eso, en la línea
+siguiente escribimos el número de línea, pero sólo si queda algo en la
+variable por defecto.</para>
+	  </callout>
+	</calloutlist>
+	</programlistingco>
+
+
+<para>En Perl siempre hay más de una forma de hacer las cosas. Se
+puede elegir la más elegante, o la más divertida. O la que uno conozca
+mejor, claro.</para>
+
+    <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Ahora ya no tenemos excusa para no hacer nada. Vamos a
+hacerlo simple: un programa que cuente el número de líneas que
+no estén en blanco en un fichero.</para>
+      </formalpara>
+    </important>
+  </sect1>
+
+  <sect1>
+    <title>Partiendo de una base</title>
+    <subtitle>Vectores.</subtitle>
+
+<para>En realidad, sólo hemos rascado la superficie del diablo
+cojuelo, unas pocas líneas del principio. Pero hay que tragárselo
+todo, asimilarlo, sintetizarlo, y volverlo a asimilar. Y para hacerlo,
+lo mejor es dividirlo en cachos fácilmente deglutibles, no vayamos a
+empacharnos. Y eso es lo que vamos a hacer con el programa siguiente,
+que divide la novela en cada uno de los <emphasis>trancos</emphasis>
+que la componen</para>
+    <programlistingco>
+      <areaspec  id="prog.trancos.slurp">
+	<area  id="prog.trancos.s1" coords="2">
+	<area  id="prog.trancos.s2" coords="5">
+      </areaspec>
+      <areaspec  id="prog.trancos.array">
+	<area  id="prog.trancos.a1" coords="4">
+	<area  id="prog.trancos.a2" coords="6">
+	<area  id="prog.trancos.a2" coords="8">
+      </areaspec>
+      <area  id="prog.trancos.bucle" coords="8">
+      <programlisting>
+<emphasis>#!/usr/bin/perl</emphasis>
+<constant>use</constant> <function>File::Slurp</function>;
+
+<varname>@ARGV<varname> || <function>die</function> "<literal>Uso: </literal><varname>$0<varname><literal> &lt;fichero a partir por trancos&gt;</literal>\n";
+<constant>my</constant> <varname>$text</varname> = read_file( <varname>$ARGV<varname>[<constant>0</constant>] ) ;
+<constant>my</constant> <varname>@trancos</varname>=<function>split</function>("<literal>TRANCO</literal>", <varname>$text</varname>);
+
+<constant>for</constant> (<varname>@trancos</varname>[<constant>1.</constant>.<varname>$#trancos</varname>]){
+  <function>print</function> <function>substr</function>(<varname>$_<varname>,<constant>0</constant>,<constant>40</constant>), "\n", "<literal>-</literal>"x40, "\n";
+}
+
+</programlisting>
+      <calloutlist>
+	<callout arearefs="prog.trancos.slurp"><para>Esta vez, para
+variar, usamos otro módulo diferente para leer ficheros: uno que se
+traga el fichero sin rechistar, y en una sola línea, y lo mete en una
+variable. El módulo <filename>File::Slurp</filename> tendrás que
+instalarlo previamente, claro, de tu bienamada y nunca suficientemente
+ponderada <ulink url='http://search.cpan.org'>CPAN</ulink>.</para>
+	</callout>
+	<callout arearefs="prog.trancos.array">
+	  <para>Pero vamos al meollo del asunto, es decir, la
+matriz. Que es lo que aparece en esta línea, una matriz, y como el
+asunto es de 11 arrobas, tiene una arroba delante. Una
+<literal>@</literal>, vamos. Todo lo <emphasis>vectorial</emphasis> en
+Perl tiene una @ delante. Los vectores/matrices son variables, y hay
+que declararlos, como hacemos con <varname>@trancos</varname>; también
+hay vectores predefinidos, como <varname>@ARGV</varname>, que contiene
+los argumentos que se le pasan al programa. Precisamente en la primera
+de las líneas aquí referenciadas lo que se hace es comprobar si existe
+ese vector de argumentos. Si no hay ninguno, se sale con un mensaje de
+error. </para>
+
+	  <para>El vector <varname>@trancos</varname> se define a
+partir del texto, partiéndolo (<function>split</function>, como hemos
+visto <link linkend="prog.frag.split">anteriormente</link>) por la
+palabra <literal>TRANCO</literal>, que es la que hay al principio de
+cada capítulo de <emphasis>El Diablo Cojuelo</emphasis>. 
+	</callout>
+      </calloutlist>
+    </programlistingco>
   </sect1>
 </article>
