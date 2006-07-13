@@ -1199,16 +1199,19 @@ empacharnos. Y eso es lo que vamos a hacer con el programa siguiente,
 que divide la novela en cada uno de los <emphasis>trancos</emphasis>
 que la componen</para>
     <programlistingco>
-      <areaspec  id="prog.trancos.slurp">
-	<area  id="prog.trancos.s1" coords="2">
-	<area  id="prog.trancos.s2" coords="5">
+      <areaspec>
+	<areaset  id="prog.trancos.slurp" coords="">
+	  <area  id="prog.trancos.s1" coords="2">
+	  <area  id="prog.trancos.s2" coords="5">
+	</areaset>
+	<areaset  id="prog.trancos.array" coords="">
+	  <area  id="prog.trancos.a1" coords="4">	
+	  <area  id="prog.trancos.a2" coords="5">	
+	  <area  id="prog.trancos.a3" coords="6">
+	  <area  id="prog.trancos.a4" coords="8">
+	</areaset>
+	<area  id="prog.trancos.bucle" coords="8">
       </areaspec>
-      <areaspec  id="prog.trancos.array">
-	<area  id="prog.trancos.a1" coords="4">
-	<area  id="prog.trancos.a2" coords="6">
-	<area  id="prog.trancos.a2" coords="8">
-      </areaspec>
-      <area  id="prog.trancos.bucle" coords="8">
       <programlisting>
 <emphasis>#!/usr/bin/perl</emphasis>
 <constant>use</constant> <function>File::Slurp</function>;
@@ -1226,7 +1229,7 @@ que la componen</para>
 	<callout arearefs="prog.trancos.slurp"><para>Esta vez, para
 variar, usamos otro módulo diferente para leer ficheros: uno que se
 traga el fichero sin rechistar, y en una sola línea, y lo mete en una
-variable. El módulo <filename>File::Slurp</filename> tendrás que
+variable (<varname>$text</varname>). El módulo <filename>File::Slurp</filename> tendrás que
 instalarlo previamente, claro, de tu bienamada y nunca suficientemente
 ponderada <ulink url='http://search.cpan.org'>CPAN</ulink>.</para>
 	</callout>
@@ -1247,9 +1250,34 @@ error. </para>
 partir del texto, partiéndolo (<function>split</function>, como hemos
 visto <link linkend="prog.frag.split">anteriormente</link>) por la
 palabra <literal>TRANCO</literal>, que es la que hay al principio de
-cada capítulo de <emphasis>El Diablo Cojuelo</emphasis>. 
+cada capítulo de <emphasis>El Diablo Cojuelo</emphasis>. </para>
+
+	  <para>Los elementos de un vector se pueden sacar uno por
+uno, como en <varname>$ARGV[0]</varname>, que como es un e$calar lleva
+el $ delante. Los vectores empiezan por 0, o también a puñados, como
+en <varname>@trancos[1..$#trancos]</varname>, que extrae del segundo
+elemento (que tiene índice uno) hasta el último (que no es otra cosa
+lo que representa <varname>$#trancos</varname>).</para>
+	</callout>
+
+	<callout arearefs="prog.trancos.bucle">
+	  <para>El bucle sigue el esquema habitual (en Perl). La
+variable de bucle no está declarada por que es <varname>$_</varname>;
+dentro del bucle, mediante <function>substr</function>, se extraen los
+primeros 40 caracteres y se imprimen, y luego, usando el operador
+<function>x</function> de multiplicación de cadenas (
+<programlisting>"ab"x3</programlisting> dará
+<computeroutput>"ababab"</computeroutput>), se completa este bonito y
+útil programa.</para>
 	</callout>
       </calloutlist>
     </programlistingco>
+  </sect1>
+
+  <sect1>
+    <title>Ni bien ni mal, sino regular</title>
+    <subtitle>Matrices asociativas (<emphasis>hashes</emphasis>) y
+expresiones regulare.</subtitle>
+    <para>Y aquí cuento el número de veces que aparecen nombres</para>
   </sect1>
 </article>
