@@ -901,7 +901,8 @@ no.</para>
   <sect1>
     <title>Lo escrito, escrito está</title>
     <subtitle>Usando y abusando de ficheros y demás facilidades de
-entrada/salida</subtitle>
+entrada/salida. Variables predefinidas. Interpolación. Expresiones
+condicionales.</subtitle>
 
     <para><quote>Que si, que mucho Perl para apresurados y mucha gaita
 gallega, pero mira la hora que es y no nos hemos comido un
@@ -916,7 +917,7 @@ línea. Pues para eso estamos (está Perl):
 	<areaspec>
 	  <area coords="1" id="prog.escribe.my">
 	  <area coords="2" id="prog.escribe.die">
-	  <area coords="3" id="prog.esribe.open">
+	  <area coords="3" id="prog.escribe.open">
 	  <area coords="5" id="prog.escribe.bucle">
 	  <area coords="6" id="prog.escribe.en.el.bucle">
 	  <area coords="8" id="prog.escribe.cerrando">
@@ -925,9 +926,9 @@ línea. Pues para eso estamos (está Perl):
 <constant>my</constant> <varname>$leyendo</varname> = <function>shift</function> 
   || <function>die</function> "Uso: <varname>$0<varname> &lt;nombre de fichero&gt;\n";
 <function>open</function> <constant>my</constant> <varname>$fh</varname>, "&lt;", <varname>$leyendo</varname> 
-  || <function>die</function> "No puedo abrir el fichero <varname>$leyendo</varname> por <varname>$!<varname>\n";
+  or <function>die</function> "No puedo abrir el fichero <varname>$leyendo</varname> por <varname>$!<varname>\n";
 <constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
-  <function>print</function> "<varname>$.<varname> <varname>$_<varname>\n";
+  <function>print</function> "<varname>$.<varname> <varname>$_<varname>";
 }
 <function>close</function> <varname>$fh</varname>;
 </programlisting>
@@ -938,9 +939,185 @@ principio. <varname>$leyendo</varname> es una variable. Una variable
 cara, porque lleva el dólar al principio. Y por eso es mía, y le he
 puesto el <constant>my</constant>. Sólo mía. Bueno, de hecho, es una
 variable de ámbito léxico, que será invisible fuera del bloque. Este
-bloque... 
+bloque abarca todo el programa. Pero puede no hacerlo; los bloques
+están encerrados entre llaves (<literal>{}</literal>). Hay uno un poco
+más abajo.</para>
+
+	    <para>Y en cuanto a la variable propiamente dicha, es una
+variable escalar. Por eso lleva un dólar delante, porque el dinero
+también es escalar. Creo. En todo caso, en las variables escalares
+puede haber números, o cadenas alfanuméricas; a Perl le da igual. La
+interpretará como uno, o como otro, dependiendo del contexto.Por
+ejemplo</para>
+<screen><userinput>$foo="13abc"
+print $foo + 1</userinput>
+<computeroutput>14</computeroutput>
+</screen>
+
+	    <para>En realidad, no es necesario declarar las
+variables. Cuando se usa una variable por primera vez, aparece
+automágicamente con valor nulo, pero el ámbito será global. Y las
+variables globales son <emphasis>una mala cosa</emphasis>.</para>
+
+	    <para>Lo que viene después, aunque no lo parezca, es el
+primer argumento que se le pasa al programa por la línea de
+comandos. En realidad, <function>shift</function> saca el primer
+elemento de una ristra, en este caso, la ristra de nombres de ficheros
+que se le haya pasado. ¿Y qué pasa si ejecutamos el programa tal cual,
+sin pasarle ningún nombre de fichero?</para>
+	  </callout>
+
+	  <callout arearefs="prog.escribe.die">
+	    <para>
+Pues que el programa
+	    irremisiblemente muere (<function>die</function>). Pero no
+muere por las buenas, sino que te da un mensaje que te indica que,
+obligagoriamente, bajo pena de muerte (<function>die</function>)
+tienes que pasar el nombre de un fichero como argumento, de esta
+forma:<userinput>escrito.pl diablo-cojuelo.txt</userinput>. Si no lo
+hacemos:
+<screen><userinput>./escrito.pl</userinput>
+<computeroutput>Uso: ./escrito.pl &lt;nombre de fichero></computeroutput>
+</screen>
+</para>
+	    <para>Pero no hemos dicho nada de los
+<literal>||</literal> al principio de la línea. Como esto es un
+lenguaje decente, para terminar una sentencia hace falta el
+<literal>;</literal>, que no está hasta el final de esta línea. Con lo
+que esta línea y las anteriores vienen a decir
+<quote>Esta variable será el primer argumento, <emphasis>o si
+no</emphasis> me muero y dejo este mensaje</quote>
+Ese  <emphasis>o si no</emphasis>, <literal>||</literal>, que
+representa a <function>OR</function><footnote><para>Aunque no es
+exactamente lo mismo</para>
+	      </footnote>hace que se ejecute su parte
+derecha solo si la parte izquierda tiene como resultado un valor
+verdadero (será falso si <function>shift</function> devuelve
+<function>undef</function>, es decir, si no hay nada en la línea de
+comandos. </para>
+
+<para>Esta construcción viene a ser un condicional, y el caso más
+general es &lt;expresión> &lt;condicional> &lt;sentencia>. Lo veremos
+mucho. </para>
+	  </callout>
+
+	  <callout arearefs="prog.escribe.open">
+	    <para>Habrá que abrir (<function>open</function>) el
+fichero, claro. Eso es lo que hacemos aquí. A
+<function>open</function> se le pasa la variable que vamos a usar para
+referirnos al fichero abierto<footnote>
+		<para>Lo que viene siendo un
+<emphasis>filehandle</emphasis> de toda la vida.</para>
+	      </footnote>, que declaramos sobre la marcha, el modo de
+apertura, en este caso <literal>"<"</literal> para lectura (podía ser
+<literal>">"</literal>  para escritura), y, como es natural, el nombre
+del fichero, que tenemos en la variable
+<varname>$leyendo</varname>. Pero las cosas pueden ir mal: puede
+haberse comido el fichero el perro, puede no existir ese fichero, o
+puede haber cascado en ese preciso instante el disco duro. Así que hay
+que prever que la operación pueda ir mal, y dejar que el programa
+fallezca, no sin un epitafio adecuado.
+<screen><userinput>./escrito.pl este.fichero.no.existe
+</userinput>
+<computeroutput>No puedo abrir el fichero este.fichero.no.existe por No existe el fichero o el directorio</computeroutput>
+</screen>
+El epitafio lo proporciona $!, una de las <emphasis>variables por
+defecto o implícitas</emphasis> de Perl. Son variables globales, que
+toman el valor dependiendo de ciertas circunstancias. En este caso,
+toma el valor del último error que se haya producido; por eso se
+sustituye por <literal>No existe el fichero o el
+directorio</literal>. Y de camino hemos visto como funciona la
+interpolación de variables en cadenas en Perl: una variable dentro de
+una cadena se sustituirá por su valor al ejecutar el programa.</para>
+	    <note>
+	      <para>Las variables predefinidas o implícitas se
+pueden consultar escribiendo <userinput>perldoc
+perlvar</userinput>.</para>
+	    </note>
+	  </callout>
+
+	  <callout arearefs="prog.escribe.bucle">
+	    <para>Esto es un bucle <function>while</function>. Un
+pirulín para quien lo haya averiguado. Pero es un bucle raro, porque
+dentro de la condición de bucle (lo que hay entre paréntesis), lo que
+decide si se sique o no, tiene lo que parece una etiqueta HTML. Pues
+no lo es. Por alguna razón ignota, los paréntesis angulares (que así
+se llaman) es un operador que, entre otras cosas, lee la siguiente
+línea del filehandle incluido dentro. Y devuelve verdadero; cuando no
+puede leer más línes, devuelve falso. Como era de esperar, este bucle
+va a recorrer las líneas del fichero. Detrás de while siempre va un
+bloque, y los bloques siempre llevan llaves. Como los coches. Aunque
+tengan una sola línea. Quién sabe qué podría pasarle a un bloque
+indefenso, si no llevara llaves.</para>
+	  </callout>
+	  <callout arearefs="prog.escribe.en.el.bucle">
+	    <para>Se interpolan dos variables en una cadena, también
+predefinidas. El bucle recorre las líneas del fichero, pero no
+sabemos dónde las va metiendo. Pues van a parar a
+<varname>$_</varname>, la variable por defecto por excelencia, donde
+van a parar un montón de cosas que sabemos y otras muchs que
+ignoramos. Muchas funciones actúan sobre esta variable por defecto sin
+necesidad de explcitarla, y si hay un bucle huérfano sin variable de
+bucle, allí que te va esa variable por defecto para ayudarla. Y para
+que, a su vez, no se quede solita, le ponemos delante la
+<varname>$.</varname>, que contiene el número de línea del fichero que
+se está leyendo. Y ni le ponemos el retorno de carro detrás, porque en
+Perl, cuando se lee de un fichero, se lee con sus retornos de carro y
+todo, para que uno haga con ellos lo que quiera (quitárselos de
+enmedio, y no acordarse de que están ahí, en la mayor parte de los casos).</para>
+	  </callout>
+
+	  <callout arearefs="prog.escribe.cerrando">
+	    <para>Los ficheros abiertos hay que cerralos, que si no
+pasa corriente y se puede resfriar el disco duro. Incluso habría que
+comprobar si se han cerrado correctamente, para ser más papistas que
+el camarlengo, pero lo vamos a dejar para mejor ocasión. </para>
 	  </callout>
 	</calloutlist>
 
+      </programlistingco>
+
+<para>El resultado que obtenemos, será tal que así:</para>
+    <screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ ./escrito.pl ../diablocojuelo.txt | head</userinput>
+<computeroutput>1 The Project Gutenberg EBook of El Diablo Cojuelo, by Luis Vélez de Guevara
+2
+3 This eBook is for the use of anyone anywhere at no cost and with
+4 almost no restrictions whatsoever.  You may copy it, give it away or
+5 re-use it under the terms of the Project Gutenberg License included
+6 with this eBook or online at www.gutenberg.net
+7
+8
+9 Title: El Diablo Cojuelo
+10</computeroutput>
+</screen>
+
+    <para>Pero lo cierto es que en Perl <productname>hay otra forma de
+hacerlo</productname>. Leer ficheros es lo una de las principales
+aplicaciones de Perl, así que el programa anterior se puede
+simplificar al siguiente:
+<programlisting><emphasis>#!/usr/bin/perl</emphasis>
+<constant>while</constant> (&lt;&gt;) {
+  <function>print</function> "<varname>$.<varname> <varname>$_<varname>";
+}</programlisting>
+Programa minimalista donde los haya. Cuando Perl se encuentra los
+paréntesis angulares en un programa, hace todo lo siguiente: toma el
+primer argumento de la línea de comandos, lo abre como fichero, y mete
+la primera línea en la variable por defecto
+<varname>$_</varname>. Si no se ha pasado nada por la línea de
+comandos, se sienta ahí, a verlas venir, esperando que uno escriba
+cosas desde teclado (entrada estándar) y le de a
+<literal>Ctrl-D</literal> para equivale al carácter
+<constant>EOF</constant>, fin de fichero. Pero es que todavía se puede
+simplificar más, usando opciones de ejecución:
+<programlisting><emphasis>#!/usr/bin/perl -n</emphasis>
+<function>print</function> "<varname>$.<varname> <varname>$_<varname>";
+</programlisting>
+que se quita de enmedio hasta el while, que queda implícito por la
+opción <literal>-n</literal> que le pasamos al intérprete. </para>
+
+    <note>
+<para>Y si se puede hacer eso en Python, que venga Guido Van Rossum y
+lo vea.</para> 
+    </note>
   </sect1>
 </article>
