@@ -11,7 +11,7 @@ my $text = read_file( 'Makefile' ) ;
 for ( @ARGV ) {
   my ($cmd) = split("/", $_ );
   my $varname = uc $cmd;
-  if ( $text =~ /$_/ ) { #Ya lo hemos metido
+  if ( $text =~ /\b$_\b/ ) { #Ya lo hemos metido
     warn "$_ ya está incluido\n";
     next;
   }

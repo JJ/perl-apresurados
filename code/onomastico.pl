@@ -3,14 +3,18 @@
 use strict;
 use warnings;
 
-use File::Slurp;
 my $fichero_a_procesar = shift 
   || die "Uso: $0 <nombre de fichero>n";
-my $texto = read_file($fichero_a_procesar) 
+open my $fh, "<", $fichero_a_procesar
   || die "No puedo abir el fichero. Error $!\n";
 
-my @nombres_propios = ($texto =~ /([A-Z]\w+(?:\s+[A-Z]\w+){1,3})/gs);
+my %indice;
+while(<$fh>) {
+  if ( /[Dd]on ([A-Z][a-zαινσϊρ]+)/ ) {
+    $indice{$1} .= "$. ";
+  }
+}
 
-for (@nombres_propios) {
-  print $_
+for (sort {$a cmp $b} keys %indice ) {
+  print "*Don $_\n\t$indice{$_}\n";
 }
