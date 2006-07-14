@@ -1,4 +1,5 @@
 NAME=perl-apresurados
+DISTDIR=$(NAME)
 VERSION=1.0
 SOURCE=perl-apresurados.sgml
 MAIN= $(SOURCE) Makefile start
@@ -13,13 +14,16 @@ html: $(SOURCE)
 	db2html ${SOURCE}
 
 pdf:  $(SOURCE)
-	db2pdf ${SOURCE}
+	db2pdf -o $(DISTDIR) ${SOURCE}
 
 rtf:  $(SOURCE)
-	db2rtf ${SOURCE}
+	db2rtf $(DISTDIR) ${SOURCE}
 
 dist: $(NAME)-$(VERSION).tgz
 
+codetgz : $(CODE)
+	tar cvfz $(DISTDIR)/$(NAME)-ejemplos.tgz $(CODE)
+ 
 $(NAME)-$(VERSION).tgz: $(FILES)
 	tar cvfz  $(NAME)-$(VERSION).tgz $(FILES)
 

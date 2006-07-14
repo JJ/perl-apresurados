@@ -228,6 +228,12 @@ s dice picar código, todavía no has picado nada. Y eso está bien: hay
 que convertir esa rabia en energía creativa, y aprovechando que uno de
 los diablos que se te llevan es cojuelo, escribir el siguiente
 fragmento de literatura:</para>
+
+    <note>
+      <para>Los programas ejemplos de este tutorial deberían estar en
+<ulink url="perl-apresurados-ejemplos.tgz">el fichero <filename>perl-apresurados-ejemplos.tgz</filename></ulink></para>
+    </note>
+    
 <programlistingco id='prog.hola'>
 <areaspec>
 	<area id="hola.shebang" coords='1' >
