@@ -1305,7 +1305,7 @@ carro pueden ser <literal>\n\n</literal> o <literal>\r\n\r\n</literal>
   <sect1>
     <title>Ni bien ni mal, sino regular</title>
     <subtitle>Matrices asociativas (<emphasis>hashes</emphasis>) y
-expresiones regulare.</subtitle>
+expresiones regulares.</subtitle>
 
     <para>A trancos y barrancos llegamos a un punto en que el tema se
 pone interesante. Si todavía estás con nosotros, agárrate, que ahora
@@ -1377,8 +1377,8 @@ derecha está el nombre del hash; y un poco más allá la función
 hash. Recorrer una matriz es fácil: empiezas por 0 y acabas por el
 último vector, pero para recorrer un hash necesitas saber cuáles son
 las claves que tiene. Y resulta más útil si lo recorres siguiendo un
-orden determinado. En este caso, <programlisting>sort {$a cmp
-$b}</programlisting> clasifica (<function>sort</function>) usando un
+orden determinado. En este caso,
+<programlisting>sort {$a cmp $b}</programlisting> clasifica (<function>sort</function>) usando un
 bloque (<literal>$a cmp $b</literal>). <varname>$a</varname> y
 <varname>$b</varname> representan los dos elementos que se comparan en
 la clasificación, y <function>cmp</function> es una comparación
@@ -1518,8 +1518,81 @@ familias. </para>
     <important>
       <formalpara>
 	<title>Ejercicios</title>
-	<para></para>
+	<para>Las humildes palabras, que no tienen título, también
+pueden y deben ser contadas, para llevar una contabilidad exacta. Así
+que contemos todas las palabras en minúscula que aparecen en un texto,
+y hagamos un ránking de las 50 palabras más comunes. Por ejemplo.</para>
       </formalpara>
     </important>
+  </sect1>
+
+  <sect1>
+    <title>A dónde vamos desde aquí</title>
+
+    <para>Lo que distingue a Perl de los otros lenguajes es la
+comunidad, y la humildad y accesibilidad de los
+<emphasis>gurus</emphasis>; no es extraño encontrárselos en los foros
+o listas de discusión, ni que te acepten un parche para sus
+módulos. Por eso nunca va a faltar información. Si no manejas la
+lengua del imperio, sin embargo, no hay tanta.</para>
+
+    <sect2>
+      <title>Libros</title>
+      <para>Multitud de libros te ayudarán a penetrar en el
+maravilloso mundo del Camello. Puedes empezar por Learning Perl,
+seguir por Programming Perl, continuar con el Perl Cookbook, y acabar
+con High Order Perl o con Perl Hacks. La mayoría de los buenos libros
+de Perl están publicados por <ulink
+url="http://www.oreilly.com">O'Reilly</ulink>, y todos ellos están
+disponibles como e-libros en <ulink url="http://safari.oreilly.com">el
+servicio Safari</ulink>. Puede que tu universidad o tu empresa haya
+comprado acceso a algunos de ellos. Casi cualquier cosa escrita por
+Damien Conway merece la pena ser leida.</para>
+
+
+<para>Por otro lado, si puedes encontrarlo, Professional Perl
+Programming es bastante completo, aunque de estilo un tanto más
+disperso. Sin duda, el capítulo sobre <emphasis>locale</emphasis> e
+internacionalización es el mejor.</para>
+    </sect2>
+
+    <sect2>
+      <title>Tutoriales</title>
+<para>Tampoco faltan los tutoriales en Internet, entre ellos el decano
+en castellano, hecho por un servidor, <ulink
+url="http://merelo.net/tutoperl">un tutorial de Perl</ulink> cuyo
+estilo no difiera mucho de este pero que, por su edad (fue escrito
+cuando Perl iba todavía por la versión 4), quizás haya quedado un
+tanto obsoleto.</para>
+    </sect2>
+
+    <sect2>
+      <title>Listas de correo y foros</title>
+      <para>Hay muchas listas de correo en inglés dedicadas a aspectos
+específicos: Perl y XML, Perl e Inteligencia artificial, Perl y el
+Zen; en español la lista <ulink
+url="http://yahoogroups.com/groups/perl-es"><literal>perl-es</literal></ulink>
+está alojada en Yahoogroups y tiene un tráfico moderado (y un nivel de
+spam relativamente indeseable). Pocas preguntas se quedan sin
+respuesta. </para>
+
+      <para>En inglés, <ulink
+url="http://perlmonks.org">PerlMonks</ulink> actúa como un foro, y
+tiene también un chat incorporado. Sirve tanto para plantear
+cuestiones, como para proponer ideas. Abierto 24/7.</para>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Esto es todo</title>
+
+<para>Bueno, esto es todo, diablillos. Este tutorial tiene licencia
+copyleft, o sea que puedes hacer con él lo que te dé la gana, grabarlo
+en piedra, dárselo a tu abuela, traducirlo al telugu, siempre que
+conserves la atribución del original (servidor). Si encuentras algún
+fallo, o tienes alguna petición o ruego o pregunta, envíame un
+correo.</para>
+
+
   </sect1>
 </article>
