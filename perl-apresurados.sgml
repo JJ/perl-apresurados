@@ -688,7 +688,7 @@ SINOPSIS
 <para>Vamos a ver ahora como se usa ese pozo de sabiduría para
 escribir un programa que toma una serie de frases, y las escribe
 divididas en sílabas.</para>
-    <programlistingco>
+    <programlistingco id='prog.split'>
       <areaspec>
 	<area coords="1" id="area.cpan.use">
 	<area coords="3" id="area.cpan.join">
@@ -1198,7 +1198,7 @@ lo mejor es dividirlo en cachos fácilmente deglutibles, no vayamos a
 empacharnos. Y eso es lo que vamos a hacer con el programa siguiente,
 que divide la novela en cada uno de los <emphasis>trancos</emphasis>
 que la componen</para>
-    <programlistingco>
+    <programlistingco id='prog.trancos'>
       <areaspec>
 	<areaset  id="prog.trancos.slurp" coords="">
 	  <area  id="prog.trancos.s1" coords="2">
@@ -1273,9 +1273,16 @@ variable de bucle no está declarada por que es <varname>$_</varname>;
 dentro del bucle, mediante <function>substr</function>, se extraen los
 primeros 40 caracteres y se imprimen, y luego, usando el operador
 <function>x</function> de multiplicación de cadenas (
-<programlisting>"ab"x3</programlisting> dará
+<literal>"ab"x3</literal> dará
 <computeroutput>"ababab"</computeroutput>), se completa este bonito y
 útil programa.</para>
+
+	  <note>
+	    <para>Más información sobre los operadores de perl
+tecleando <userinput>perldoc perlop</userinput>, inclusive reglas de
+asociatividad. </para>	    
+	  </note>
+
 	</callout>
       </calloutlist>
     </programlistingco>
@@ -1299,6 +1306,220 @@ carro pueden ser <literal>\n\n</literal> o <literal>\r\n\r\n</literal>
     <title>Ni bien ni mal, sino regular</title>
     <subtitle>Matrices asociativas (<emphasis>hashes</emphasis>) y
 expresiones regulare.</subtitle>
-    <para>Y aquí cuento el número de veces que aparecen nombres</para>
+
+    <para>A trancos y barrancos llegamos a un punto en que el tema se
+pone interesante. Si todavía estás con nosotros, agárrate, que ahora
+viene lo gordo: hacer un índice onomástico, es decir, los nombres de
+las gentes que aparecen en la novela, y dónde diablos aparecen. Lo
+bueno es que allá por el siglo XVIII la gente era muy educada, y a
+todo el mundo lo trataban de <emphasis>Don</emphasis>, así que un
+nombre será algo en mayúsculas después de un Don. Ahí vamos</para>
+    <programlistingco>
+      <areaspec>
+	<areaset coords="" id="prog.indice.hash">
+	  <area coords="5" id="prog.indice.h1">
+	  <area coords="8" id="prog.indice.h2">
+	  <area coords="12" id="prog.indice.h3">
+	</areaset>
+	<area coords="7" id="prog.indice.regexp">
+      </areaspec>
+      <programlisting>
+<constant>my</constant> <varname>$fichero_a_procesar</varname> = <function>shift</function> 
+  || <function>die</function> "<literal>Uso: </literal><varname>$0<varname><literal> &lt;nombre de fichero&gt;n</literal>";
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$fichero_a_procesar</varname>  || <function>die</function> "<literal>No puedo abir el fichero. Error </literal><varname>$!<varname>\n";
+
+<constant>my</constant> <varname>%indice</varname>;
+<constant>while</constant>(&lt;<varname>$fh</varname>&gt;) {
+  <constant>if</constant> ( <literal>/[Dd]on ([A-Z][a-záéíóúñ]+)/</literal> ) {
+    <varname>$indice</varname>{<varname>$1<varname>} .= "<varname>$.<varname>";
+  }
+}
+
+<constant>for</constant> (<function>sort</function> {<varname>$a</varname> cmp <varname>$b</varname>} <function>keys</function> <varname>%indice</varname> ) {
+  <function>print</function> "<literal>*Don </literal><varname>$_<varname>\n\t<varname>$indice</varname><literal>{</literal><varname>$_<varname><literal>}</literal>\n";
+}
+</programlisting>
+      <calloutlist>
+	<callout arearefs="prog.indice.hash">
+	  <para>Los diccionarios son útiles entre otras cosas para
+equilibrar una mesa, pero también para almacenar definiciones. Son
+muy rápidos para buscar información: vas directamente a la letra, y
+buscas secuencialmente. Los vectores no lo son: tienes que ir
+examinando uno por uno todos los elementos. Los vectores son útiles
+para almacenar información a la que se va a acceder secuencialmente,
+sin embargo, los diccionarios sirven para almacenar información a la
+que se va a acceder usando una palabra clave. En Perl, los
+diccionarios se llaman <emphasis>hashes</emphasis> o variables
+asociativas, y a la palabra clave que se usa para acceder a su
+contenido, se le llama <emphasis>key</emphasis> o clave<footnote>
+	      <para>En realidad, los vectores serían un tipo especial
+de diccionarios, que sólo admitirían números como palabra clave; así
+es, además, como se implementan internamente en Perl</para>
+	    </footnote>. Los <emphasis>hashes</emphasis> tienen un
+<literal>%</literal> delante, que es lo más parecido a una K si se
+mira de lejos y con los ojos entrecerrados. Eso es lo que declaramos
+en esta referencia; sin embargo, cada uno de los contenidos de estos
+hashes son escalares, y se usa la misma convención que en los
+vectores, como sucede en el resto de las líneas marcadas. 
+</para>
+
+<para>En este programa se va creando un hash con los nombres que se
+van encontrando, y el contenido del mismo son las líneas en las que
+aparece el nombre (para las que usamos la variable predefinida
+<varname>$.</varname>).</para>
+
+<para>El índice se imprime una vez recorrido el
+fichero, en las últimas líneas del programa. Para empezar, el comienzo
+del bucle es de esos que le dan al Perl un mal nombre, pero
+recorriéndolo de dercha a izquierda podemos irlo decodificando. A la
+derecha está el nombre del hash; y un poco más allá la función
+<function>keys</function>, que devuelve un vector con las claves del
+hash. Recorrer una matriz es fácil: empiezas por 0 y acabas por el
+último vector, pero para recorrer un hash necesitas saber cuáles son
+las claves que tiene. Y resulta más útil si lo recorres siguiendo un
+orden determinado. En este caso, <programlisting>sort {$a cmp
+$b}</programlisting> clasifica (<function>sort</function>) usando un
+bloque (<literal>$a cmp $b</literal>). <varname>$a</varname> y
+<varname>$b</varname> representan los dos elementos que se comparan en
+la clasificación, y <function>cmp</function> es una comparación
+alfabética, que devuelve -1, 0 o 1 dependiendo de si el primero es
+mayor, son iguales o lo es el segundo. <function>sort</function> toma
+como argumento un vector y lo devuelve clasificado, numéricamente si
+no se le indica ninguna expresión, y usando la expresión si la
+hay. Por ejemplo, si quisiéramos que recorriera el hash por orden de
+número de apariciones (que equivalen a la longitud de la cadena que
+las representa), podríamos poner
+<programlisting>sort {length($indice{$a}) cmp
+length($indice{$b})</programlisting>.</para>
+
+	  <para>Dentro del bucle, nada inesperado: la variable por
+defecto <varname>$_</varname> toma el valor de cada una de las claves
+del hash, y se escribe tal clave (con el Don por delante, que no
+falte) y el contenido de la misma
+(<literal>$indice{$_}</literal>).</para>
+
+    <note>
+      <para>Una vez más, como <link linkend='prog.trancos'>aconsejamos
+para los vectores</link>, se puede ampliar información escribiendo
+<userinput>perldoc perldata</userinput></para>
+    </note>
+
+	</callout>
+
+
+
+	<callout arearefs="prog.indice.regexp">
+	  <para>Si algo caracteriza al lenguaje Perl, son las
+expresiones regulares. Posiblemente fue el primer lenguaje de
+programación que las introdujo de forma nativa, hasta el punto que
+lenguajes posteriores han adoptado su formato. Una expresión regular
+es una forma sintética de expresar la forma de una cadena
+alfanumérica. Las expresiones regulares usan símbolos para representar
+grupos de caracteres (por ejemplo, números, o espacios en blanco) y
+repeticiones de los mismos (que aparezcan 1, n o más veces) y, lo que
+es más importante, qué parte de la cadena nos interesa para hacer algo
+con ella (por ejemplo, extraerla o sustituirla por otra).</para>
+
+<para>En Perl, la forma más común de encontrarse las expresiones
+regulares entre dos <emphasis>slash</emphasis>
+<literal>//</literal>. Por ejemplo, nos lo encontramos <link
+linkend="prog.split">donde dividimos al diablo cojuelo en
+sílabas</link> en la forma siguiente:<programlisting>
+/[\s,]/
+</programlisting>. Esta expresión regular indica un grupo de
+caracteres (<literal>[]</literal>) que pueden ser o bien un espacio en
+blanco (<literal>\s</literal>, se refiere tando al espacio como a
+retornos de carro diversos o tabuladores) o bien una coma. En ese
+programa, como se vio, siempre que <function>split</function> se
+encontrara uno de estos dos caracteres, crearía un nuevo elemento del
+vector.</para>
+
+<para>En este programa tenemos una expresión regular similar:
+<programlisting>/[Dd]on ([A-Z][a-záéíóúñ]+)/</programlisting>
+La primera parte concidirá con cualquier cadena que empiece por
+<literal>don</literal> o <literal>Don</literal>;
+<literal>[Dd]</literal> coincide con un solo caracter que esté entre
+el grupo entre corchetes. Y algo similar es la expresión entre
+paréntesis (que indican que es la parte que queremos guardar para
+luego), comienza don <literal>[A-Z]</literal>, que es una serie de
+caracteres que comienzan por A y terminan por Z, lo que vienen siendo
+las mayúsculas, y luego cualquier letra minúscula (inclusive letras
+con acento y la ñ, que no están dentro del alfabeto anglocabrón), pero
+que aparezcan una o más veces (de ahí el <literal>+</literal>; un
+<literal>*</literal> habría significado 0 o más veces, y una
+<literal>?</literal> un elemento opcional, que puede aparecer o
+no). En resumen, esta expresión regular coindirá con <literal>Don
+Cleofás</literal> o <literal>don Domingo</literal>, pero no con
+<literal>Sir James</literal>, ni con <literal>don dinero</literal> (la
+segunda palabra no está en mayúsculas), ni siquiera con <literal>Don
+Dinero</literal> (porque tiene dos espacios). Coincidirá precisamente
+con lo que queremos que coincida.
+    <note>
+	      <para>Una vez más, la documentación incluida en perl es nuestra amiga:
+<userinput>perldoc perlrequick</userinput> es una referencia
+rápida,<userinput>perldoc perlretut</userinput>   un tutorial más
+extenso, y <userinput>perldoc perlre</userinput> un manual de
+referencia.</para> 
+	    </note>
+	</callout>
+
+
+      </calloutlist>
+    </programlistingco>
+
+<para>Ejecutado sobre el diablo cojuelo, este programa dará una salida
+tal que así:<screen><computeroutput>*Don Adolfo
+	258 293 476 3487 3652 5864 9392 
+*Don Agustín
+	3794 5462 8955 
+*Don Alfonso
+	8830 
+*Don Alonso
+	2858 3562 3676 6061 6771 
+*Don Alonsos
+	1198 
+*Don Alvaro
+	1233 2043 3534 
+*Don Ambrosio
+	7703 
+*Don Américo
+	5513 
+*Don Antonio
+	2110 2611 2657 2983 3472 5335 5460 5800 6133 9048 
+*Don Apolo
+	3219 
+*Don Baltasar
+	2647 2653 
+*Don Beltrane
+	7439 7457 
+*Don Beltrán
+	7436 7451 
+*Don Bueso
+	6906 
+*Don Carlos
+	2671 4238 
+*Don Cayetano
+	3463 
+*Don Clarian
+	5846 
+*Don Claudio
+	2697 
+*Don Cleofas
+	323 
+*Don Cleofás
+	658 694 719 727 735 763 782 792 807 810 825 844 860 869 914 936 950 961 979 993 1007 1020 1045 1052 1061 1109 1114 1156 1160 1172 1183 1190 1219 1235 1280 1292 1302 1323 1339 1382 1442 1452 1589 1611 1626 1639 1648 1694 1698 1704 1711 1716 1721 1740 1746 1751 1757 1798 1847 1856 1938 1947 1955 1957 1958 1963 1970 1980 1993 1998 2002 2055 2115 2126 2144 2169 2224 2251 2318 2335 2340 2348 2350 2358 2370 2373 2381 2437 2479 2488 2549 2738 2746 2754 2768 2780 2793 2811 2827 2833 2838 2868 2876 2907 2971 2975 2988 2996 3010 3020 3037 3039 3053 3124 3158 3168 3175 3182 3195 3365 3368 3446 3852 4206 5452 5625 5640 6417 8274 8504 8609 9003 9430 
+*Don Cristóbal
+	2894 3459 8950 
+</computeroutput></screen>, donde queda bastante claro quién es el
+prota (aparte del Diablo Cojuelo, que por ser diablo no tiene
+Don). Y que no poner un acento pasa hasta en las mejores
+familias. </para> 
+
+    <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para></para>
+      </formalpara>
+    </important>
   </sect1>
 </article>
