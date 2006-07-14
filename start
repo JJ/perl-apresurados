@@ -1,0 +1,6 @@
+#!/bin/sh
+
+podwebserver &
+xemacs perl-apresurados.sgml &
+sleep 10
+firefox http://vega:8020 &

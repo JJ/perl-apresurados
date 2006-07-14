@@ -1258,6 +1258,13 @@ el $ delante. Los vectores empiezan por 0, o también a puñados, como
 en <varname>@trancos[1..$#trancos]</varname>, que extrae del segundo
 elemento (que tiene índice uno) hasta el último (que no es otra cosa
 lo que representa <varname>$#trancos</varname>).</para>
+
+	  <note>
+<para>Las estructuras de datos de Perl vienen explicadas en la página
+de manual <filename>perldata</filename> (ya sabéis, <userinput>perldoc
+perldata</userinput>) incluyendo muy al principio
+los vectores.</para>
+	  </note>
 	</callout>
 
 	<callout arearefs="prog.trancos.bucle">
@@ -1272,6 +1279,20 @@ primeros 40 caracteres y se imprimen, y luego, usando el operador
 	</callout>
       </calloutlist>
     </programlistingco>
+
+    <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Una vez hechos los trancos, lo suyo sería dividir por
+párrafos cada uno. Y añadirle etiquetas HTML, qué diablos. Así que el
+ejercicio consiste en modificar el programa anterior para que divida
+cada tranco en párrafos y le añada etiquetas HTML, teniendo en cuenta
+que los párrafos comienzan (o terminan) con dos retornos de carro,
+pero que dependiendo del sistema operativo origen, los dos retornos de
+carro pueden ser <literal>\n\n</literal> o <literal>\r\n\r\n</literal>
+(que será el caso, si usáis el mismo fichero que yo).</para>
+      </formalpara>
+    </important>
   </sect1>
 
   <sect1>
