@@ -378,7 +378,7 @@ listado</para>
 <emphasis>#!/usr/bin/perl</emphasis>
 <function>print</function> "A estas horas, el Estudiante, no creyendo su buen suceso y
 deshollinando con el vestido y los ojos el zaquizamí...\n"; 
-<function>sleep</function> <constant>10</constant>;
+<function>sleep</function> <constant>10</constant>;  <emphasis># Quieto parao ahí</emphasis>
 </programlisting>
 <para>Que, con un poco de suerte, nos permitirá capturar una pantalla
 como la siguiente:
@@ -396,6 +396,12 @@ programa</link> es la última línea, que le indica al programa que se
 quede quieto parao (dormido, de hecho) durante 10 segundos. Y que diga
 <emphasis>cheeeeeese</emphasis> (solo en ordenadores con interfaz
 gestual y/o emocional y/o audiomotriz/parlanchín). </para>
+
+<para>Por cierto que, de camino, hemos introducido nuestro primer
+comentario, que en Perl van precedidos por una
+<emphasis>almohadilla</emphasis> (<literal>#</literal>) y llegan hasta
+el final de la línea. Un buen programador debe ser un buen
+comentarista. Lo contrario no siempre es cierto.</para>
 
 <para>Pero incluso así, puede que sea demasiado rápido para apreciar
 la sutileza de cada una de las órdenes, y haya que ejecutarlo paso a
