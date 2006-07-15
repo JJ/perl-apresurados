@@ -264,7 +264,7 @@ decente y trabajador encuentra esa línea, carga ese programa y le pasa el resto 
 	<callout arearefs="hola.print">
 	  <para>Aquí se imprime, con el <emphasis>nihil
 obstat</emphasis> obtenido previamente. Obsérvense las comillas y el
-punto y coma. Las órdenes en Perl acaban con un punto y coma, para que quede bien claro dónde acaban y
+punto y coma. Las órdenes en Perl se separan con un punto y coma, para que quede bien claro dónde acaban y
 se puedan meter varias sentencias en una sola línea, con el objetivo
 de crear programas innecesariamente ofuscados. Lo que no se puede
 hacer en <emphasis>esos otros lenguajes</emphasis>. El
@@ -276,6 +276,14 @@ la salida de un programa venía encuadernada en piel de cabrito y con todas las p
 párrafo bellamente miniadas. Ah, tiempos aquellos, de los que sólo nos queda el nombre de una
 orden.
  </para>
+
+	  <para>Obsérvese también que el argumento se le pasa a
+<function>print</function> directamente, sin paréntesis. Los
+paréntesis son opcionales. Convencionalmente no se usan cuando se
+trata de funciones <emphasis>nativas</emphasis>, como esta, aunque se
+suelen usar para subrutinas y métodos definidos en módulo o por el
+usuario. </para>
+
 	</callout>
 	<callout arearefs="hola.sn">
 	  <para>Y aquí pasamos a la línea siguiente. Borrón y cuenta
@@ -283,7 +291,7 @@ nueva. Se acabó lo que se daba. Si ya conoces
 algún lenguaje de programación, que se supone que lo conoces, pillín, porque te lo he preguntado en
 la <link linkend='sect.id'>primera sección</link>, no hace falta que te explique que
 <constant>\n</constant> es un <emphasis>retorno de carro</emphasis>, ¿verdad?<footnote>
-	      <para>Lo que es recuerdo también de aquellos mismos tiempos en que <constant>STDOUT</constant> era un convento, en el que
+	      <para>Lo que es recuerdo también de aquellos mismos tiempos en que <constant>STDOUT</constant> era una abadía, en la que
 para seguir en la página siguiente tenían que esperar que retornara el carro que les traía las pieles de
 becerro curtidas en las que escribían lo que el programador les ordenaba.
 </para>
@@ -331,10 +339,11 @@ estás empezando a usar el (x)emacs. </para>
     </important>
 </sect1>
 
+
 <sect1>
-<title>Viéndole las tripas al producto</title>
-<subtitle>Ejecutando el programa paso a paso</subtitle>
-<para>Mucho editar, mucho editar, pero de ejecutar programas nada de
+    <title>Viéndole las tripas al producto</title>
+    <subtitle>Ejecutando el programa paso a paso</subtitle>
+    <para>Mucho editar, mucho editar, pero de ejecutar programas nada de
 nada. Lo que hemos editado no deja de ser un fichero de texto, así que
 para ejecutarlo tendremos que llevar a cabo algún encantamiento para
 meterlo en el corredor de la ejecución.</para>
@@ -927,7 +936,7 @@ estén <emphasis>dentro</emphasis> de un programa, alguien quiera
 escribir algo que esté, por el contrario, fuera de un programa. Y para
 más inri, con spoilers traseros y todo: añadiéndole números de
 línea. Pues para eso estamos (está Perl):
-<programlistingco>
+<programlistingco id='prog.escribe'>
 	<areaspec>
 	  <area coords="1" id="prog.escribe.my">
 	  <area coords="2" id="prog.escribe.die">
@@ -1301,7 +1310,41 @@ asociatividad. </para>
       </calloutlist>
     </programlistingco>
 
-<para>*Seguir por aquí* Todavía puede quedar mejor si, de una forma un tanto redundante, le añadimos nuestro propio número de orden al principio. Que es lo que hacemos en el siguiente programa.
+<para>Pero no hemos visto cómo se asignan valores directamente a los
+vectores. El programa siguiente, que modifica el anterior poniéndo
+nuestro propio ordinal a los capítulos, usa una de las formas
+posibles:</para>
+    <programlisting>
+<constant>use</constant> <function>File::Slurp</function>;
+
+<emphasis><constant>my</constant> <varname>@ordinales</varname> = qw( primero segundo tercero cuarto quinto 
+		    sexto séptimo octavo noveno décimo );</emphasis>
+
+<varname>@ARGV</varname> || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;fichero a partir por trancos&gt;</literal>\n";
+<constant>my</constant> <varname>$text</varname> = read_file( <varname>$ARGV</varname>[<constant>0</constant>] ) ;
+<constant>my</constant> <varname>@trancos</varname>=<function>split</function>("<literal>TRANCO</literal>", <varname>$text</varname>);
+
+<constant>for</constant> (<varname>@trancos</varname>[<constant>1.</constant>.<varname>$#trancos</varname>]){
+<emphasis>  <function>print</function> <function>shift</function> <varname>@ordinales</varname>, "", <function>substr</function>(<varname>$_</varname>,<constant>0</constant>,<constant>40</constant>), "\n", "<literal>-</literal>"x40, "\n";</emphasis>
+}
+
+</programlisting>
+
+    <para>El vector se declara al principio del programa, usando la
+forma menos incómoda, que se ahorra comillas y espacios y
+cosas. Siempre que cada uno de los elementos del vector sea un
+<emphasis>bloque</emphasis> sin espacios enmedio, se puede usar
+<literal>qw()</literal>. La forma más general, sin embargo, sería 
+<programlisting>my @ordinales= ('Primero','Segundo',...)</programlisting> 
+</para>
+
+    <para>Para ir recorriendo ese vector y escribiendo sus contenidos
+por orden, usamos una orden que <link linkend="prog.escribe">ya habíamos visto
+antes: <function>shift</function></link> que (ahora si podemos
+decirlo) extrae el primer elemento de un vector. Por tanto, en cada
+iteración del bucle el vector <varname>ordinales</varname> perderá su
+primer elemento. Por lo demás, <function>print</function> escribirá
+todo lo que le pasemos, separado por comas. Es así de obediente.</para>
 
     <important>
       <formalpara>
@@ -1422,8 +1465,6 @@ para los vectores</link>, se puede ampliar información escribiendo
 
 	</callout>
 
-
-
 	<callout arearefs="prog.indice.regexp">
 	  <para>Si algo caracteriza al lenguaje Perl, son las
 expresiones regulares. Posiblemente fue el primer lenguaje de
@@ -1529,6 +1570,81 @@ tal que así:<screen><computeroutput>*Don Adolfo
 prota (aparte del Diablo Cojuelo, que por ser diablo no tiene
 Don). Y que no poner un acento pasa hasta en las mejores
 familias. </para> 
+
+<para>Pero la utilidad de matrices asociativas y expresiones regulares
+no acaba ahí. Ni la del dominio público: vamos a modificar
+<emphasis>El Diablo Cojuelo</emphasis> para sustituir unos cuantos
+nombres, a gusto del consumidor. Y lo haremos con el siguiente
+programa:</para>
+
+    <programlistingco id='prog.cambiando'>
+      <areaspec>
+	<!-- one of (AREASET AREA) -->
+	<area coords="3 7" units='linerange' id="prog.cambiando.defhash" >
+	<area coords="15" id="prog.cambiando.usahash">
+      </areaspec>
+      <programlisting>
+<constant>use</constant> <function>File::Slurp</function>;
+
+<constant>my</constant> <varname>%roles</varname> = (
+	     Madrid =&gt; '<literal>el foro</literal>',
+	     '<literal>Cleof[áa]s</literal>' =&gt; '<literal>El prota</literal>',
+	     '<literal>[Ee]l [Dd]iablo [Cc]ojuelo</literal>' =&gt; '<literal>Su Satánica Majestad</literal>' ,
+	    );
+
+<constant>my</constant> <varname>$fichero_a_procesar</varname> = <function>shift</function> 
+  || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;nombre de fichero&gt;n</literal>";
+
+<constant>my</constant> <varname>$texto</varname>=read_file(<varname>$fichero_a_procesar</varname>);
+
+<constant>for</constant> ( <function>keys</function> <varname>%roles</varname> ) {
+  <varname>$texto</varname> =~ s/<varname>$_</varname>/<varname>$roles</varname><literal>{</literal><varname>$_</varname><literal>}</literal>/ge;
+}
+
+<function>print</function> <varname>$texto</varname>;
+</programlisting>
+      <calloutlist>
+	<callout arearefs="prog.cambiando.defhash">
+	  <para>Aquí definimos los posibles cambios. Más claro no
+puede estar: lo que está a la izquierda de la flechica, se convertirá
+en lo que hay a la derecha de la flechica. Y lo definimos usando un
+hash, que usan un paréntesis tal como los vectores. Las claves están a
+la izquierda, y si son amazacotadas (sin espacios ni caracteres raros
+enmedio), se les pueden quitar las comillas (como pasa con
+<literal>Madrid</literal>. La última coma, por cierto, no es
+necesaria, pero si conveniente.</para>
+	</callout>
+	<callout arearefs="prog.cambiando.usahash">
+	  <para>Las sustituciones se hacen precisamente en esta línea,
+usando el escueto comando <function>s///</function>, que tiene una
+sintaxis un tanto curiosa, procedente del ignoto comando de Unix
+<command>sed</command>. Por lo menos usa la <literal>s</literal> de
+<emphasis>sustituir</emphasis>.
+<function>s/esto/aquello/xyz</function> vendría a ser algo así como
+<function>sustituye(esto,aquello,xyz</function>, donde el último
+argumento son una serie de opciones que modifican su
+comportamiento. El primer argumento puede y debe ser una expresión
+regular; el segundo puede ser cualquier cosa, pero si ponemos una
+expresión que incluya variables, tenemos que añadir al final la opción
+<literal>e</literal> para que la evalúe. Y la <literal>g</literal> es
+para que no se pare en la primera sustitución, sino que siga hasta que
+llegue al final del texto.</para>
+	</callout>
+      </calloutlist>
+    </programlistingco>
+
+<para>Y el resultado (parte de él), sería algo así como esto:
+<screen><computeroutput>--¿Quién es aquí <literal>Su Satánica Majestad</literal>? Que he tenido soplo que está aquí en
+este garito de los pobres, y no me ha de salir ninguno deste aposento
+hasta reconocellos a todos, porque me importa hacer esta prisión.
+
+Los pobres y las pobras se escarapelaron viendo la justicia en su
+garito, y el verdadero Diablo Cojuelo, como quien deja la capa al toro,
+dejó a Cienllamas cebado con el pobrismo, y por el caracolillo se
+volvieron a salir del garito él y don <literal>El
+prota</literal>.</computeroutput></screen> 
+que no es que sea perfecto, pero es un comienzo.</para>
+
 
     <important>
       <formalpara>
