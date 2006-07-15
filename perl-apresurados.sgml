@@ -419,7 +419,7 @@ Enter h or `h h' for help, or `man perldebug' for more help.
 
 main::(hola-y-duerme.pl:3):     print "A estas horas, el Estudiante, no creyendo su buen suceso y
 main::(hola-y-duerme.pl:4):     deshollinando con el vestido y los ojos el zaquizamí..\n"; 
-  DB<1> 
+  DB&lt;1> 
 </computeroutput></screen>
 <para>La opción <command>-d</command> del intérprete te introduce en
 el depurador, así, sin más prolegómenos. A partir de esa línea de
@@ -427,7 +427,7 @@ comandos, puedes evaluar las expresiones de Perl que quieras, y, por
 supuesto, depurar el programa, ejecutándolo paso a paso, mirando
 variables, y todo ese protocolo inherente al mester de la
 programación. Para empezar, vamos a ejecutarlo pasito a pasito.
-<screen id='deb.iniciando'><userinput>DB<1> R</userinput>
+<screen id='deb.iniciando'><userinput>DB&lt;1> R</userinput>
 <computeroutput>Warning: some settings and command-line options may be lost!
 
 Loading DB routines from perl5db.pl version 1.28
@@ -445,17 +445,17 @@ hecho es indicarle (educadamente) al depurador el programa que íbamos
 a depurar; ahora es cuando lo estamos ejecutando en serio. Bueno,
 todavía no, porque en este punto todavía no hemos ejecutado ni
 siquiera la primera línea. La salida del depurador nos indica
-<<computeroutput>main::(hola-y-duerme.pl:3):</computeroutput> la
+<computeroutput>main::(hola-y-duerme.pl:3):</computeroutput> la
 siguiente línea del programa (<constant>3</constant>) que vamos a
 ejecutar (y la 4 de camino, que para eso la orden ocupa dos líneas). 
 <screenco>
 	<areaspec>
-	  <area coords="1" id="scr.deb.n">
-	  <area coords="2" id="scr.deb.salida">
-	  <area coords="4" id="scr.deb.sig">
+	  <area coords="1" id="scr.deb.n" >
+	  <area coords="2" id="scr.deb.salida" >
+	  <area coords="4" id="scr.deb.sig" >
 	</areaspec>
 	<screen>
-<userinput>  DB<0> n</userinput>
+<userinput>  DB&lt;0> n</userinput>
 <computeroutput>A estas horas, el Estudiante, no creyendo su buen suceso y
 deshollinando con el vestido y los ojos el zaquizamí..
 main::(hola-y-duerme.pl:5):     sleep 10;
@@ -702,9 +702,9 @@ escribir un programa que toma una serie de frases, y las escribe
 divididas en sílabas.</para>
     <programlistingco id='prog.split'>
       <areaspec>
-	<area coords="1" id="area.cpan.use">
-	<area coords="3" id="area.cpan.join">
-	<area coords="4" id="area.cpan.texto">
+	<area coords="1" id="area.cpan.use" >
+	<area coords="3" id="area.cpan.join" >
+	<area coords="4" id="area.cpan.texto" >
       </areaspec>
       <programlisting>
 <constant>use</constant> <function>Lingua::ES</function>::<function>Silabas</function>;
@@ -785,9 +785,11 @@ sintáctica es
 	  leche. Uno espera encontrarse una cadenita, tan mona, con
 	  sus comillas en los extremos, y se encuentra esto. Que no es
 	  otra cosa que un
-<emphasis>docaquí</emphasis><footnote><para>Traducción del sajón
+<emphasis>docaquí</emphasis>
+<footnote><para>Traducción del sajón
 antiguo <emphasis>heredoc</emphasis>. Pero no es la única. Se admiten
-otras.</para>, como los más
+otras.</para>
+	  </footnote>, como los más
 avispados ya habrán averiguado. Sirve para lo siguiente: cuando la
 cadena es muy larga, y ocupa varias líneas, es mejor escribirla tal
 cual. Así que en vez de meterla entre incómodas comillas, se usa esta
@@ -936,11 +938,11 @@ línea. Pues para eso estamos (está Perl):
 	</areaspec>
 <programlisting>
 <constant>my</constant> <varname>$leyendo</varname> = <function>shift</function>
-  || <function>die</function> "<literal>Uso: </literal><varname>$0<varname><literal> &lt;nombre de fichero&gt;</literal>\n";
+  || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;nombre de fichero&gt;</literal>\n";
 <function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$leyendo</varname> 
-  or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> por </literal><varname>$!<varname>\n";
+  or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> por </literal><varname>$!</varname>\n";
 <constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
-  <function>print</function> "<varname>$.<varname><varname>$_<varname>";
+  <function>print</function> "<varname>$. $_</varname>";
 }
 <function>close</function> <varname>$fh</varname>;
 </programlisting>
@@ -1025,7 +1027,7 @@ referirnos al fichero abierto<footnote>
 		<para>Lo que viene siendo un
 <emphasis>filehandle</emphasis> de toda la vida.</para>
 	      </footnote>, que declaramos sobre la marcha, el modo de
-apertura, en este caso <literal>"<"</literal> para lectura (podía ser
+apertura, en este caso <literal>"&lt;"</literal> para lectura (podía ser
 <literal>">"</literal>  para escritura), y, como es natural, el nombre
 del fichero, que tenemos en la variable
 <varname>$leyendo</varname>. Pero las cosas pueden ir mal: puede
@@ -1086,6 +1088,7 @@ el camarlengo, pero lo vamos a dejar para mejor ocasión. </para>
 	</calloutlist>
 
       </programlistingco>
+</para>
 
 <para>El resultado que obtenemos, será tal que así:</para>
     <screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ ./escrito.pl ../diablocojuelo.txt | head</userinput>
@@ -1107,7 +1110,7 @@ aplicaciones de Perl, así que el programa anterior se puede
 simplificar al siguiente:
 <programlisting><emphasis>#!/usr/bin/perl</emphasis>
 <constant>while</constant> (&lt;&gt;) {
-  <function>print</function> "<varname>$.<varname> <varname>$_<varname>";
+  <function>print</function> "<varname>$.</varname> <varname>$_</varname>";
 }</programlisting>
 Programa minimalista donde los haya. Cuando Perl se encuentra los
 paréntesis angulares en un programa, hace todo lo siguiente: toma el
@@ -1120,7 +1123,7 @@ cosas desde teclado (entrada estándar) y le de a
 <constant>EOF</constant>, fin de fichero. Pero es que todavía se puede
 simplificar más, usando opciones de ejecución:
 <programlisting><emphasis>#!/usr/bin/perl -n</emphasis>
-<function>print</function> "<varname>$.<varname> <varname>$_<varname>";
+<function>print</function> "<varname>$.</varname> <varname>$_</varname>";
 </programlisting>
 que se quita de enmedio hasta el while, que queda implícito por la
 opción <literal>-n</literal> que le pasamos al intérprete. </para>
@@ -1143,17 +1146,17 @@ abrir un fichero comprobando si se puede leer o no:
 	  <area coords="9" id="prog.escrito.if.chop">
 	</areaspec>
 	<programlisting><constant>my</constant> <varname>$leyendo</varname> = <function>shift</function>
-  || <function>die</function> "Uso: <varname>$0<varname> &lt;nombre de fichero&gt;\n";
+  || <function>die</function> "Uso: <varname>$0</varname> &lt;nombre de fichero&gt;\n";
 <constant>if</constant> ( ! -r <varname>$leyendo</varname> ) {
   <function>die</function> "El fichero <varname>$leyendo</varname> no es legible\n";
 }
 
 <function>open</function> <constant>my</constant> <varname>$fh</varname>, "&lt;", <varname>$leyendo</varname> 
-  or <function>die</function> "No puedo abrir el fichero <varname>$leyendo</varname> por <varname>$!<varname>\n";
+  or <function>die</function> "No puedo abrir el fichero <varname>$leyendo</varname> por <varname>$!</varname>\n";
 <constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
   <function>chop</function>; <function>chop</function>;
-  <function>print</function> "<varname>$.<varname> " <constant>if</constant> <varname>$_<varname>;
-  <function>print</function> "<varname>$_<varname>\n";
+  <function>print</function> "<varname>$.</varname> " <constant>if</constant> <varname>$_</varname>;
+  <function>print</function> "<varname>$_</varname>\n";
 }
 
 <function>close</function> <varname>$fh</varname>;
@@ -1183,7 +1186,7 @@ variable por defecto.</para>
 	  </callout>
 	</calloutlist>
 	</programlistingco>
-
+</para>
 
 <para>En Perl siempre hay más de una forma de hacer las cosas. Se
 puede elegir la más elegante, o la más divertida. O la que uno conozca
@@ -1201,7 +1204,7 @@ no estén en blanco en un fichero.</para>
 
   <sect1>
     <title>Partiendo de una base</title>
-    <subtitle>Vectores.</subtitle>
+    <subtitle>Usando vectores.</subtitle>
 
 <para>En realidad, sólo hemos rascado la superficie del diablo
 cojuelo, unas pocas líneas del principio. Pero hay que tragárselo
@@ -1228,12 +1231,12 @@ que la componen</para>
 <emphasis>#!/usr/bin/perl</emphasis>
 <constant>use</constant> <function>File::Slurp</function>;
 
-<varname>@ARGV<varname> || <function>die</function> "<literal>Uso: </literal><varname>$0<varname><literal> &lt;fichero a partir por trancos&gt;</literal>\n";
-<constant>my</constant> <varname>$text</varname> = read_file( <varname>$ARGV<varname>[<constant>0</constant>] ) ;
+<varname>@ARGV</varname> || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;fichero a dividir trancos&gt;</literal>\n";
+<constant>my</constant> <varname>$text</varname> = read_file( <varname>$ARGV</varname>[<constant>0</constant>] ) ;
 <constant>my</constant> <varname>@trancos</varname>=<function>split</function>("<literal>TRANCO</literal>", <varname>$text</varname>);
 
 <constant>for</constant> (<varname>@trancos</varname>[<constant>1.</constant>.<varname>$#trancos</varname>]){
-  <function>print</function> <function>substr</function>(<varname>$_<varname>,<constant>0</constant>,<constant>40</constant>), "\n", "<literal>-</literal>"x40, "\n";
+  <function>print</function> <function>substr</function>(<varname>$_</varname>,<constant>0</constant>,<constant>40</constant>), "\n", "<literal>-</literal>"x40, "\n";
 }
 
 </programlisting>
@@ -1284,9 +1287,8 @@ los vectores.</para>
 variable de bucle no está declarada por que es <varname>$_</varname>;
 dentro del bucle, mediante <function>substr</function>, se extraen los
 primeros 40 caracteres y se imprimen, y luego, usando el operador
-<function>x</function> de multiplicación de cadenas (
-<literal>"ab"x3</literal> dará
-<computeroutput>"ababab"</computeroutput>), se completa este bonito y
+<function>x</function> de multiplicación de cadenas
+(<literal>"ab"x3</literal> dará <computeroutput>"ababab"</computeroutput>), se completa este bonito y
 útil programa.</para>
 
 	  <note>
@@ -1298,6 +1300,8 @@ asociatividad. </para>
 	</callout>
       </calloutlist>
     </programlistingco>
+
+<para>*Seguir por aquí* Todavía puede quedar mejor si, de una forma un tanto redundante, le añadimos nuestro propio número de orden al principio. Que es lo que hacemos en el siguiente programa.
 
     <important>
       <formalpara>
@@ -1337,18 +1341,18 @@ nombre será algo en mayúsculas después de un Don. Ahí vamos</para>
       </areaspec>
       <programlisting>
 <constant>my</constant> <varname>$fichero_a_procesar</varname> = <function>shift</function> 
-  || <function>die</function> "<literal>Uso: </literal><varname>$0<varname><literal> &lt;nombre de fichero&gt;n</literal>";
-<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$fichero_a_procesar</varname>  || <function>die</function> "<literal>No puedo abir el fichero. Error </literal><varname>$!<varname>\n";
+  || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;nombre de fichero&gt;n</literal>";
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$fichero_a_procesar</varname>  || <function>die</function> "<literal>No puedo abir el fichero. Error </literal><varname>$!</varname>\n";
 
 <constant>my</constant> <varname>%indice</varname>;
 <constant>while</constant>(&lt;<varname>$fh</varname>&gt;) {
   <constant>if</constant> ( <literal>/[Dd]on ([A-Z][a-záéíóúñ]+)/</literal> ) {
-    <varname>$indice</varname>{<varname>$1<varname>} .= "<varname>$.<varname>";
+    <varname>$indice</varname>{<varname>$1</varname>} .= "<varname>$.</varname>";
   }
 }
 
 <constant>for</constant> (<function>sort</function> {<varname>$a</varname> cmp <varname>$b</varname>} <function>keys</function> <varname>%indice</varname> ) {
-  <function>print</function> "<literal>*Don </literal><varname>$_<varname>\n\t<varname>$indice</varname><literal>{</literal><varname>$_<varname><literal>}</literal>\n";
+  <function>print</function> "<literal>*Don </literal><varname>$_</varname>\n\t<varname>$indice</varname><literal>{</literal><varname>$_</varname><literal>}</literal>\n";
 }
 </programlisting>
       <calloutlist>
@@ -1465,7 +1469,7 @@ Cleofás</literal> o <literal>don Domingo</literal>, pero no con
 <literal>Sir James</literal>, ni con <literal>don dinero</literal> (la
 segunda palabra no está en mayúsculas), ni siquiera con <literal>Don
 Dinero</literal> (porque tiene dos espacios). Coincidirá precisamente
-con lo que queremos que coincida.
+con lo que queremos que coincida.</para>
     <note>
 	      <para>Una vez más, la documentación incluida en perl es nuestra amiga:
 <userinput>perldoc perlrequick</userinput> es una referencia
@@ -1474,7 +1478,6 @@ extenso, y <userinput>perldoc perlre</userinput> un manual de
 referencia.</para> 
 	    </note>
 	</callout>
-
 
       </calloutlist>
     </programlistingco>

@@ -1,1 +1,125 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Viéndole las tripas al producto</title><meta name="generator" content="DocBook XSL Stylesheets V1.68.1"><link rel="start" href="index.html" title="Perl para los apresurados"><link rel="up" href="index.html" title="Perl para los apresurados"><link rel="prev" href="ar01s03.html" title=" Comenzando una nueva carrera"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Viéndole las tripas al producto</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s03.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2514274"></a>Viéndole las tripas al producto</h2></div><div><h3 class="subtitle">Ejecutando el programa paso a paso</h3></div></div></div><p></p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s03.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top"> Comenzando una nueva carrera </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Viéndole las tripas al producto</title><meta name="generator" content="DocBook XSL Stylesheets V1.68.1" /><link rel="start" href="index.html" title="Perl para apresurados" /><link rel="up" href="index.html" title="Perl para apresurados" /><link rel="prev" href="ar01s03.html" title=" Comenzando una nueva carrera" /><link rel="next" href="ar01s05.html" title="Usando la sabiduría colectiva" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Viéndole las tripas al producto</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s03.html">Anterior</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s05.html">Siguiente</a></td></tr></table><hr /></div><div class="sect1" lang="es" xml:lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2470582"></a>Viéndole las tripas al producto</h2></div><div><h3 class="subtitle">Ejecutando el programa paso a paso</h3></div></div></div><p>Mucho editar, mucho editar, pero de ejecutar programas nada de
+nada. Lo que hemos editado no deja de ser un fichero de texto, así que
+para ejecutarlo tendremos que llevar a cabo algún encantamiento para
+meterlo en el corredor de la ejecución.</p><p>Tampoco hace falta. Lo más universal es irse a un intérprete de
+comandos, colocarse en el directorio donde hayamos salvado el fichero,
+y escribir <strong class="userinput"><code>perl hola.pl</code></strong>. Pero ya que estás
+puesta, puedes hacer algo más: escribir <strong class="userinput"><code>chmod +x
+hola.pl</code></strong>, lo que convertirá al fichero en ejecutable, es
+decir, en algo que podemos correr simplemente tecleando su nombre, de
+esta forma:
+</p><pre class="screen"><strong class="userinput"><code>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$./hola.pl</code></strong>
+<code class="computeroutput">Daban en Madrid, por los fines de julio, las once de la noche en punto, hora menguada...
+</code>
+</pre><p>
+Pero el encantamiento este actúa también a otros niveles, pudiendo
+ejecutar el programa directamente desde esos inventos del averno
+llamados <span class="emphasis"><em>entornos de ventanas</em></span>, como se muestra en
+la <a href="ar01s04.html#fig.ejecutando" title="Figura 5. Ejecutando un programa en Perl desde Gnome">figura siguiente</a>. 
+
+</p><div class="figure"><a id="fig.ejecutando"></a><p class="title"><b>Figura 5. Ejecutando un programa en Perl desde Gnome</b></p><div class="screenshot"><div><img src="img/ejecutando.png" width="270" alt="Ejecutando un programa en Perl desde Gnome" /></div></div></div><p>
+
+Como el Nautilus, el manejador de ficheros de Gnome es muy listo, se
+dice a si mismo (pero bajito): <span><strong class="command">Pardiez, este fichero es
+ejecutable. ¿Qué puedo hacer con él? ¿Lo ejecuto? ¿Lo abro sin
+ejecutarlo? La duda me carcome. Se lo preguntaré al honorable
+usuario</strong></span>. El menú contextual (con el botón derecho del ratón)
+nos ofrecerá opciones similares. El problema es que si lo ejecutamos
+será visto y no visto.
+</p><p>Vamos a dejar entonces que el programa se quede clavado hasta
+nueva orden, con una pequeña modificación, que aparece en el siguiente
+listado</p><a id="hola-y-duerme"></a><pre class="programlisting">
+<span class="emphasis"><em>#!/usr/bin/perl</em></span>
+<code class="function">print</code> "A estas horas, el Estudiante, no creyendo su buen suceso y
+deshollinando con el vestido y los ojos el zaquizamí...\n"; 
+<code class="function">sleep</code> <code class="constant">10</code>;  <span class="emphasis"><em># Quieto parao ahí</em></span>
+</pre><p>Que, con un poco de suerte, nos permitirá capturar una pantalla
+como la siguiente:
+</p><div class="figure"><a id="fig.ejecutando.terminal"></a><p class="title"><b>Figura 6. Terminal con el resultado de ejecutar el programa
+<code class="filename">hola-y-duerme.pl</code></b></p><div class="screenshot"><div><img src="img/ejecutando-terminal.png" width="324" alt="Terminal con el resultado de ejecutar el programa hola-y-duerme.pl" /></div></div></div><p>
+En otros sistemas operativos, cambiará el icono y la apariencia del
+terminal donde está el resultado, pero por lo demás, el resultado será
+el mismo. La única diferencia con el <a href="ar01s03.html#prog.hola">primer
+programa</a> es la última línea, que le indica al programa que se
+quede quieto parao (dormido, de hecho) durante 10 segundos. Y que diga
+<span class="emphasis"><em>cheeeeeese</em></span> (solo en ordenadores con interfaz
+gestual y/o emocional y/o audiomotriz/parlanchín). </p><p>Por cierto que, de camino, hemos introducido nuestro primer
+comentario, que en Perl van precedidos por una
+<span class="emphasis"><em>almohadilla</em></span> (<code class="literal">#</code>) y llegan hasta
+el final de la línea. Un buen programador debe ser un buen
+comentarista. Lo contrario no siempre es cierto.</p><p>Pero incluso así, puede que sea demasiado rápido para apreciar
+la sutileza de cada una de las órdenes, y haya que ejecutarlo paso a
+paso. Más adelante tendrás que <span class="emphasis"><em>depurar</em></span> tus
+programas, porque cometerás errores, si, errores y tendrás que
+corregirlos sobre la marcha. De la forma más inteligente, además. Pero
+no hay que preocuparse, porque Perl tiene un depurador
+integrado. Ejecuta el programa de esta forma:</p><a id="ej.depurador.1"></a><pre class="screen"><strong class="userinput"><code>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$
+perl -d hola-y-duerme.pl</code></strong>
+<code class="computeroutput">Loading DB routines from perl5db.pl version 1.28
+Editor support available.
+
+Enter h or `h h' for help, or `man perldebug' for more help.
+
+main::(hola-y-duerme.pl:3):     print "A estas horas, el Estudiante, no creyendo su buen suceso y
+main::(hola-y-duerme.pl:4):     deshollinando con el vestido y los ojos el zaquizamí..\n"; 
+  DB&lt;1&gt; 
+</code></pre><p>La opción <span><strong class="command">-d</strong></span> del intérprete te introduce en
+el depurador, así, sin más prolegómenos. A partir de esa línea de
+comandos, puedes evaluar las expresiones de Perl que quieras, y, por
+supuesto, depurar el programa, ejecutándolo paso a paso, mirando
+variables, y todo ese protocolo inherente al mester de la
+programación. Para empezar, vamos a ejecutarlo pasito a pasito.
+<a id="deb.iniciando"></a></p><pre class="screen"><strong class="userinput"><code>DB&lt;1&gt; R</code></strong>
+<code class="computeroutput">Warning: some settings and command-line options may be lost!
+
+Loading DB routines from perl5db.pl version 1.28
+Editor support available.
+
+Enter h or `h h' for help, or `man perldebug' for more help.
+
+main::(hola-y-duerme.pl:3):     print "A estas horas, el Estudiante, no creyendo su buen suceso y
+main::(hola-y-duerme.pl:4):     deshollinando con el vestido y los ojos el zaquizamí..\n"; 
+</code></pre><p>
+, lo que empieza a hacerse ya un poco repetitivo. La orden
+<span><strong class="command">R</strong></span> comienza a ejecutar el programa. En realidad,
+<a href="ar01s04.html#ej.depurador.1">antes </a> lo único que habíamos
+hecho es indicarle (educadamente) al depurador el programa que íbamos
+a depurar; ahora es cuando lo estamos ejecutando en serio. Bueno,
+todavía no, porque en este punto todavía no hemos ejecutado ni
+siquiera la primera línea. La salida del depurador nos indica
+<code class="computeroutput">main::(hola-y-duerme.pl:3):</code> la
+siguiente línea del programa (<code class="constant">3</code>) que vamos a
+ejecutar (y la 4 de camino, que para eso la orden ocupa dos líneas). 
+</p><div class="screenco"><pre class="screen">
+<strong class="userinput"><code>  DB&lt;0&gt; n</code></strong>
+<code class="computeroutput">A estas horas, el Estudiante, no creyendo su buen suceso y
+deshollinando con el vestido y los ojos el zaquizamí..
+main::(hola-y-duerme.pl:5):     sleep 10;
+</code>
+</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><img src="images/callouts/1.png" alt="1" border="0" /></td><td valign="top" align="left"><p><span><strong class="command">n</strong></span>, de <span class="emphasis"><em>next</em></span>,
+siguiente, ejecutal la línea siguiente, es decir, justamente la que
+aparece al final de <a href="ar01s04.html#deb.iniciando">el ejemplo anterior</a></p></td></tr><tr><td width="5%" valign="top" align="left"><img src="images/callouts/2.png" alt="2" border="0" /></td><td valign="top" align="left"><p>Ésta es la salida de esa línea en particular; lo que
+hace es escribir lo que se encuentra entre las comillas.</p></td></tr><tr><td width="5%" valign="top" align="left"><img src="images/callouts/3.png" alt="3" border="0" /></td><td valign="top" align="left"><p>Y muestra la
+línea siguiente a ejecutar.</p></td></tr></table></div></div><p>
+</p><p>Como persona precavida vale por dos diablillos, no es mala idea
+tener siempre el depurador abierto para ir probando cosas. Te ahorrará
+más de una vuelta al editor a reescribir lo que ya está
+escrito. Además, es muy fácil. Si has elegido <span class="productname">Un Buen
+Editor</span>™ (o sea, el XEmacs), y te ha reconocido el
+programa como un fichero Perl, tendrás una opción del menú llamada
+<span><strong class="command">perl</strong></span>; desplegando ese menú, te aparecerá la opción
+<span><strong class="command">debugger</strong></span>, eligiéndola te dará un resultado similar
+al que se muestra en la siguiente captura de pantalla:
+</p><div class="figure"><a id="fig.depurando.xemacs"></a><p class="title"><b>Figura 7. Depurando un programa en el mismo editor XEmacs. La
+flecha está situada sobre la siguiente línea a ejecutar.</b></p><div class="screenshot"><div><img src="img/debugging.png" width="324" alt="Depurando un programa en el mismo editor XEmacs. La flecha está situada sobre la siguiente línea a ejecutar." /></div></div></div><p>
+Desde este depurador se trabaja de la misma forma que en la versión de
+la línea de comandos, pero se pueden colocar puntos de ruptura usando
+el ratón, por ejemplo, y puedes ver las líneas que se están ejecutando
+en su contexto. </p><p>Con esto, ya estamos listos para abordar empresas más elevadas,
+y que nos llevarán mucho más lejos.</p><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Importante</h3><p><b>Ejercicios. </b>Familiarizarse con el depurador, creando un programa con
+las dos o tres cosas que se conocen, y viendo las diferentes órdenes;
+por ejemplo, cómo ejecutar un programa sin parar, o hasta una línea
+determinada, y cómo hacer que la ejecución se pare en una línea
+determinada. Recuerda, <span><strong class="command">h</strong></span> es tu amiga. </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s03.html">Anterior</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s05.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top"> Comenzando una nueva carrera </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> Usando la sabiduría colectiva</td></tr></table></div></body></html>

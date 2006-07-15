@@ -1,2 +1,63 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title> Comenzando una nueva carrera</title><meta name="generator" content="DocBook XSL Stylesheets V1.68.1"><link rel="start" href="index.html" title="Perl para los apresurados"><link rel="up" href="index.html" title="Perl para los apresurados"><link rel="prev" href="ar01s02.html" title="Todo listo para despegar"><link rel="next" href="ar01s04.html" title="Viéndole las tripas al producto"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"> Comenzando una nueva carrera</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s02.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s04.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2514259"></a> Comenzando una nueva carrera</h2></div><div><h3 class="subtitle">Primer programa en Perl: el clásico <span class="emphasis"><em>Hola
-Mundo</em></span></h3></div></div></div><p></p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s02.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Todo listo para despegar </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Viéndole las tripas al producto</td></tr></table></div></body></html>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title> Comenzando una nueva carrera</title><meta name="generator" content="DocBook XSL Stylesheets V1.68.1" /><link rel="start" href="index.html" title="Perl para apresurados" /><link rel="up" href="index.html" title="Perl para apresurados" /><link rel="prev" href="ar01s02.html" title="Todo listo para despegar" /><link rel="next" href="ar01s04.html" title="Viéndole las tripas al producto" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"> Comenzando una nueva carrera</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s02.html">Anterior</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s04.html">Siguiente</a></td></tr></table><hr /></div><div class="sect1" lang="es" xml:lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect.hola"></a> Comenzando una nueva carrera</h2></div><div><h3 class="subtitle">Primer programa en Perl: el clásico <span class="emphasis"><em>Hola
+Mundo</em></span></h3></div></div></div><p>Si has llegado hasta aquí, supongo que se te llevarán todos los
+diablos, porque con la hora que es, las camas están sin hacer y lo que
+s dice picar código, todavía no has picado nada. Y eso está bien: hay
+que convertir esa rabia en energía creativa, y aprovechando que uno de
+los diablos que se te llevan es cojuelo, escribir el siguiente
+fragmento de literatura:</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Nota</h3><p>Los programas ejemplos de este tutorial deberían estar en
+<a href="perl-apresurados-ejemplos.tgz" target="_top">el fichero <code class="filename">perl-apresurados-ejemplos.tgz</code></a></p></div><div class="programlistingco"><pre class="programlisting">
+<span class="emphasis"><em>#!/usr/bin/perl</em></span>
+<code class="function">print</code> "Daban en Madrid, por los fines de julio, las once de la noche en punto..."; 
+<code class="function">print</code> "\n"; 
+
+</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><img src="images/callouts/1.png" alt="1" border="0" /></td><td valign="top" align="left"><p>Tratándose de diablos,
+	lo mejor es usar los conjuros lo antes posible.  En esta
+	línea, clásica de los lenguajes interpretados y denominada
+	shebang se escribe el camino completo donde se halla el
+	intérprete del lenguaje en cuestión. Si está en otro sitio,
+	pues habrá que poner otro camino. Por ejemplo, podría ser
+	<span><strong class="command">#!/usr/local/bin/perl</strong></span> o bien<span><strong class="command">
+	#!/usr/bin/perl6.0.por.fin</strong></span>. O
+	<span><strong class="command">#!perl</strong></span> y que se busque la vida. Si se
+	trabaja
+(es un decir) en Windows, esa línea no es necesaria, pero es convenientepara que el programa sea compatible con otros sistemas operativos. Cuando un Unix/GNU/Linux
+decente y trabajador encuentra esa línea, carga ese programa y le pasa el resto del fichero para que lo interprete.</p></td></tr><tr><td width="5%" valign="top" align="left"><img src="images/callouts/2.png" alt="2" border="0" /></td><td valign="top" align="left"><p>Aquí se imprime, con el <span class="emphasis"><em>nihil
+obstat</em></span> obtenido previamente. Obsérvense las comillas y el
+punto y coma. Las órdenes en Perl acaban con un punto y coma, para que quede bien claro dónde acaban y
+se puedan meter varias sentencias en una sola línea, con el objetivo
+de crear programas innecesariamente ofuscados. Lo que no se puede
+hacer en <span class="emphasis"><em>esos otros lenguajes</em></span>. El
+<code class="function">print</code> es herencia de aquellos primeros tiempos de
+los ordenadores, cuando el único periférico de salida era un convento
+de monjes trapenses dedicados a la sana tarea de copiar textos (y que
+se quedaron sin trabajo cuando el señor Hewlett se unió al señor Packard y crearon la impresora). En aquella época,
+la salida de un programa venía encuadernada en piel de cabrito y con todas las primeras letras de
+párrafo bellamente miniadas. Ah, tiempos aquellos, de los que sólo nos queda el nombre de una
+orden.
+ </p></td></tr><tr><td width="5%" valign="top" align="left"><img src="images/callouts/3.png" alt="3" border="0" /></td><td valign="top" align="left"><p>Y aquí pasamos a la línea siguiente. Borrón y cuenta
+nueva. Se acabó lo que se daba. Si ya conoces
+algún lenguaje de programación, que se supone que lo conoces, pillín, porque te lo he preguntado en
+la <a href="index.html#sect.id" title="¿Quién eres tú?">primera sección</a>, no hace falta que te explique que
+<code class="constant">\n</code> es un <span class="emphasis"><em>retorno de carro</em></span>, ¿verdad?<sup>[<a id="id2470464" href="#ftn.id2470464">1</a>]</sup>
+</p></td></tr></table></div></div><p>Desde un editor que cambie el color (y los tipos de letra) de
+acuerdo con la sintaxis del programa que se está editando tal como el
+<code class="filename">emacs</code>, el resultado debería ser algo similar al
+que aparece en la <a href="ar01s03.html#fig.hola.emacs" title="Figura 4. Editando hola.pl en emacs">captura
+siguiente</a>
+</p><div class="figure"><a id="fig.hola.emacs"></a><p class="title"><b>Figura 4. Editando hola.pl en emacs</b></p><div class="screenshot"><div><img src="img/hola_pl_emacs.png" width="270" alt="Editando hola.pl en emacs" /></div></div></div><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Aviso</h3><p>El usar este tipo de texto, que incluye caracteres con
+acento, es bastante intencionado. En algunos editores puede que
+aparezcan caracteres extraños; habrá que cambiar la
+<span class="emphasis"><em>codificación</em></span> para que entienda el conjunto de
+caracteres <code class="constant">iso-8858-1</code> o
+<code class="constant">latin1</code>. </p></div><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Importante</h3><p><b>Ejercicios. </b>Elegir un editor no es un tema baladí, porque te
+acompañará en tu vida como desarrollador. Prueba diferentes editores
+disponibles en tu sistema mirando sobre todo a las posibilidades que
+tienen de adaptación a diferentes cometidos (comprobar la sintaxis y
+depurar, por ejemplo). Nadie te ata a un editor de por vida, pero
+cuanto antes lo elijas, antes empezarás a ser productivo. Así que ya
+estás empezando a usar el (x)emacs. </p></div><div class="footnotes"><br /><hr width="100" align="left" /><div class="footnote"><p><sup>[<a id="ftn.id2470464" href="#id2470464">1</a>] </sup>Lo que es recuerdo también de aquellos mismos tiempos en que <code class="constant">STDOUT</code> era un convento, en el que
+para seguir en la página siguiente tenían que esperar que retornara el carro que les traía las pieles de
+becerro curtidas en las que escribían lo que el programador les ordenaba.
+</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s02.html">Anterior</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s04.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">Todo listo para despegar </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> Viéndole las tripas al producto</td></tr></table></div></body></html>
