@@ -16,7 +16,7 @@ my $fichero_a_procesar = shift
 my $texto=read_file($fichero_a_procesar);
 
 for ( keys %roles ) {
-  $texto =~ s/$_/$roles{$_}/ge;
+  $texto =~ s/$_/$roles{$_}/g;
 }
 
 print $texto;

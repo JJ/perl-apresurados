@@ -10,7 +10,7 @@ open my $fh, "<", $fichero_a_procesar
 
 my %indice;
 while(<$fh>) {
-  if ( /[Dd]on ([A-Z][a-zαινσϊρ]+)/ ) {
+  if ( /[Dd]on ([A-ZΑΙΝΣΪ][a-zαινσϊρ]+)/ ) {
     $indice{$1} .= "$. ";
   }
 }

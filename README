@@ -1,0 +1,6 @@
+Para generar el tutorial en diferentes formatos, deberás tener
+instaladas las diferentes utilidades de conversión, incluyendo
+db2html, db2rtf y similares. En Ubuntu, por ejemplo, están en el
+paquete docbook-utils. Aparte, necesitarás un kilo de otras
+aplicaciones (LaTeX, Make...): ya te irás enterando según te vaya
+dando error.
