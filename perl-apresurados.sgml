@@ -17,7 +17,9 @@
 Extremadura</revremark>  
      </revision>
       <revision><revnumber>1.1</revnumber>
-	<revremark>Versión campus party</revremark>
+	<revremark>Versión campus party <emphasis>probada en
+combate</emphasis>. Simplificados algunos ejemplos, corregida
+ortografía y gramática.</revremark>
       </revision>
     
   </revhistory>
@@ -37,7 +39,8 @@ DocBook.</ulink> Tiene que haber gente pa tó.</para>
 	  </listitem>
 	  <listitem>
 	    <para><ulink url='perl-apresurados.pdf'>Versión de
-<emphasis>Perl para apresurados</emphasis> en PDF</ulink></para>
+<emphasis>Perl para apresurados</emphasis> en
+PDF</ulink>. Posiblemente, la que se vea con más claridad. </para>
 	  </listitem>
  <listitem>
 	    <para><ulink url='index.html'>Versión de
