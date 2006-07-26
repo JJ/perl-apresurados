@@ -6,7 +6,7 @@ use warnings;
 my $fichero_a_procesar = shift 
   || die "Uso: $0 <nombre de fichero>n";
 open my $fh, "<", $fichero_a_procesar
-  || die "No puedo abir el fichero. Error $!\n";
+  || die "No puedo abrir el fichero. Error $!\n";
 
 my %indice;
 while(<$fh>) {
