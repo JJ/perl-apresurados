@@ -47,5 +47,5 @@ $str =~ s!(<(\w+)>\s+</\2>)!!gs; #sustituir etiquetas vacías
 $f =~ s/\./_/g;
 my $outFileN .= "$f.sgml";
 open $fh, ">", $outFileN;
-print $fh $str;
+print $fh "<!-- Fichero original: $f -->\n", $str;
 close $fh || die "Qué passa aquí!\n";

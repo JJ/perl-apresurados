@@ -17,6 +17,7 @@
 Extremadura</revremark>  
      </revision>
       <revision><revnumber>1.1</revnumber>
+	<date>26 de Julio de 2006</date>
 	<revremark>Versión campus party <emphasis>probada en
 combate</emphasis>. Simplificados algunos ejemplos, corregida
 ortografía y gramática.</revremark>
@@ -53,16 +54,16 @@ páginas</ulink></para>
 url="perl-apresurados-1.0-ejemplos.tgz">los ejemplos</ulink> usados en
 este tutorial.</para>
     </sidebar>
-<para>Eso mismo te estarás preguntando, que quién diablos eres, que a
-qué dedicas el tiempo libre, todo eso. Así que te vamos a echar una
+<para>Eso mismo te estarás preguntando, que quién diablos eres y que a
+qué dedicas el tiempo libre. Así que te vamos a echar una
 mano. Supongo que ya sabes programar, que el concepto de
 <emphasis>variable</emphasis> no va para ti asociado a la nubosidad ni
 el de <emphasis>bucle</emphasis> a la cabeza de Nellie Olleson. Puede
 que conozcas el C, sólo para precavidos, o hables con lengua de
-serpiente (<ulink url='http://www.python.org'>pitón</ulink>), o incluso que el símbolo mayor y menor van para tí
+serpiente (<ulink url='http://www.python.org'>pitón</ulink>), o incluso que el símbolo mayor y menor vayan para tí
 asociados de forma indisoluble a un <ulink url='http://www.php.org'>acrónimo capicúa</ulink>.</para>
 
-<para>Vamos, que puede extrañarte las formas ignotas en las que un nuevo
+<para>Vamos, que pueden extrañarte las formas ignotas en las que un nuevo
 lenguaje de programación repite cachos de código o mete valores en
 variables o representa listas de datos, pero los conceptos en sí no
 son nada nuevo para tí. A tí, pues, va dirigido este
@@ -87,7 +88,7 @@ compleja en algo que también es complejo, pero que puedes leer con tu
 lector de cosas complejas favorito. Para hacer lo que siempre quisiste
 hacer: escribir <ulink url='http://www.perlmonks.org/index.pl?node=Perl%20Poetry'>poesía</ulink> en tu lenguaje de
 programación favorito. En fin, donde quiera que haga
-falta convertir cosas en otras cosas, ahí hace falta saber
+falta convertir cosas en otras cosas o convertir programadores en poetas, ahí hace falta saber
 Perl. </para>
 
 <tip><para>Y con ello damos entrada a la primera
@@ -116,7 +117,7 @@ url='http://es.wikipedia.org/wiki/Dia_de_la_Toalla'>toalla</ulink>.</para>
       <para>Si ya has usado algún lenguaje de scripting, lo más
 probable es que te aburras como un bivalvo en esta sección. Así que
 ahórrate un bostezo y pasa directamente a la <link linkend="sect.hola">siguiente</link>. O si
-no <ulink url='http://www.cpan.org/src/latest.tar.gz'>descárgate los fuentes</ulink> y echas un ratillo
+no, <ulink url='http://www.cpan.org/src/latest.tar.gz'>descárgate los fuentes</ulink> y echas un ratillo
 compilándolos en silencio, para no desmoralizarme a la parroquia.
 </para>
     </sidebar>
@@ -178,8 +179,16 @@ debianita (en el segundo). Habrá gente que incluso lo haga sin necesidad de baja
 ratón. Pero los apresurados no usan el ratón salvo que sea
 estrictamente necesario. Que no es el caso. En otros sistemas
 operativos, lo mejor es ir a <ulink url='http://www.perl.com'>Perl.com
-(si es que no has ido todavía)</ulink> y te bajes la versión
+(si es que no has ido todavía)</ulink> y bajarse la versión
 compilada. </para>
+
+    <note>
+      <para>Aunque no es estrictamente necesario para programar Perl
+(y, por tanto, puedes evitarlo si tienes problemas de espacio),
+conviene bajarse también el paquete <filename>perldoc</filename>, que
+no sólo contiene documentación, sino también la orden
+<command>perldoc</command> para visualizarla.</para>
+    </note>
 
 <para>También puedes compilarlo tú. Pero no creo que lo hagas, porque
 eres un apresurado, y la compilación no está hecha para los
@@ -201,11 +210,11 @@ lado. Los que estén con <productname>kate</productname>,
 <productname>kwrite</productname>, que elijan armas y padrinos y que
 pidan hora.</para></tip>
 
-<para>Vuelvo contigo entre el fragor de la batalla hablarte de otras
+<para>Vuelvo contigo entre el fragor de la batalla para hablarte de otras
 opciones. No es que haya muchas, pero hay alguna. Por ejemplo, puedes
 usar el conocido entorno <ulink url='http://eclipse.org'>Eclipse</ulink> con el plugin
 <ulink url='http://e-p-i-c.sourceforge.net'>EPIC</ulink> para
-desarrollar proyectos, como se muestra en la figura siguiente.
+desarrollar proyectos en Perl, como se muestra en la figura siguiente.
 
 <figure>
 	<title>Iniciando un proyecto en Perl con EPIC/Eclipse</title>
@@ -216,7 +225,8 @@ desarrollar proyectos, como se muestra en la figura siguiente.
  </para>
 
 <para>Otros entornos de desarrollo, como PerlIDE o Komodo, o bien no
-siempre funcionan o bien son de pago. Si consigues que te lo compren,
+siempre funcionan o bien son de pago. Si consigues que te lo compre tu
+jefe,
 suertudo de ti. Si no, apoya proyectos de software libre. Suficientes
 personas han estado desarrollando sobre esos entornos durante el
 suficiente tiempo como para que presenten la sana apariencia que se
@@ -239,8 +249,9 @@ hacértelo lo más complicado posible.</para>
 	<title>Ejercicios</title>
 	<para>¿Tienes un intérprete de Perl instalado en tu sistema?
 ¿Tienes un editor (chulo, si es posible) para editar programas en
-Perl? Si la respuesta a alguno de ellos es <emphasis>no</emphasis>, ¿a
-qué esperas para tenerlos? Venga, te espero.</para>
+Perl? ¿El editor es <emphasis>sensible al contexto</emphasis> y tiene
+un modo específico para Perl? Si la respuesta a alguno de ellos es <emphasis>no</emphasis>, ¿a
+qué esperas para tenerlo? Venga, te espero.</para>
       </formalpara>
     </important>
 
@@ -257,7 +268,7 @@ los diablos que se te llevan es cojuelo, escribir el siguiente
 fragmento de literatura:</para>
 
     <note>
-      <para>Los programas ejemplos de este tutorial deberían estar en
+      <para>Los programas ejemplo de este tutorial deberían estar en
 <ulink url="perl-apresurados-ejemplos.tgz">el fichero <filename>perl-apresurados-ejemplos.tgz</filename></ulink></para>
     </note>
     
@@ -284,8 +295,17 @@ fragmento de literatura:</para>
 	#!/usr/bin/perl6.0.por.fin</command>. O
 	<command>#!perl</command> y que se busque la vida. Si se
 	trabaja
-(es un decir) en Windows, esa línea no es necesaria, pero es convenientepara que el programa sea compatible con otros sistemas operativos. Cuando un Unix/GNU/Linux
-decente y trabajador encuentra esa línea, carga ese programa y le pasa el resto del fichero para que lo interprete.</para>
+(es un decir) en Windows, esa línea no es necesaria, pero es
+conveniente para que el programa sea compatible con otros sistemas
+operativos. Cuando un Unix/GNU/Linux 
+decente y trabajador encuentra esa línea, carga ese programa y le pasa
+el resto del fichero para que lo interprete.</para>
+
+<para>Si piensas ejecutar el programa en diferentes entornos, también
+puedes usar <command>#!/usr/bin/env perl</command>, que ejecutará el
+primer intérprete de Perl que encuentre en el <acronym
+role="Path">camino</acronym>. También puedes usarlo si sabes que Perl
+está por ahí, el pillín, pero no quieres preocuparte de dónde.</para>
 	</callout>
 
 	<callout arearefs="hola.print">
@@ -330,7 +350,7 @@ becerro curtidas en las que escribían lo que el programador les ordenaba.
 
 <para>Desde un editor que cambie el color (y los tipos de letra) de
 acuerdo con la sintaxis del programa que se está editando tal como el
-<filename>emacs</filename>, el resultado debería ser algo similar al
+<filename>emacs</filename>, el programa sería algo similar al
 que aparece en la <link linkend='fig.hola.emacs'>captura
 siguiente</link>
 </para>
@@ -376,7 +396,8 @@ para ejecutarlo tendremos que llevar a cabo algún encantamiento para
 meterlo en el corredor de la ejecución.</para>
 
 <para>Tampoco hace falta. Lo más universal es irse a un intérprete de
-comandos, colocarse en el directorio donde hayamos salvado el fichero,
+comandos, colocarse en el directorio donde hayamos salvado (de la
+eterna perdición) el fichero,
 y escribir <userinput>perl hola.pl</userinput>. Pero ya que estás
 puesta (o puesto), puedes hacer algo más: escribir <userinput>chmod +x
 hola.pl</userinput>, lo que convertirá al fichero en ejecutable, es
@@ -404,7 +425,8 @@ ejecutable. ¿Qué puedo hacer con él? ¿Lo ejecuto? ¿Lo abro sin
 ejecutarlo? La duda me carcome. Se lo preguntaré al honorable
 usuario</command>. El menú contextual (con el botón derecho del ratón)
 nos ofrecerá opciones similares. El problema es que si lo ejecutamos
-será visto y no visto.
+será visto y no visto: abrirá una ventana, escribirá el texto y saldrá
+como una exhalación.
 </para>
 
 <para>Vamos a dejar entonces que el programa se quede clavado hasta
@@ -425,9 +447,9 @@ como la siguiente:
 	  <graphic fileref="img/ejecutando-terminal.png" scale="60" >
 	</screenshot>
     </figure>
-En otros sistemas operativos, cambiará el icono y la apariencia del
+En otros sistemas operativos (o entornos), cambiará el icono y la apariencia del
 terminal donde está el resultado, pero por lo demás, el resultado será
-el mismo. La única diferencia con el <link linkend='prog.hola'>primer
+el mismo (y el sonriente camello, también). La única diferencia con el <link linkend='prog.hola'>primer
 programa</link> es la última línea, que le indica al programa que se
 quede quieto parao (dormido, de hecho) durante 10 segundos. Y que diga
 <emphasis>cheeeeeese</emphasis> (solo en ordenadores con interfaz
@@ -478,7 +500,8 @@ main::(hola-y-duerme.pl:4):     deshollinando con el vestido y los ojos el zaqui
 <command>R</command> comienza a ejecutar el programa. En realidad,
 <link linkend='ej.depurador.1'>antes </link> lo único que habíamos
 hecho es indicarle (educadamente) al depurador el programa que íbamos
-a depurar; ahora es cuando lo estamos ejecutando en serio. Bueno,
+a depurar, que se ha cargado, interpretado y mirado a ver si hay
+errores de sintaxis; ahora es cuando lo estamos ejecutando en serio. Bueno,
 todavía no, porque en este punto todavía no hemos ejecutado ni
 siquiera la primera línea. La salida del depurador nos indica
 <computeroutput>main::(hola-y-duerme.pl:3):</computeroutput> la
@@ -516,7 +539,10 @@ línea siguiente a ejecutar.</para>
 </para>
 
 <para>Como persona precavida vale por dos diablillos, no es mala idea
-tener siempre el depurador abierto para ir probando cosas. Te ahorrará
+tener siempre el depurador abierto para ir probando cosas; puedes
+usar, por ejemplo, la línea <command>perl -de0</command>, que te
+deposita directamente en el depurador sin ejecutar ningún programa. Te
+ahorrará
 más de una vuelta al editor a reescribir lo que ya está
 escrito. Además, es muy fácil. Si has elegido <productname>Un Buen
 Editor</productname> (o sea, el XEmacs) y te ha reconocido el
@@ -535,9 +561,16 @@ Desde este depurador se trabaja de la misma forma que en la versión de
 la línea de comandos, pero se pueden colocar puntos de ruptura usando
 el ratón, por ejemplo y puedes ver las líneas que se están ejecutando
 en su contexto. </para>
-
-<para>Con esto, ya estamos listos para abordar empresas más elevadas,
-y que nos llevarán mucho más lejos.</para>
+<figure id='fig.depurando.xemacs.menu'>
+      <title>Menú específico del modo <filename>CPerl</filename> para
+XEmacs, mostrando las diferentes opciones, incluyendo la de depuración
+y otras cuantas que posiblemente no uses nunca.</title>
+	<screenshot>
+	  <graphic fileref="img/perl-menu.png" scale="60" >
+	</screenshot>
+    </figure>
+<para>Con esto, ya estamos listos para abordar empresas más elevadas
+que nos llevarán mucho más lejos.</para>
 <important>
       
       <formalpara>
@@ -545,8 +578,8 @@ y que nos llevarán mucho más lejos.</para>
 	<para>Familiarizarse con el depurador, creando un programa con
 las dos o tres cosas que se conocen y viendo las diferentes órdenes;
 por ejemplo, cómo ejecutar un programa sin parar, o hasta una línea
-determinada y cómo hacer que la ejecución se pare en una línea
-determinada. Recuerda, <command>h</command> es tu amiga. </para>
+determinada y cómo hacer que la ejecución se pare en una
+línea. Recuerda, <command>h</command> es tu amiga. </para> 
       </formalpara>
     </important>
 </sect1>
@@ -573,7 +606,7 @@ tú). Si hay una sola cosa que haga al Perl superior a otros lenguajes
 de programación, son esas cosas que ha hecho la gente, empaquetado y
 colocado en un sitio común, llamado <ulink
 url='http://search.cpan.org'>CPAN</ulink>. CPAN significa, como
-probablemente ya habías adivinado, <emphasis>comprehensive Perl
+probablemente ya habías adivinado, <emphasis>Comprehensive Perl
 Archive Network</emphasis> y es un sitio donde hay cienes, qué digo
 cienes, millardos de módulos que hacen todas esas cosas que se te
 hayan podido ocurrir y otras cuantas que, ni harto de vino, se te
@@ -590,7 +623,7 @@ de que la falta de calor humano lo convierta en un <ulink
 url='http://es.wikipedia.org/wiki/Bofh'>operador bastardo del
 infierno</ulink>. Para instalar módulos de CPAN para que sean
 accesibles para todo el mundo hace falta tener privilegios de
-operador; sin embargo, puedes instalarlos sin problemas en tu propio
+administrador; sin embargo, puedes instalarlos sin problemas en tu propio
 directorio (por ejemplo, en
 <filename>/home/miusuario/lib/perl</filename>).</para>
     </note>
@@ -599,7 +632,23 @@ directorio (por ejemplo, en
 textos en diferentes idiomas. Por ejemplo, un módulo para dividir en
 sílabas texto en castellano llamado <ulink
 url='http://search.cpan.org/~marcos/Lingua-ES-Silabas-0.01/'>Lingua::ES::Silabas</ulink>.
-Un módulo es simplemente una biblioteca de utilidades para un fin
+Todos los módulos en
+CPAN están organizados en espacios de nombres, para hacer más fácil su
+búsqueda y evitar colisiones de funcionalidad (y de nombre
+también). En este caso, el espacio de nombre es el
+<filename>Lingua</filename>, que incluye muchos más módulos cada vez
+más esotéricos. Pero este espacio está bien organizado, porque luego
+vienen un par de caracteres que indican a qué lengua se aplica el
+módulo susodicho; en este caso, <filename>ES</filename>. Finalmente,
+el último apartado es el realmente específico.</para>
+
+    <note>
+      <para>En cada sistema de ficheros específico, el nombre también
+indica en el directorio en el que estará almacenado, dentro de los
+directorios donde se suelen almacenar los módulos.</para>
+    </note>
+
+<para>Un módulo es simplemente una biblioteca de utilidades para un fin
 determinado (o ninguno) escritas en Perl, o, al menos, empaquetadas
 para que se pueda acceder a ellas desde un programa en Perl. Una
 librería crea una serie de funciones a las que podemos acceder desde
@@ -630,7 +679,9 @@ garantía de frescura de los módulos. Por ejemplo, dos buenas opciones
 pueden ser  http://debianitas.net/CPAN/ y
 http://cpan.imasd.elmundo.es/; aunque los otros repositorios con la
 extensión <command>.es</command> también suelen funcionar
-relativamente bien. 
+relativamente bien. Ten en cuenta que los basados en
+<filename>ftp</filename> puede que no le gusten a tu cortafuegos; lo
+más seguro es seleccionar primero los que usen el protocolo <filename>http</filename>.
  </para>
 	</listitem>
       </itemizedlist>
@@ -733,49 +784,33 @@ SINOPSIS
 </computeroutput></screen>
   </para>
 
+<para>Todos los módulos en CPAN están documentados con un pequeño
+manual de referencia y ejemplos; es conveniente tener este manual
+abierto cuando se programe, o usar directamente los ejemplos incluidos
+en la SINOPSIS para comenzar a programar con él.</para>
+
 <para>Vamos a ver ahora como se usa ese pozo de sabiduría para
-escribir un programa que toma una serie de frases y las escribe
-divididas en sílabas.</para>
-    <programlistingco id='prog.split'>
+bajarnos una página web</para>
+    <programlistingco id='prog.web'>
       <areaspec>
 	<area coords="1" id="area.cpan.use" >
-	<area coords="3" id="area.cpan.join" >
-	<area coords="4" id="area.cpan.texto" >
+	<area coords="3" id="area.cpan.getprint" >
       </areaspec>
       <programlisting>
-<constant>use</constant> <function>Lingua::ES</function>::<function>Silabas</function>;
+<constant>use</constant> <function>LWP::Simple</function>;
 
-<function>print</function> <function>join</function>(" / ", silabas(<function>join</function>("", <function>split</function>(/[<literal>\s,</literal>]/,&lt;&lt;<constant>EOC</constant>)))), "\n";
-Yo soy, señor Licenciado, que estoy en esta redoma, adonde me tiene
-preso ese astrólogo que vive ahí abajo, porque también tiene su punta
-de la mágica negra, y es mi alcaide dos años habrá.
-<constant>EOC</constant>
+getprint('<literal>http://localhost:8020/</literal>');
+
 </programlisting>
       <calloutlist>
 	<callout arearefs="area.cpan.use">
-	<para>Para empezar, que no cunda el pánico. Si estamos a Perl,
-estamos a Perl y hay que ver cómo Perl hace las cosas de forma
-diferente a cualquier otro lenguaje de programación. Dicen que Perl no
-es amistoso para el usuario, pero lo cierto es que Perl
-<emphasis>elige a sus amigos</emphasis>. Así que es cuestión de ver a
-Perl como a un Calimero cualesquiera y entender su peculiaridades,
-como las que aparecen aquí. Bueno, no aquí, más abajo. Por lo pronto,
-sólo que no cunda el pánico.</para>
 	  <para>En esta línea lo único que se hace es cargar la
-librería que antes, debidamente, hemos instalado. Y quizás merezca la
-pena señalar un poco la estructura del nombre. Todos los módulos en
-CPAN están organizados en espacios de nombres, para hacer más fácil su
-búsqueda y evitar colisiones de funcionalidad (y de nombre
-también). En este caso, el espacio de nombre es el
-<filename>Lingua</filename>, que incluye muchos más módulos cada vez
-más esotéricos. Pero este espacio está bien organizado, porque luego
-vienen un par de caracteres que indican a qué lengua se aplica el
-módulo susodicho; en este caso, <filename>ES</filename>. Finalmente,
-el último apartado es el realmente específico.</para>
-	  <note>
-<para>En cada sistema de ficheros específico, el nombre también indica
-en el directorio en el que estará almacenado, dentro de los
-directorios donde se suelen almacenar los módulos.</para></note>
+librería que tendrá que estar instalada; no es el caso con esta,
+porque forma parte del núcleo o
+<emphasis>core</emphasis>. <emphasis>Cargar</emphasis> implica
+incorporar las funciones que ese módulo exporte; para saber qué
+funciones son esas habrá que consultar la página de manual,
+claro. </para> 
 
 <para>Si te das cuenta, no ha habido que especificar dónde diablos se
 busca ese módulo para incorporarlo al programa. Mágicamente, el
@@ -787,87 +822,30 @@ tenido que instalarlo en tu <varname>${HOME}</varname>, tendrás que
 especificarle en qué directorio buscar, de esta forma:
  <programlisting>
 <emphasis role="bold"><function>use lib</function> "/home/esesoyyo/lib/perl";</emphasis>  
-<constant>use</constant> <function>Lingua::ES</function>::<function>Silabas</function>;</programlisting>
+<constant>use</constant> <function>LWP::Simple</function>;</programlisting>
 Es decir, <emphasis>antes</emphasis> de tratar de cargar el módulo.</para>
 	</callout>
 
-	<callout arearefs="area.cpan.join">
-	  <para>Aquí viene un embutido de diferentes órdenes en Perl,
-que, como suele ser habitual, es mejor leerlas de derecha a
-izquierda. O del punto y coma para el otro lado. Porque no me voy a
-poner a explicar la derecha de quién quiero decir. Lo del
-<constant>\n</constant> ya nos lo sabemos, al menos, desde aquel <link
-linkend='prog.hola'>primer párrafo del primer tranco del diablo
-cojuelo</link>, pero lo que sigue es un poco más raro. Y requiere un punto y aparte.</para>
-
-	  <para>Aunque Perl sabe que existe una cosa llamada
-<productname>sintaxis</productname>, no se la toma muy en serio. Las
-cosas se pueden escribir de muchas formas diferentes. De hecho, hasta
-los programas en perl pueden cambiar su sintaxis, su semántica y
-hasta su prosodia. Encontrarse con comas, o sin ellas, no debe inducir
-al pasmo, sino a una profunda reflexión. Así que a partir de ahora,
-agárrense a su toalla y prepárense a olvidarse de cualquier concepción
-rígida de lo que es la sintaxis de un lenguaje de programación</para>
-
-	  <warning>
-	    <para>Y es aquí es donde los programadores de COBOL y
-FORTRAN dejan este tutorial y vuelven definitivamente a su hogar del
-pensionista al jugar al Julepe.</para>
-	  </warning>
-
-<para>Y lo que nos encontramos que ofende a nuestra conciencia
-sintáctica es
-<literal>&lt;&lt;<constant>EOC</constant></literal>. O sea, la
-	  leche. Uno espera encontrarse una cadenita, tan mona, con
-	  sus comillas en los extremos y se encuentra esto. Que no es
-	  otra cosa que un
-<emphasis>docaquí</emphasis>
-<footnote><para>Traducción del sajón
-antiguo <emphasis>heredoc</emphasis>. Pero no es la única. Se admiten
-otras.</para>
-	  </footnote>, como los más
-avispados ya habrán averiguado. Sirve para lo siguiente: cuando la
-cadena es muy larga y ocupa varias líneas, es mejor escribirla tal
-cual. Así que en vez de meterla entre incómodas comillas, se usa esta
-construcción: <literal>&lt;&lt;<constant>CADENA</constant></literal>,
-donde <constant>CADENA</constant> es cualquier cosa que no aparezca
-dentro y que indique el fin de la misma. Cuando el intérprete se
-encuentra esa construcción, comienza a leer en la línea siguiente y
-sigue hasta que se encuentra el conjuro de fin de texto;
-<literal>EOC</literal> en este caso. ¿Lo cogen?</para>
-
-<para>Pero no hay descanso para los intrépidos, e inmediatamente nos
-encontramos con
-<programlisting id='prog.frag.split'>
-<function>split</function>(/[<literal>\s,</literal>]/,
-</programlisting>.
-Empecemos por el <function>split</function> esta vez: split divide una
-cadena, es decir, la convierte en una serie (por ahora lo dejamos ahí)
-de palabras, eliminando los separadores, que son los que están entre
-corchetes (y lo dejamos ahí también). <function>split</function>
-recorre la cadena, se encuentra un espacio (<literal>\s</literal>) o
-una coma y desgaja un eslabón. La siguiente, un eslabón. Al final, lo
-que se encuentra uno es una serie de eslabones, sin nada de morralla
-enmedio. Que es lo que precisamente unimos (<function>join</function>)
-usando la cadena nula. Es decir, nos vamos a encontrar una sola cadena
-sin espacios ni comas. Una gran palabra, un abracadabra diabólico que
-contiene todas las palabras de las frases anteriores. Y ese
-abracadabra es el que le damos a la humilde función que hemos
-importado del módulo previamente, <emphasis>silabas</emphasis>, que
-precisamente nos devolverá una serie de eslabones, que volveremos a
-unir para dar el resultado esperable:
-<screen><computeroutput>Yo / soy / se / ñor / Li / cen / cia / do / que / es / to / ye / nes / ta / re / do / ma / a / don / de / me / tie / ne / pre / so / e / se / as / tró / lo / go / que / vi / ve / a / hí / a / ba / jo / por / que / tam / bién / tie / ne / su / pun / ta / de / la / má / gi / ca / ne / gra / yes / mial / cai / de / do / sa / ños / ha / brá.
-</computeroutput></screen>. Vale, no es perfecto. Pero es que llevamos una hora
-(o así) apresurada de aprender Perl, tampoco se le pueden pedir peras
-al olmo.</para>
-	</callout>
-	<callout arearefs="area.cpan.texto">
-	  <para>Y este es precisamente el texto que vamos a
-dividir. 'Nuff said.</para>
+	<callout arearefs="area.cpan.getprint">
+	  <para>Sin dar muchas más vueltas, aquí está la orden que se
+baja la página web y la imprime. <function>getprint</function> es
+precisamente una de esas funciones que el módulo ha importado. </para>
 	</callout>
       </calloutlist>
     </programlistingco>
 
+    <para>Por otra parte, hay una forma más simple de hacer lo mismo,
+directamente desde la línea de comandos
+<screen><userinput> perl -MLWP::Simple -e 'getprint("http://localhost:8020")'
+</userinput></screen>
+La opción <command>-M</command> carga el módulo que la sigue, y
+<command>-e</command> ejecuta el código Perl que le sigue. Es
+conveniente para programas cortos, o si se quiere hacer un alias del
+shell, por ejemplo.<footnote>
+<para>En cuanto que yo averigüe cómo diablos se hace, lo comunicaré oportunamente.</para>
+      </footnote>
+<command></command>
+</para>
 <important>
       
       <formalpara>
@@ -909,7 +887,7 @@ code/peta1.pl</userinput>
 </screen>, que viene a decir que vale, que muy bien, pero que ese
 intérprete no existe. Cambiar alguno de los otros caracteres, la
 admiración (que es una expresión de admiración al creador del programa
-encarnado en el intérprete), la almohadilla, produce errores
+encarnado en el intérprete) o la almohadilla, produce errores
 igualmente pintorescos. Por ejemplo, quitar la admiración o la almohadilla da este:
 <screen><computeroutput>Warning: unknown mime-type for "Da igual, porque va a petar" -- using "application/*"
 Error: no such file "Da igual, porque va a
@@ -943,8 +921,8 @@ todo caso, Google es tu amigo.</para>
 	<title>Ejercicios</title>
 	<para>Este bloque no tiene ejercicios. No te voy a pedir que
 escribar un fichero con errores y digas <emphasis>Um, parece que tiene
-un error</emphasis>. Pero acuérdate de esta sección, te será util. O
-no.</para>
+un error</emphasis>. Pero acuérdate de lo leido, te será util. O
+lo será para quien llegue aquí desde <ulink url="http://google.com">Google</ulink>.</para>
       </formalpara>
     </important>
 
@@ -968,21 +946,25 @@ línea. Pues para eso estamos (está Perl):
 <programlistingco id='prog.escribe'>
 	<areaspec>
 	  <area coords="1" id="prog.escribe.my">
-	  <area coords="2" id="prog.escribe.die">
-	  <area coords="3" id="prog.escribe.open">
-	  <area coords="5" id="prog.escribe.bucle">
-	  <area coords="6" id="prog.escribe.en.el.bucle">
-	  <area coords="8" id="prog.escribe.cerrando">
+	  <areaset coords="" id="prog.escribe.abrecierra">
+	    <area coords="2" id="prog.escribe.abre">
+	    <area coords="7" id="prog.escribe.cierra">
+	  </areaset>
+	  <area coords="3" id="prog.escribe.die">
+	  <area coords="4" id="prog.escribe.bucle">
+	  <area coords="5" id="prog.escribe.en.el.bucle">
+
 	</areaspec>
 <programlisting>
-<constant>my</constant> <varname>$leyendo</varname> = <function>shift</function>
-  || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;nombre de fichero&gt;</literal>\n";
+<!-- Fichero original: code/escrito_pl -->
+<constant>my</constant> <varname>$leyendo</varname> = "<literal>diablocojuelo.txt</literal>";
 <function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$leyendo</varname> 
   or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> por </literal><varname>$!</varname>\n";
 <constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
-  <function>print</function> "<varname>$. $_</varname>";
+  <function>print</function> "<varname>$.</varname><varname>$_</varname>";
 }
 <function>close</function> <varname>$fh</varname>;
+
 </programlisting>
 	<calloutlist>
 	  <callout arearefs="prog.escribe.my">
@@ -991,9 +973,10 @@ principio. <varname>$leyendo</varname> es una variable. Una variable
 cara, porque lleva el dólar al principio. Y por eso es mía y le he
 puesto el <constant>my</constant>. Sólo mía. Bueno, de hecho, es una
 variable de ámbito léxico, que será invisible fuera del bloque. Este
-bloque abarca todo el programa. Pero puede no hacerlo; los bloques
-están encerrados entre llaves (<literal>{}</literal>). Hay uno un poco
-más abajo.</para>
+bloque abarca todo el programa. Pero el ámbito de una variable puede
+ser cualquier bloque (que
+están encerrados entre llaves (<literal>{}</literal>), como uno que hay un poco
+más abajo).</para>
 
 	    <para>Y en cuanto a la variable propiamente dicha, es una
 variable escalar. Por eso lleva un dólar delante, porque el dinero
@@ -1010,54 +993,9 @@ print $foo + 1</userinput>
 variables. Cuando se usa una variable por primera vez, aparece
 automágicamente con valor nulo, pero el ámbito será global. Y las
 variables globales son <emphasis>una mala cosa</emphasis>.</para>
-
-	    <para>Lo que viene después, aunque no lo parezca, es el
-primer argumento que se le pasa al programa por la línea de
-comandos. En realidad, <function>shift</function> saca el primer
-elemento de una ristra, en este caso, la ristra de nombres de ficheros
-que se le haya pasado. ¿Y qué pasa si ejecutamos el programa tal cual,
-sin pasarle ningún nombre de fichero?</para>
 	  </callout>
 
-	  <callout arearefs="prog.escribe.die">
-	    <para>
-Pues que el programa
-	    irremisiblemente muere (<function>die</function>). Pero no
-muere por las buenas, sino que te da un mensaje que te indica que,
-obligagoriamente, bajo pena de muerte (<function>die</function>)
-tienes que pasar el nombre de un fichero como argumento, de esta
-forma:<userinput>escrito.pl diablo-cojuelo.txt</userinput>. Si no lo
-hacemos:
-<screen><userinput>./escrito.pl</userinput>
-<computeroutput>Uso: ./escrito.pl &lt;nombre de fichero></computeroutput>
-</screen>
-</para>
-	    <para>Pero no hemos dicho nada de los
-<literal>||</literal> al principio de la línea. Como esto es un
-lenguaje decente, para terminar una sentencia hace falta el
-<literal>;</literal>, que no está hasta el final de esta línea. Con lo
-que esta línea y las anteriores vienen a decir
-<quote>Esta variable tomará como valor el primer argumento, <emphasis>pero si
-no</emphasis> pudiera o pudiese, me muero y dejo este mensaje</quote>
-Ese  <emphasis>pero si no</emphasis>, <literal>||</literal>, que
-representa a <function>OR</function><footnote><para>Aunque no es
-exactamente lo mismo</para>
-	      </footnote>hace que se ejecute su parte
-derecha solo si la parte izquierda tiene como resultado un valor
-verdadero (será falso si <function>shift</function> devuelve
-<function>undef</function>, es decir, si no hay nada en la línea de
-comandos. </para>
-
-<para>Esta construcción viene a ser un condicional y el caso más
-general es &lt;expresión> &lt;condicional> &lt;sentencia>. Lo veremos
-mucho. </para>
-
-	    <para> Y de camino hemos visto como funciona la
-interpolación de variables en cadenas en Perl: una variable dentro de
-una cadena se sustituirá por su valor al ejecutar el programa. Y no es una variable cualquiera. Es una variable predefinida, que son variables globales cuyo valor depende de ciertas circunstancias. En este caso, la cadena con la que se ha invocado al programa.</para>
-	  </callout>
-
-	  <callout arearefs="prog.escribe.open">
+	  <callout arearefs="prog.escribe.abrecierra">
 	    <para>Habrá que abrir (<function>open</function>) el
 fichero, claro. Eso es lo que hacemos aquí. A
 <function>open</function> se le pasa la variable que vamos a usar para
@@ -1073,22 +1011,59 @@ haberse comido el fichero el perro, puede no existir ese fichero, o
 puede haber cascado en ese preciso instante el disco duro. Así que hay
 que prever que la operación pueda ir mal y dejar que el programa
 fallezca, no sin un epitafio adecuado.
-<screen><userinput>./escrito.pl este.fichero.no.existe
+
+	    <para>Los ficheros abiertos hay que cerralos, que si no
+pasa corriente y se puede resfriar el disco duro. Incluso habría que
+comprobar si se han cerrado correctamente, para ser más papistas que
+el camarlengo, pero lo vamos a dejar para mejor ocasión. </para>
+	  </callout>
+
+	  <callout arearefs="prog.escribe.die">
+	    <para>
+Si hay algún problema al abrir el fichero, el programa
+irremisiblemente muere (<function>die</function>). Pero no
+muere por las buenas, sino que te da un mensaje que te demuestra que
+hay una buena razón para hacerlo: 
+<screen><userinput>./escrito.pl
 </userinput>
-<computeroutput>No puedo abrir el fichero este.fichero.no.existe por No existe el fichero o el directorio</computeroutput>
+<computeroutput>No puedo abrir el fichero diablocojuelo.txt porque No existe el fichero o el directorio</computeroutput>
 </screen>
-El epitafio lo proporciona $!, otra de las <emphasis>variables por
+El epitafio lo proporciona <varname>$!</varname>, otra de las <emphasis>variables por
 defecto o implícitas</emphasis> de Perl que contiene el último mensaje de error del sistema.</para>
 	    <note>
-	      <para>Las variables predefinidas o implícitas se
-pueden consultar escribiendo <userinput>perldoc
+	      <para>Las documentación sobre las variables predefinidas
+o implícitas se puede consultar escribiendo <userinput>perldoc
 perlvar</userinput>.</para>
 	    </note>
+	    <para>Pero no hemos dicho nada del
+<literal>or</literal> al principio de la línea. Como esto es un
+lenguaje decente, para terminar una sentencia hace falta el
+<literal>;</literal>, que no está hasta el final de esta línea. Con lo
+que esta línea y la anteriores viene a decir
+<quote>Voy a intentar abrir el fichero, <emphasis>pero si
+no</emphasis> pudiera o pudiese, me muero y dejo este mensaje</quote>
+Ese  <emphasis>pero si no</emphasis>, <literal>or</literal>, que
+representa a la función lógica
+<function>O</function><footnote><para>También se usa ||, pero la
+precedencia es diferente.</para>
+	      </footnote>hace que se ejecute su parte
+derecha solo si la parte izquierda tiene como resultado un valor
+falso, es decir, si <function>open</function> devuelve
+<function>undef</function>, lo que ocurrirá si con cualquier problema
+a la hora de abrir el fichero. </para>
+
+<para>Esta construcción viene a ser un condicional y el caso más
+general es &lt;expresión> &lt;condicional> &lt;sentencia>. Lo veremos
+mucho. </para>
+
+	    <para> Y de camino hemos visto como funciona la
+interpolación de variables en cadenas: una variable dentro de
+una cadena se sustituirá por su valor al ejecutar el programa.</para>
 	  </callout>
 
 	  <callout arearefs="prog.escribe.bucle">
 	    <para>Esto es un bucle <function>while</function>. Un
-pirulín para quien lo haya averiguado. Pero es un bucle raro, porque
+pirulí para quien lo haya averiguado. Pero es un bucle raro, porque
 dentro de la condición de bucle (lo que hay entre paréntesis), lo que
 decide si se sique o no, tiene lo que parece una etiqueta HTML. Pues
 no lo es. Por alguna razón ignota, los paréntesis angulares (que así
@@ -1117,12 +1092,6 @@ todo, para que uno haga con ellos lo que quiera (quitárselos de
 enmedio y no acordarse de que están ahí, en la mayor parte de los casos).</para>
 	  </callout>
 
-	  <callout arearefs="prog.escribe.cerrando">
-	    <para>Los ficheros abiertos hay que cerralos, que si no
-pasa corriente y se puede resfriar el disco duro. Incluso habría que
-comprobar si se han cerrado correctamente, para ser más papistas que
-el camarlengo, pero lo vamos a dejar para mejor ocasión. </para>
-	  </callout>
 	</calloutlist>
 
       </programlistingco>
@@ -1143,7 +1112,7 @@ el camarlengo, pero lo vamos a dejar para mejor ocasión. </para>
 </screen>
 
     <para>Pero lo cierto es que en Perl <productname>hay otra forma de
-hacerlo</productname>. Leer ficheros es lo una de las principales
+hacerlo</productname>. Leer ficheros es  una de las principales
 aplicaciones de Perl, así que el programa anterior se puede
 simplificar al siguiente:
 <programlisting><emphasis>#!/usr/bin/perl</emphasis>
@@ -1158,8 +1127,12 @@ la primera línea en la variable por defecto
 comandos, se sienta ahí, a verlas venir, esperando que uno escriba
 cosas desde teclado (entrada estándar) y le dé a
 <literal>Ctrl-D</literal>, que equivale al carácter
-<constant>EOF</constant>, fin de fichero. Pero es que todavía se puede
-simplificar más, usando opciones de ejecución:
+<constant>EOF</constant>, fin de fichero. Lo que equivale exactamente
+a leer de la entrada estándar, que se puede hacer de alguna de las
+múltiples formas posibles: <userinput>cat diablocojuelo.txt|
+./escrito2.pl</userinput> o <userinput>./escrito2.pl &lt;
+diablocojuelo.txt</userinput>, sin ir más lejos. . Pero es que todavía se puede
+simplificar más, usando argumentos de línea de comandos:
 <programlisting><emphasis>#!/usr/bin/perl -n</emphasis>
 <function>print</function> "<varname>$.</varname> <varname>$_</varname>";
 </programlisting>
@@ -1180,24 +1153,24 @@ los números. Y, de camino, no está de más curarnos en salud antes de
 abrir un fichero comprobando si se puede leer o no:
 <programlistingco>
 	<areaspec>
-	  <area coords="3" id="prog.escrito.if.readable">
+	  <area coords="2" id="prog.escrito.if.readable">
 	  <area coords="9" id="prog.escrito.if.chop">
 	</areaspec>
-	<programlisting><constant>my</constant> <varname>$leyendo</varname> = <function>shift</function>
-  || <function>die</function> "Uso: <varname>$0</varname> &lt;nombre de fichero&gt;\n";
+	<programlisting>
+<!-- Fichero original: code/escrito-if_pl -->
+<constant>my</constant> <varname>$leyendo</varname> = "<literal>diablocojuelo.txt</literal>";
 <constant>if</constant> ( ! -r <varname>$leyendo</varname> ) {
-  <function>die</function> "El fichero <varname>$leyendo</varname> no es legible\n";
+  <function>die</function> "<literal>El fichero </literal><varname>$leyendo</varname><literal> no es legible</literal>\n";
 }
-
-<function>open</function> <constant>my</constant> <varname>$fh</varname>, "&lt;", <varname>$leyendo</varname> 
-  or <function>die</function> "No puedo abrir el fichero <varname>$leyendo</varname> por <varname>$!</varname>\n";
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$leyendo</varname> 
+  or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> porque </literal><varname>$!</varname>\n";
 <constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
   <function>chop</function>; <function>chop</function>;
-  <function>print</function> "<varname>$.</varname> " <constant>if</constant> <varname>$_</varname>;
+  <function>print</function> "<varname>$.</varname>" <constant>if</constant> <varname>$_</varname>;
   <function>print</function> "<varname>$_</varname>\n";
 }
-
 <function>close</function> <varname>$fh</varname>;
+
 </programlisting>
 	<calloutlist>
 	  <callout arearefs="prog.escrito.if.readable">
@@ -1207,10 +1180,9 @@ su forma más tradicional, <programlisting>if (condición)
 condición: el operador <function>-r</function> comprueba si el fichero
 es legible (para el usuario) y devuelve falso si no lo es. De forma
 que:
-<screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ touch no-legible
-jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ chmod -r no-legible
-jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ ./escrito-if.pl no-legible</userinput>
-<computeroutput>El fichero no-legible no es legible</computeroutput></screen>
+<screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ chmod -r diablocojuelo.txt
+jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ ./escrito-if.pl</userinput>
+<computeroutput>El fichero diablocojuelo.txt no es legible</computeroutput></screen>
 </para>
 	  </callout>
 	  <callout arearefs="prog.escrito.if.chop">
@@ -1228,14 +1200,50 @@ variable por defecto.</para>
 
 <para>En Perl siempre hay más de una forma de hacer las cosas. Se
 puede elegir la más elegante, o la más divertida. O la que uno conozca
-mejor, claro.</para>
+mejor, claro. Por eso no tenemos que limitarnos a abrir ficheros y
+escribir porquería en pantalla, que luego se ponen los terminales
+perdidos y parecen el salvapantallas de Matrix. Así que vamos a
+escribir la salida en un fichero, como hacemos en el siguiente
+programa</para>
+    <programlisting>
+<!-- Fichero original: code/escrito-if-escribe_pl -->
+<constant>my</constant> <varname>$leyendo</varname> = "<literal>diablocojuelo.txt</literal>";
+<constant>if</constant> ( ! -r <varname>$leyendo</varname> ) {
+  <function>die</function> "<literal>El fichero </literal><varname>$leyendo</varname><literal> no es legible</literal>\n";
+}
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$leyendo</varname> 
+  or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> por </literal><varname>$!</varname>\n";
+<emphasis><function>open</function> <constant>my</constant> <varname>$fh_out</varname>, "<literal>&gt;</literal>", "<varname>$leyendo</varname><literal>-out</literal>";</emphasis>
+<constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
+  <function>chop</function>; <function>chop</function>;
+<emphasis>  <function>print</function> <varname>$fh_out</varname> "<varname>$.</varname>" <constant>if</constant> <varname>$_</varname>;
+  <function>print</function> <varname>$fh_out</varname> "<varname>$_</varname>\n";</emphasis>
+}
+<function>close</function> <varname>$fh</varname>;
+<function>close</function> <varname>$fh_out</varname>;
+
+
+</programlisting>
+
+    <para>Este programa es igual que el anterior, salvo por las líneas
+resaltadas, que abren el fichero y escriben en él. La única diferencia
+entre abrir y cerrar un fichero es el símbolo de menor
+(<literal>&lt;</literal>) que ahora mira para el otro lado. El nombre
+del fichero de salida lo hemos creado a partir del de entrada
+añadiéndole <literal>-out</literal>. Y en
+cuanto a escribir un fichero, se diferencia de escribir en pantalla
+(en salida estándar, en realidad) sólo en la inserción del filehandle
+(<command>print $fh_out</command>) tras la orden. Sin coma detrás,
+ojo. </para>
 
     <important>
       <formalpara>
 	<title>Ejercicios</title>
 	<para>Ahora ya no tenemos excusa para no hacer nada. Vamos a
 hacerlo simple: un programa que cuente el número de líneas que
-no estén en blanco en un fichero.</para>
+no estén en blanco en un fichero, y lo escriba en un fichero de salida
+cuyo nombre se cree a partir del nombre del fichero original, con la
+extensión <filename>lc</filename>.</para>
       </formalpara>
     </important>
   </sect1>
@@ -1291,7 +1299,12 @@ ponderada <ulink url='http://search.cpan.org'>CPAN</ulink>.</para>
 matriz. Que es lo que aparece en esta línea, una matriz y como el
 asunto es de 11 arrobas, tiene una arroba delante. Una
 <literal>@</literal>, vamos. Todo lo <emphasis>vectorial</emphasis> en
-Perl tiene una @ delante. Los vectores/matrices son variables y hay
+Perl tiene una @ delante. Los vectores/matrices<footnote>
+	      <para>Serían, en realidad, vectores o matrices
+unidimensionales, aunque no es difícil crear matrices
+multidimensionales en Perl.</para>
+	    </footnote>
+ son variables y hay
 que declararlos, como hacemos con <varname>@trancos</varname>; también
 hay vectores predefinidos, como <varname>@ARGV</varname>, que contiene
 los argumentos que se le pasan al programa. Precisamente en la primera
@@ -1300,8 +1313,7 @@ ese vector de argumentos. Si no hay ninguno, se sale con un mensaje de
 error. </para>
 
 	  <para>El vector <varname>@trancos</varname> se define a
-partir del texto, partiéndolo (<function>split</function>, como hemos
-visto <link linkend="prog.frag.split">anteriormente</link>) por la
+partir del texto, partiéndolo (<function>split</function>) por la
 palabra <literal>TRANCO</literal>, que es la que hay al principio de
 cada capítulo de <emphasis>El Diablo Cojuelo</emphasis>. </para>
 
@@ -1513,17 +1525,7 @@ con ella (por ejemplo, extraerla o sustituirla por otra).</para>
 
 <para>En Perl, la forma más común de encontrarse las expresiones
 regulares entre dos <emphasis>slash</emphasis>
-<literal>//</literal>. Por ejemplo, nos lo encontramos <link
-linkend="prog.split">donde dividimos al diablo cojuelo en
-sílabas</link> en la forma siguiente:<programlisting>
-/[\s,]/
-</programlisting>. Esta expresión regular indica un grupo de
-caracteres (<literal>[]</literal>) que pueden ser o bien un espacio en
-blanco (<literal>\s</literal>, se refiere tando al espacio como a
-retornos de carro diversos o tabuladores) o bien una coma. En ese
-programa, como se vio, siempre que <function>split</function> se
-encontrara uno de estos dos caracteres, crearía un nuevo elemento del
-vector.</para>
+<literal>//</literal>.</para>
 
 <para>En este programa tenemos una expresión regular similar:
 <programlisting>/[Dd]on ([A-ZÁÉÍÓÚ][a-záéíóúñ]+)/</programlisting>
