@@ -59,12 +59,12 @@ licencia está en <ulink url='http://gugs.sindominio.net/licencias/gfdl-1.2-es.ht
       <para>Este tutorial te puede estar llegando en una de varias
 formas diferentes. Estas son todas las posibles:<itemizedlist>
 	  <listitem>
-	    <para><ulink url="perl-apresurados-1.2-src.tgz">Fuentes en
+	    <para><ulink url="perl-apresurados-1.4-src.tgz">Fuentes en
 DocBook.</ulink> Tiene que haber gente pa tó.</para>
 	  </listitem>
 	  <listitem>
-	    <para><ulink url='perl-apresurados.pdf'>Versión de
-<emphasis>Perl para apresurados</emphasis> en
+	    <para><ulink url='perl-cgi-servidores.pdf'>Versión de
+<emphasis>Perl  y CGI para impacientes </emphasis> en
 PDF</ulink>. Posiblemente, la que se vea con más claridad. </para>
 	  </listitem>
  <listitem>
@@ -1788,6 +1788,7 @@ y hagamos un ránking de las 50 palabras más comunes. Por ejemplo.</para>
       para ser servido por el mismo. Históricamente fue la primera
       forma de hacerlo, aunque hoy en día hay otras muchas (servlets o
 	módulos del servidor, por ejemplo).</para>
+    </sidebar>
 
  <programlistingco id='prog.cgi'>
       <areaspec>
@@ -1878,14 +1879,160 @@ print <function>header</function>, <function>start_html</function>('<literal>CGI
   con <command>http://direcci.on/cgi-bin/cojuelo.cgi</command>. El
   resultado será el esperable: una página con el Diablo Cojuelo, ni
   más ni menos.</para>
+ <sidebar>
+      <para>Puede que falle alguna de estas cosas cuando vayas a ejecutarlo. <itemizedlist>
+	<listitem>
+	  <para><emphasis>No se encuentra el fichero</emphasis>: el
+	  lugar a donde has copiado el fichero no se corresponde con
+	  la dirección que has puesto. O te has equivocado en el URL,
+	  o te has equivocado de directorio. Conviene consultar el
+	  registro de error a ver qué ha fallado (habitualmente está
+	    en <command>/var/log/apache2/error.log</command>, o en el
+	  registro de errores del alojamiento que hayas alquilado),
+	  porque ahí suele indicar el camino completo al fichero que
+	  está buscando (el que corresponde al URL). Con los permisos
+	    adecuados, copia el programa a ese
+	  directorio.</para></listitem>
+
+	<listitem><para><emphasis>Sale el código del programa, en vez de el
+	resultado</emphasis>: El directorio que estás usando no está
+	configurado para servir CGIs; configúralo correctamente o bien
+	  averigua a qué directorio tienes que
+	copiarlo.</para></listitem>
+
+	<listitem><para><emphasis>Sale un error 500</emphasis>: se
+	trata de un error de ejecución del programa. Prueba a
+	ejecutarlo desde la línea de comandos o mirar en el registro
+	de error (recuerda: el registro de error es tu amigo) para ver
+	de qué se trata. Puede tratarse de un error de permisos, de
+	sintaxis o de algo tan simple como que has intentado imprimir
+	    antes de escribir la cabecera.</para></listitem>
+	</itemizedlist>
+
+      </para>
+ </sidebar>
+
+  <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Hacer un CGI que cree una página web una serie de 10 números en
+	orden ascendente.</para>
+      </formalpara>
+    </important>
 
 <para>Pero claro, se trata de demasiado diablo para tan poca
   página. Sería conveniente que este programa que estamos ejecutando
   pudiera funcionar con diferentes opciones, y que pudiéramos imprimir
   solamente un <emphasis>tranco</emphasis>, uno de los capítulos. O
   hacer cualquier otra cosa. Precisamente la especificación del CGI
-  permite hacer este tipo de cosas sin mucho problema.
+  permite hacer este tipo de cosas sin mucho problema, convirtiendo en
+  parámetros los valores de variables que se pasan al programa. Hay
+  dos formas de hacerlo: por entrada estándar o en el URL de la
+  forma <command>http://mi.url/cgi-bin/programa.cgi?variable=valor&amp;variable2=valor2</command>. Veremos
+  solamente esta última, en el siguiente programa que, dependiendo de
+  la entrada, imprime solamente parte de la novela:
+  el <emphasis>tranco</emphasis> indicado.</para>
+
+ <programlistingco id='prog.cgit'>
+   <areaspec>
+     <area coords="3" id="area.cgit.param" >
+       <area coords="3" id="area.cgit.sal" >
+   </areaspec>
+      <programlisting>
+<!-- Fichero original: code/cojuelo-trancos_cgi -->
+<constant>use</constant> CGI qw(:standard);
+
+<constant>my</constant> <varname>$tranco</varname> = param('<literal>tranco</literal>') || <constant>1</constant>;
+<constant>my</constant> <varname>$texto</varname> = <function>join</function>('',<constant>&lt;DATA&gt;</constant>);
+<constant>my</constant> <varname>@trancos</varname>=<function>split</function>("<literal>TRANCO</literal>", <varname>$texto</varname>);
+
+<varname>$tranco</varname> = ( <varname>$tranco</varname> &gt; <varname>$#trancos</varname>)?<constant>1</constant>:<varname>$tranco</varname>;
+<function>print</function> header, start_html("<literal>CGI El diablo cojuelo tranco </literal><varname>$tranco</varname>"), 
+  h1("<literal>El diablo cojuelo: parte </literal><varname>$tranco</varname>"), "\n\n", 
+  pre(<varname>$trancos</varname>[<varname>$tranco</varname>]), 
+  end_html;
+
+<constant>__DATA__</constant>
+The Project Gutenberg EBook of El Diablo Cojuelo, by Luis Vélez de Guevara
+...
+      </programlisting>
+  <calloutlist>
+	  <callout arearefs="area.cgit.param">
+	    <para>En las primeras líneas asignamos el valor del
+	      parámetro <command>tranco</command> a una variable; para
+	      asignar valor a esta variable habrá que llamar al
+	      programa de la
+	      forma <command>http://localhost/cgi-bin/programa.cgi?tranco=3</command>,
+	      por ejemplo (y lo tendremos que hacer explícitamente
+	      desde el URL). En esta sentencia se le asigna el valor 1
+	      por omisión (de ahí el <command> || 1</command>, "o el
+	      parámetro tiene un valor no nulo o le asignamos el valor
+	      1". Más adelante se comprueba también si es mayor al
+	      número de trancos que hay (diez), comparándolo con el
+	      número de elementos del array que contiene los trancos
+	      (divididos como se ha <link linkend='prog.trancos'>visto
+		anteriormente</link>). </para>
+
+<callout arearefs='area.cgit.sal'><para>Este fragmento del programa,
+    tras las comprobaciones, imprime con una
+    etiqueta <command>&lt;pre&gt;</command> para que se conserve el
+    formato el capítulo correspondiente del diablo cojuelo, que
+    quedará más o menos como aparece en la imagen.
+
+<figure>
+  <title>HTML creado por <command>cojuelo-trancos.cgi</command>. </title>
+  <screenshot>
+    <graphic fileref="img/trancos-cgi.png" scale="50" >
+  </screenshot>
+</figure>
+  </para>
+</callout>
+
+	  </calloutlist>
+ <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Hacer un CGI que cree una página web una serie de 10 números en
+	orden ascendente a partir de un número que se le pasará como parámetro.</para>
+      </formalpara>
+    </important>
+
+
+<para>Lo normal, sin embargo, no es que se introduzca como un URL,
+  sino que se cree un pequeño formulario que sirva para preguntarle al
+  usuario los parámetros que haya que pasarle al programa. Un
+  formulario como el siguiente:
+<programlisting>&lt;form action='/cgi-bin/cojuelo-trancos.cgi' method='GET'>
+¿Qué tranco? &lt;input type='text' name='tranco' value='1' />
+  &lt;/form></programlisting>
+</para>
+
+<para>Los formularios incluyen más elementos, inclusive un botón; pero
+  en este caso, tratándose de un solo campo, no hace falta incluirlo:
+  al darle al retorno de carro se llamará al programa
+  correspondiente, el que hemos incluido en el
+  campo <command>action</command>. El otro campo en la definición del
+  formulario, <command>method</command> se refiere a la forma como se
+  codifica el mismo; <command>GET</command> es precisamente la forma
+  en la que hemos visto, como parte de un URL. Desde el punto de vista
+  del programa que se ejecuta es igual que pongamos POST, aunque el
+  protocolo usado es diferente. </para> 
+
+
+
+ <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Hacer un CGI que cree una página web una serie de números en
+	orden ascendente a partir de un número que se le pasará como
+	parámetro. Tanto el número de elementos de la serie como el
+	número inicial se le pasará como un formulario. </para>
+      </formalpara>
+    </important>
+
  </sect1>
+
+
   <sect1>
     <title>A dónde vamos desde aquí</title>
 
@@ -1954,7 +2101,7 @@ cuestiones como para proponer ideas. Abierto 24/7.</para>
       que está bastante bien para introducirte en el lenguaje y
       obtener un título que lo acredite. El contenido llega un poco
       más allá que el impartido en este pequeño tutorial, y también es
-	más detallado. Para más paciente, en resumen.</para>
+	más detallado. Para gente más paciente, en resumen.</para>
 
   </sect2>
 
