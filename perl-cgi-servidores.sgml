@@ -1,0 +1,1989 @@
+<!DOCTYPE Article PUBLIC "-//OASIS//DTD DocBook V4.2//EN">
+<article lang="es">
+
+<articleinfo>
+  <title>Perl y CGIs para impacientes</title>
+  <author><firstname>Juan Julián</firstname>
+          <surname>Merelo Guervós</surname>
+<email>jjmerelo@gmail.com</email>
+</author>
+<authorinitials>JJ</authorinitials>
+
+<revhistory>
+     <revision>
+        <revnumber>1.0</revnumber>
+        <date>Jul 2006</date>
+        <revremark>Preparando la primera versión para el curso de
+Extremadura</revremark>  
+     </revision>
+
+      <revision><revnumber>1.1</revnumber>
+	<date>26 de Julio de 2006</date>
+	<revremark>Versión campus party <emphasis>probada en
+combate</emphasis>. Simplificados algunos ejemplos, corregida
+ortografía y gramática. Añadida licencia GFDL.</revremark>
+      </revision>
+
+    <revision><revnumber>1.2</revnumber>
+	<date>3 de Agosto de 2006</date>
+	<revremark>Algunos arreglos mínimos</revremark>
+      </revision>
+
+ <revision><revnumber>1.3</revnumber>
+	<date>14 de febrero de 2011</date>
+	<revremark>Revisión, cambio de título y añadido de nuevas
+	secciones explicando CGIs</revremark>
+      </revision>
+
+  </revhistory>
+    <legalnotice id='ln'>
+<para>
+
+    Copyright (c) 2006,2011 Juan Julián Merelo Guervós &lt;jjmerelo (en)
+gmail.com>. Se otorga permiso para copiar, distribuir y/o modificar
+este documento bajo los términos de la Licencia de Documentación Libre
+de GNU, Versión 1.2 o cualquier otra versión posterior publicada por
+la Free Software Foundation; sin Secciones Invariantes ni Textos de
+Cubierta Delantera ni Textos de Cubierta Trasera. Una copia de la
+licencia está en <ulink url='http://gugs.sindominio.net/licencias/gfdl-1.2-es.html'>esta dirección web</ulink></para>
+
+    </legalnotice>
+</articleinfo>
+
+<sect1 id='sect.id'>
+<title>¿Quién eres tú?</title>
+<subtitle>
+¿A quién va dirigido este tutorial <emphasis>para apresurados</emphasis>?
+</subtitle>
+    <sidebar>
+      <para>Este tutorial te puede estar llegando en una de varias
+formas diferentes. Estas son todas las posibles:<itemizedlist>
+	  <listitem>
+	    <para><ulink url="perl-apresurados-1.2-src.tgz">Fuentes en
+DocBook.</ulink> Tiene que haber gente pa tó.</para>
+	  </listitem>
+	  <listitem>
+	    <para><ulink url='perl-apresurados.pdf'>Versión de
+<emphasis>Perl para apresurados</emphasis> en
+PDF</ulink>. Posiblemente, la que se vea con más claridad. </para>
+	  </listitem>
+ <listitem>
+	    <para><ulink url='index.html'>Versión de
+<emphasis>Perl para apresurados</emphasis> en HTML, dividido en varias
+páginas</ulink></para>
+	  </listitem>
+	</itemizedlist>
+</para>
+      <para>Además, te puedes descargar <ulink
+url="perl-apresurados-ejemplos.tgz">los ejemplos</ulink> usados en
+este tutorial.</para>
+    </sidebar>
+<para>Eso mismo te estarás preguntando, que quién diablos eres y que a
+qué dedicas el tiempo libre. Así que te vamos a echar una
+mano. Supongo que ya sabes programar, que el concepto de
+<emphasis>variable</emphasis> no va para ti asociado a la nubosidad ni
+el de <emphasis>bucle</emphasis> a la cabeza de Nellie Olleson. Puede
+que conozcas el C, sólo para precavidos, o hables con lengua de
+serpiente (<ulink url='http://www.python.org'>pitón</ulink>), o incluso que el símbolo mayor y menor vayan para ti
+asociados de forma indisoluble a un <ulink url='http://www.php.net'>acrónimo capicúa</ulink>.</para>
+
+<para>Vamos, que pueden extrañarte las formas ignotas en las que un nuevo
+lenguaje de programación repite cachos de código o mete valores en
+variables o representa listas de datos, pero los conceptos en sí no
+son nada nuevo para ti. A ti, pues, va dirigido este
+mini-tutorial.</para>
+
+<para>Supongo también que tienes prisa. Si no, no estarías leyendo
+este tutorial para <emphasis>apresurados</emphasis>. Estarías leyendo
+uno titulado, por ejemplo, <emphasis>Perl para los que tienen todo el
+tiempo del mundo</emphasis>. Es decir, que es necesariamente breve,
+con la idea de poder ser impartido (y espero que asimilado) en unas
+dos horas. Igual no te da tiempo a teclear todos los ejemplos de
+código, pero este ordenador que estás mirando tiene una cosa
+maravillosa llamada "corta y pega" con la que sin duda estás
+familiarizado, y que podrás usar para tu provecho y el de la
+Humanidad. </para>
+
+<para>Y quizás todavía no lo sabes, pero
+<emphasis>necesitas</emphasis> saber Perl. Para vigilar ese fichero de
+registro y crear alertas que te avisen de lo inesperado. Para ese CGI
+terriblemente complicado. Para convertir una página web demasiado
+compleja en algo que también es complejo, pero que puedes leer con tu
+lector de cosas complejas favorito. Para hacer lo que siempre quisiste
+hacer: escribir <ulink url='http://www.perlmonks.org/index.pl?node=Perl%20Poetry'>poesía</ulink> en tu lenguaje de
+programación favorito. En fin, donde quiera que haga
+falta convertir cosas en otras cosas o convertir programadores en poetas, ahí hace falta saber
+Perl. </para>
+
+<tip><para>Y con ello damos entrada a la primera
+<emphasis>flamewar</emphasis> de este tutorial, que es donde tú, que
+estás entre el público, dices aquello de <emphasis>Pues yo hago todo
+eso, y más, en (Fortran|Postscript|Haskell)</emphasis>. Que vale, que
+si. Los lenguajes de programación son universales. Se puede hacer de
+todo con ellos. Y siempre es más fácil hacer algo en el lenguaje que
+uno conoce mejor. Pero al menos tendrás más donde elegir, ¿no?</para></tip>
+
+<para>Finalmente, aunque no es imprescindible, es conveniente que
+tengas un ordenador enfrente, y que puedas usarlo. La mayoría de los
+ordenadores modernos, y muchos de los antiguos, tienen versiones de
+Perl compiladas. La Nintendo DS todavía no, pero todo se
+andará.</para>
+
+<para>Sobre todo, que no cunda el pánico. Y no te olvides de la <ulink
+url='http://es.wikipedia.org/wiki/Dia_de_la_Toalla'>toalla</ulink>.</para>
+
+</sect1>
+
+<sect1><title>Todo listo para despegar</title>
+<subtitle>Herramientas necesarias para programar en Perl</subtitle>
+
+    <sidebar>
+      <para>Si ya has usado algún lenguaje de scripting, lo más
+probable es que te aburras como un bivalvo en esta sección. Así que
+ahórrate un bostezo y pasa directamente a la <link linkend="sect.hola">siguiente</link>. O si
+no, <ulink url='http://www.cpan.org/src/latest.tar.gz'>descárgate los fuentes</ulink> y echas un ratillo
+compilándolos en silencio, para no desmoralizarme a la parroquia.
+</para>
+    </sidebar>
+
+<para>Lo primero que necesitas en tu lista de comprobación son las
+cualidades de todo programador en Perl: <ulink url='http://www.ebb.org/PickingUpPerl/pickingUpPerl.html#The%20Slogans'>la pereza, el orgullo y la
+impaciencia</ulink>. No te preocupes si no tienes ninguna de ellas, las irás
+adquiriendo con el tiempo. Sobre todo la pereza. Y una cierta
+habilidad de entender lenguas muertas como el caldeo y el
+dálmata. </para>
+
+<para>Segundo, necesitas amar a los camélidos. El Perl no es como esos
+otros lenguajes que incitan a la avaricia a través de la adoración de
+las <ulink url='http://www.ruby-lang.org'>piedras preciosas</ulink>, o
+a la hiperactividad por ingestión de <ulink
+url='http://www.java.com'>bebidas excitantes</ulink>. Los camellos son
+buenos. Los camellos son útiles. Llevan cosas encima. Tienen
+joroba. Amemos a los camélidos (las <ulink
+url='http://es.wikipedia.org/wiki/llama'>llamas también son
+camélidos</ulink>).</para>
+
+<para>No menos importante es tener un ordenador con sistema
+operativo. Incluso <ulink url='http://www.windows.com'>sin
+él</ulink>. Ejecuta lo siguiente para saber si lo tienes:
+<userinput>perl -v</userinput>
+a lo que el ordenador debidamente contestará algo así:<figure>
+	<title>Contestación de un ordenador educado a <userinput>perl -v</userinput></title>
+	<screen><computeroutput>
+This is perl, v5.8.7 built for i486-linux-gnu-thread-multi
+(with 1 registered patch, see perl -V for more detail)
+
+Copyright 1987-2005, Larry Wall
+
+Perl may be copied only under the terms of either the Artistic License or the
+GNU General Public License, which may be found in the Perl 5 source kit.
+
+Complete documentation for Perl, including FAQ lists, should be found on
+this system using `man perl' or `perldoc perl'.  If you have access to the
+Internet, point your browser at http://www.perl.org/, the Perl Home Page.
+
+</computeroutput></screen>
+	
+      </figure>
+
+si es que está instalado. Si no lo está, es poco probable que conteste
+eso. Incluso imposible. Dirá algo así como
+<computeroutput>bash: perl: command not found</computeroutput>
+e incluso pitará. El muy desagradable.</para>
+
+<para>No hay que dejarse descorazonar por tal
+eventualidad. Encomendándonos al <emphasis>Gran Camélido</emphasis>,
+y sin necesidad de ver una vez más Ishtar, diremos en voz alta
+"Abracadabra" mientras que escribimos
+<userinput>sudo yum install perl</userinput>
+o bien
+<userinput>sudo apt-get install perl</userinput>
+Si es que están en un linux no-debianita (en el primer caso) o en uno
+debianita (en el segundo). Habrá gente que incluso lo haga sin necesidad de bajarse del
+ratón. Pero los apresurados no usan el ratón salvo que sea
+estrictamente necesario. Que no es el caso. En otros sistemas
+operativos, lo mejor es ir a <ulink url='http://www.perl.com'>Perl.com
+(si es que no has ido todavía)</ulink> y bajarse la versión
+compilada. </para>
+
+    <note>
+      <para>Aunque no es estrictamente necesario para programar Perl
+(y, por tanto, puedes evitarlo si tienes problemas de espacio),
+conviene bajarse también el paquete <filename>perldoc</filename>, que
+no sólo contiene documentación, sino también la orden
+<command>perldoc</command> para visualizarla.</para>
+    </note>
+
+<para>También puedes compilarlo tú. Pero no creo que lo hagas, porque
+eres un apresurado, y la compilación no está hecha para los
+apresurados (si eres usuario de <ulink
+url='http://www.gentoo.org'>Gentoo</ulink>, es el momento de abandonar
+este tutorial).</para>
+
+<para>Lo que tienes o has instalado es un intérprete de Perl. Perl es
+generalmente un lenguaje interpretado, con lo que no hace falta ningún
+encantamiento intermedio para pasar de un programa escrito en Perl a
+su ejecución. Si te hará falta un editor. No <emphasis>un</emphasis>
+editor. <emphasis>El</emphasis> editor.</para>
+<tip>
+<para>Los que apoyen al ínclito <productname>(x)emacs</productname> de
+este lado del <emphasis>flamewar</emphasis>, los que se queden con el
+sólido pero escuálido <productname>vi(m)</productname>, de este otro
+lado. Los que estén con <productname>kate</productname>,
+<productname>jot</productname>, o incluso el
+<productname>kwrite</productname>, que elijan armas y padrinos y que
+pidan hora.</para></tip>
+
+<para>Vuelvo contigo entre el fragor de la batalla para hablarte de otras
+opciones. No es que haya muchas, pero hay alguna. Por ejemplo, puedes
+usar el conocido entorno <ulink url='http://eclipse.org'>Eclipse</ulink> con el plugin
+<ulink url='http://e-p-i-c.sourceforge.net'>EPIC</ulink> para
+desarrollar proyectos en Perl, como se muestra en la figura siguiente.
+
+<figure>
+	<title>Iniciando un proyecto en Perl con EPIC/Eclipse</title>
+	<screenshot>
+	  <graphic fileref="img/e-p-i-c.png" scale="33" >
+	</screenshot>
+      </figure>
+ </para>
+
+<para>Otros entornos de desarrollo, como PerlIDE o Komodo, o bien no
+siempre funcionan o bien son de pago. Si consigues que te lo compre tu
+jefe,
+suertudo de ti. Si no, apoya proyectos de software libre. Suficientes
+personas han estado desarrollando sobre esos entornos durante el
+suficiente tiempo como para que presenten la sana apariencia que se
+muestra en la figura de abajo.
+<figure>
+	<title>Editando un programilla con gvim</title>
+	<screenshot>
+	  <graphic fileref="img/gvim-perl.png" scale="50" >
+	</screenshot>
+      </figure> 
+</para>
+
+    <para>Un editor decente tiene que tener colorines. Y también
+cerrar paréntesis. Ninguno va a evitar que cometas errores, pero va a
+hacértelo lo más complicado posible.</para>
+
+    <important>
+      
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>¿Tienes un intérprete de Perl instalado en tu sistema?
+¿Tienes un editor (chulo, si es posible) para editar programas en
+Perl? ¿El editor es <emphasis>sensible al contexto</emphasis> y tiene
+un modo específico para Perl? Si la respuesta a alguno de ellos es <emphasis>no</emphasis>, ¿a
+qué esperas para tenerlo? Venga, te espero.</para>
+      </formalpara>
+    </important>
+
+</sect1>
+
+<sect1 id='sect.hola'><title> Comenzando una nueva carrera</title>
+<subtitle>Primer programa en Perl: el clásico <emphasis>Hola
+Mundo</emphasis></subtitle>
+<para>Si has llegado hasta aquí, supongo que se te llevarán todos los
+diablos, porque con la hora que es, las camas están sin hacer y lo que
+se dice picar código, todavía no has picado nada. Y eso está bien: hay
+que convertir esa rabia en energía creativa, y aprovechando que uno de
+los diablos que se te llevan es cojuelo, escribir el siguiente
+fragmento de literatura:</para>
+
+    <note>
+      <para>Los programas ejemplo de este tutorial deberían estar en
+<ulink url="perl-apresurados-ejemplos.tgz">el fichero <filename>perl-apresurados-ejemplos.tgz</filename></ulink></para>
+    </note>
+    
+<programlistingco id='prog.hola'>
+<areaspec>
+	<area id="hola.shebang" coords='1' >
+	<area id="hola.print" coords='2' >
+	<area id="hola.sn" coords='3' >
+</areaspec>
+    <programlisting linenumbering="numbered">
+<emphasis>#!/usr/bin/perl</emphasis>
+<function>print</function> "Daban en Madrid, por los fines de julio, las once de la noche en punto..."; 
+<function>print</function> "\n"; 
+
+</programlisting>
+<calloutlist>
+	<callout arearefs="hola.shebang"><para>Tratándose de diablos,
+	lo mejor es usar los conjuros lo antes posible.  En esta
+	línea, clásica de los lenguajes interpretados y denominada
+	shebang se escribe el camino completo donde se halla el
+	intérprete del lenguaje en cuestión. Si está en otro sitio,
+	pues habrá que poner otro camino. Por ejemplo, podría ser
+	<command>#!/usr/local/bin/perl</command> o bien<command>
+	#!/usr/bin/perl6.0.por.fin</command>. O
+	<command>#!perl</command> y que se busque la vida. Si se
+	trabaja
+(es un decir) en Windows, esa línea no es necesaria, pero es
+conveniente para que el programa sea compatible con otros sistemas
+operativos. Cuando un Unix/GNU/Linux 
+decente y trabajador encuentra esa línea, carga ese programa y le pasa
+el resto del fichero para que lo interprete.</para>
+
+<para>Si piensas ejecutar el programa en diferentes entornos, también
+puedes usar <command>#!/usr/bin/env perl</command>, que ejecutará el
+primer intérprete de Perl que encuentre en el <acronym
+role="Path">camino</acronym>. También puedes usarlo si sabes que Perl
+está por ahí, el pillín, pero no quieres preocuparte de dónde.</para>
+	</callout>
+
+	<callout arearefs="hola.print">
+	  <para>Aquí se imprime, con el <emphasis>nihil
+obstat</emphasis> obtenido previamente. Obsérvense las comillas y el
+punto y coma. Las órdenes en Perl se separan con un punto y coma, para que quede bien claro dónde acaban y
+se puedan meter varias sentencias en una sola línea, con el objetivo
+de crear programas innecesariamente ofuscados. Lo que no se puede
+hacer en <emphasis>esos otros lenguajes</emphasis>. El
+<function>print</function> es herencia de aquellos primeros tiempos de
+los ordenadores, cuando el único periférico de salida era un convento
+de monjes trapenses dedicados a la sana tarea de copiar textos (y que
+se quedaron sin trabajo cuando el señor Hewlett se unió al señor Packard y crearon la impresora). En aquella época,
+la salida de un programa venía encuadernada en piel de cabrito y con todas las primeras letras de
+párrafo bellamente miniadas. Ah, tiempos aquellos, de los que sólo nos queda el nombre de una
+orden. Y no me refiero a la trapense. 
+ </para>
+
+	  <para>Obsérvese también que el argumento se le pasa a
+<function>print</function> directamente, sin paréntesis. Los
+paréntesis son opcionales. Convencionalmente no se usan cuando se
+trata de funciones <emphasis>nativas</emphasis>, como esta, aunque se
+suelen usar para subrutinas y métodos definidos en módulo o por el
+usuario. </para>
+
+	</callout>
+	<callout arearefs="hola.sn">
+	  <para>Y aquí pasamos a la línea siguiente. Borrón y cuenta
+nueva. Se acabó lo que se daba. Si ya conoces
+algún lenguaje de programación, que se supone que lo conoces, pillín, porque te lo he preguntado en
+la <link linkend='sect.id'>primera sección</link>, no hace falta que te explique que
+<constant>\n</constant> es un <emphasis>retorno de carro</emphasis>, ¿verdad?<footnote>
+	      <para>Lo que es recuerdo también de aquellos mismos tiempos en que <constant>STDOUT</constant> era una abadía, en la que
+para seguir en la página siguiente tenían que esperar que retornara el carro que les traía las pieles de
+becerro curtidas en las que escribían lo que el programador les ordenaba.
+</para>
+	    </footnote>
+</para>
+	</callout>
+      </calloutlist>
+    </programlistingco>
+
+<para>Desde un editor que cambie el color (y los tipos de letra) de
+acuerdo con la sintaxis del programa que se está editando tal como el
+<filename>emacs</filename>, el programa sería algo similar al
+que aparece en la <link linkend='fig.hola.emacs'>captura
+siguiente</link>
+</para>
+    <figure id='fig.hola.emacs'>
+      <title>Editando hola.pl en emacs</title>
+	<screenshot>
+	  <graphic fileref="img/hola_pl_emacs.png" scale="50" >
+	</screenshot>
+    </figure>
+
+    <warning>
+      <para>El usar este tipo de texto, que incluye caracteres con
+acento, es bastante intencionado. En algunos editores puede que
+aparezcan caracteres extraños; habrá que cambiar la
+<emphasis>codificación</emphasis> para que entienda el conjunto de
+caracteres <constant>iso-8858-1</constant> o
+<constant>latin1</constant>. </para>
+    </warning>
+
+
+<important>
+      
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Elegir un editor no es un tema baladí, porque te
+acompañará en tu vida como desarrollador. Prueba diferentes editores
+disponibles en tu sistema mirando sobre todo a las posibilidades que
+tienen de adaptación a diferentes cometidos (comprobar la sintaxis y
+depurar, por ejemplo). Nadie te ata a un editor de por vida, pero
+cuanto antes lo elijas, antes empezarás a ser productivo. Así que ya
+estás empezando a usar el (x)emacs. </para>
+      </formalpara>
+    </important>
+</sect1>
+
+
+<sect1>
+    <title>Viéndole las tripas al producto</title>
+    <subtitle>Ejecutando el programa paso a paso</subtitle>
+    <para>Mucho editar, mucho editar, pero de ejecutar programas nada de
+nada. Lo que hemos editado no deja de ser un fichero de texto, así que
+para ejecutarlo tendremos que llevar a cabo algún encantamiento para
+meterlo en el corredor de la ejecución.</para>
+
+<para>Tampoco hace falta. Lo más universal es irse a un intérprete de
+comandos, colocarse en el directorio donde hayamos salvado (de la
+eterna perdición) el fichero,
+y escribir <userinput>perl hola.pl</userinput>. Pero ya que estás
+puesta (o puesto), puedes hacer algo más: escribir <userinput>chmod +x
+hola.pl</userinput>, lo que convertirá al fichero en ejecutable, es
+decir, en algo que podemos correr simplemente tecleando su nombre, de
+esta forma:
+<screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$./hola.pl</userinput>
+<computeroutput>Daban en Madrid, por los fines de julio, las once de la noche en punto, hora menguada...
+</computeroutput>
+</screen>
+Pero el encantamiento este actúa también a otros niveles, pudiendo
+ejecutar el programa directamente desde esos inventos del averno
+llamados <emphasis>entornos de ventanas</emphasis>, como se muestra en
+la <link linkend='fig.ejecutando'>figura siguiente</link>. 
+
+<figure id='fig.ejecutando'>
+      <title>Ejecutando un programa en Perl desde Gnome</title>
+	<screenshot>
+	  <graphic fileref="img/ejecutando.png" scale="50" >
+	</screenshot>
+    </figure>
+
+Como el Nautilus, el manejador de ficheros de Gnome es muy listo, se
+dice a si mismo (pero bajito): <command>Pardiez, este fichero es
+ejecutable. ¿Qué puedo hacer con él? ¿Lo ejecuto? ¿Lo abro sin
+ejecutarlo? La duda me carcome. Se lo preguntaré al honorable
+usuario</command>. El menú contextual (con el botón derecho del ratón)
+nos ofrecerá opciones similares. El problema es que si lo ejecutamos
+será visto y no visto: abrirá una ventana, escribirá el texto y saldrá
+como una exhalación.
+</para>
+
+<para>Vamos a dejar entonces que el programa se quede clavado hasta
+nueva orden, con una pequeña modificación, que aparece en el siguiente
+listado</para>
+    <programlisting linenumbering="numbered" id='hola-y-duerme'>
+<emphasis>#!/usr/bin/perl</emphasis>
+<function>print</function> "A estas horas, el Estudiante, no creyendo su buen suceso y
+deshollinando con el vestido y los ojos el zaquizamí...\n"; 
+<function>sleep</function> <constant>10</constant>;  <emphasis># Quieto parao ahí</emphasis>
+</programlisting>
+<para>Que, con un poco de suerte, nos permitirá capturar una pantalla
+como la siguiente:
+<figure id='fig.ejecutando.terminal'>
+	<title>Terminal con el resultado de ejecutar el programa
+<filename>hola-y-duerme.pl</filename></title>
+	<screenshot>
+	  <graphic fileref="img/ejecutando-terminal.png" scale="60" >
+	</screenshot>
+    </figure>
+En otros sistemas operativos (o entornos), cambiará el icono y la apariencia del
+terminal donde está el resultado, pero por lo demás, el resultado será
+el mismo (y el sonriente camello, también). La única diferencia con el <link linkend='prog.hola'>primer
+programa</link> es la última línea, que le indica al programa que se
+quede quieto parao (dormido, de hecho) durante 10 segundos. Y que diga
+<emphasis>cheeeeeese</emphasis> (solo en ordenadores con interfaz
+gestual y/o emocional y/o audiomotriz/parlanchín). </para>
+
+<para>Por cierto que, de camino, hemos introducido nuestro primer
+comentario, que en Perl van precedidos por una
+<emphasis>almohadilla</emphasis> (<literal>#</literal>) y llegan hasta
+el final de la línea. Un buen programador debe ser un buen
+comentarista. Lo contrario no siempre es cierto.</para>
+
+<para>Pero incluso así, puede que sea demasiado rápido para apreciar
+la sutileza de cada una de las órdenes, y haya que ejecutarlo paso a
+paso. Más adelante tendrás que <emphasis>depurar</emphasis> tus
+programas, porque cometerás errores, si, errores y tendrás que
+corregirlos sobre la marcha. De la forma más inteligente, además. Pero
+no hay que preocuparse, porque Perl tiene un depurador
+integrado. Ejecuta el programa de esta forma:</para>
+<screen id='ej.depurador.1'><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$
+perl -d hola-y-duerme.pl</userinput>
+<computeroutput>Loading DB routines from perl5db.pl version 1.28
+Editor support available.
+
+Enter h or `h h' for help, or `man perldebug' for more help.
+
+main::(hola-y-duerme.pl:3):     print "A estas horas, el Estudiante, no creyendo su buen suceso y
+main::(hola-y-duerme.pl:4):     deshollinando con el vestido y los ojos el zaquizamí..\n"; 
+  DB&lt;1> 
+</computeroutput></screen>
+<para>La opción <command>-d</command> del intérprete te introduce en
+el depurador, así, sin más prolegómenos. A partir de esa línea de
+comandos, puedes evaluar las expresiones de Perl que quieras, y, por
+supuesto, depurar el programa, ejecutándolo paso a paso, mirando
+variables, y todo ese protocolo inherente al mester de la
+programación. Para empezar, vamos a ejecutarlo pasito a pasito.
+<screen id='deb.iniciando'><userinput>DB&lt;1> R</userinput>
+<computeroutput>Warning: some settings and command-line options may be lost!
+
+Loading DB routines from perl5db.pl version 1.28
+Editor support available.
+
+Enter h or `h h' for help, or `man perldebug' for more help.
+
+main::(hola-y-duerme.pl:3):     print "A estas horas, el Estudiante, no creyendo su buen suceso y
+main::(hola-y-duerme.pl:4):     deshollinando con el vestido y los ojos el zaquizamí..\n"; 
+</computeroutput></screen>
+, lo que empieza a hacerse ya un poco repetitivo. La orden
+<command>R</command> comienza a ejecutar el programa. En realidad,
+<link linkend='ej.depurador.1'>antes </link> lo único que habíamos
+hecho es indicarle (educadamente) al depurador el programa que íbamos
+a depurar, que se ha cargado, interpretado y mirado a ver si hay
+errores de sintaxis; ahora es cuando lo estamos ejecutando en serio. Bueno,
+todavía no, porque en este punto todavía no hemos ejecutado ni
+siquiera la primera línea. La salida del depurador nos indica
+<computeroutput>main::(hola-y-duerme.pl:3):</computeroutput> la
+siguiente línea del programa (<constant>3</constant>) que vamos a
+ejecutar (y la 4 de camino, que para eso la orden ocupa dos líneas). 
+<screenco>
+	<areaspec>
+	  <area coords="1" id="scr.deb.n" >
+	  <area coords="2" id="scr.deb.salida" >
+	  <area coords="4" id="scr.deb.sig" >
+	</areaspec>
+	<screen>
+<userinput>  DB&lt;0> n</userinput>
+<computeroutput>A estas horas, el Estudiante, no creyendo su buen suceso y
+deshollinando con el vestido y los ojos el zaquizamí..
+main::(hola-y-duerme.pl:5):     sleep 10;
+</computeroutput>
+</screen>
+<calloutlist>
+	<callout arearefs="scr.deb.n">
+	  <para><command>n</command>, de <emphasis>next</emphasis>,
+siguiente, ejecuta la línea ídem, es decir, justamente la que
+aparece al final de <link linkend='deb.iniciando'>el ejemplo anterior</link></para>
+	</callout>
+	<callout arearefs="scr.deb.salida">
+	  <para>Ésta es la salida de esa línea en particular; lo que
+hace es escribir lo que se encuentra entre las comillas.</para>
+	</callout>
+	<callout arearefs="scr.deb.sig">
+	  <para>Y muestra la
+línea siguiente a ejecutar.</para>
+	</callout>
+      </calloutlist>
+      </screenco>
+</para>
+
+<para>Como persona precavida vale por dos diablillos, no es mala idea
+tener siempre el depurador abierto para ir probando cosas; puedes
+usar, por ejemplo, la línea <command>perl -de0</command>, que te
+deposita directamente en el depurador sin ejecutar ningún programa. Te
+ahorrará
+más de una vuelta al editor a reescribir lo que ya está
+escrito. Además, es muy fácil. Si has elegido <productname>Un Buen
+Editor</productname> (o sea, el XEmacs) y te ha reconocido el
+programa como un fichero Perl, tendrás una opción del menú llamada
+<command>perl</command>; desplegando ese menú, te aparecerá la opción
+<command>debugger</command>, eligiéndola te dará un resultado similar
+al que se muestra en la siguiente captura de pantalla:
+<figure id='fig.depurando.xemacs'>
+	<title>Depurando un programa en el mismo editor XEmacs. La
+flecha está situada sobre la siguiente línea a ejecutar.</title>
+	<screenshot>
+	  <graphic fileref="img/debugging.png" scale="60" >
+	</screenshot>
+    </figure>
+Desde este depurador se trabaja de la misma forma que en la versión de
+la línea de comandos, pero se pueden colocar puntos de ruptura usando
+el ratón, por ejemplo y puedes ver las líneas que se están ejecutando
+en su contexto. </para>
+<figure id='fig.depurando.xemacs.menu'>
+      <title>Menú específico del modo <filename>CPerl</filename> para
+XEmacs, mostrando las diferentes opciones, incluyendo la de depuración
+y otras cuantas que posiblemente no uses nunca.</title>
+	<screenshot>
+	  <graphic fileref="img/perl-menu.png" scale="60" >
+	</screenshot>
+    </figure>
+<para>Con esto, ya estamos listos para abordar empresas más elevadas
+que nos llevarán mucho más lejos.</para>
+<important>
+      
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Familiarizarse con el depurador, creando un programa con
+las dos o tres cosas que se conocen y viendo las diferentes órdenes;
+por ejemplo, cómo ejecutar un programa sin parar, o hasta una línea
+determinada y cómo hacer que la ejecución se pare en una
+línea. Recuerda, <command>h</command> es tu amiga. </para> 
+      </formalpara>
+    </important>
+</sect1>
+
+<sect1 id='sect.cpan'>
+    <title>Usando la sabiduría colectiva</title>
+    <subtitle>Cómo descargar módulos de Perl y como usar alguno de
+ellos. Algunas funciones útiles. </subtitle>
+
+<para>Escribir está bien. Hay dos o tres personas que incluso se ganan
+la vida con ello<footnote><para>Los monjes trapenses de la congregación
+	periférica de E/S ya no, desgraciadamente y se dedican a la
+	elaboración de un delicioso licor de
+	alcachofa</para></footnote>. Pero hace falta hacer algo más. Copiar a
+Faulkner, por ejemplo. Pero no sólo copiarlo. Ser más Faulkner que
+Faulkner. O mezclar Faulkner con, pongamos por caso, David Sedaris. O
+quizás Hemingway con Sedaris. Y llegado a este punto, te voy a contar
+un secreto. No hace falta que programes absolutamente nada. Ya hay
+gente que ha hecho lo que tú piensas programar en este preciso
+instante. De hecho, un vietnamita y un chavalote de Mondoñedo que
+acaba de terminar un módulo de FP segundo grado. Pero ambos dos son
+buenas personas y legan su trabajo a la humanidad toda (inclusive
+tú). Si hay una sola cosa que haga al Perl superior a otros lenguajes
+de programación, son esas cosas que ha hecho la gente, empaquetado y
+colocado en un sitio común, llamado <ulink
+url='http://search.cpan.org'>CPAN</ulink>. CPAN significa, como
+probablemente ya habías adivinado, <emphasis>Comprehensive Perl
+Archive Network</emphasis> y es un sitio donde hay cienes, qué digo
+cienes, millardos de módulos que hacen todas esas cosas que se te
+hayan podido ocurrir y otras cuantas que, ni harto de vino, se te
+podrían haber ocurrido. Pero hay que saber usarlo, claro.</para>
+
+    <note>
+      <para>Si has tenido que pedirle a alguien que te instale el
+Perl, posiblemente sea el momento de que tengas a mano otra vez su
+teléfono o móvil, porque vas a volver a necesitarlo. No ahora. Más
+tarde. Mientras tanto, aunque no sea el <ulink
+url='http://www.sysadminday.com/'>día de apreciación del administrador
+del sistema</ulink>, aprovecha para pensar en él con cariño. Antes
+de que la falta de calor humano lo convierta en un <ulink
+url='http://es.wikipedia.org/wiki/Bofh'>operador bastardo del
+infierno</ulink>. Para instalar módulos de CPAN para que sean
+accesibles para todo el mundo hace falta tener privilegios de
+administrador; sin embargo, puedes instalarlos sin problemas en tu propio
+directorio (por ejemplo, en
+<filename>/home/miusuario/lib/perl</filename>).</para>
+    </note>
+
+<para>En CPAN hay módulos para todo. En particular, para manejar
+textos en diferentes idiomas. Por ejemplo, un módulo para dividir en
+sílabas texto en castellano llamado <ulink
+url='http://search.cpan.org/~marcos/Lingua-ES-Silabas-0.01/'>Lingua::ES::Silabas</ulink>.
+Todos los módulos en
+CPAN están organizados en espacios de nombres, para hacer más fácil su
+búsqueda y evitar colisiones de funcionalidad (y de nombre
+también). En este caso, el espacio de nombre es el
+<filename>Lingua</filename>, que incluye muchos más módulos cada vez
+más esotéricos. Pero este espacio está bien organizado, porque luego
+vienen un par de caracteres que indican a qué lengua se aplica el
+módulo susodicho; en este caso, <filename>ES</filename>. Finalmente,
+el último apartado es el realmente específico.</para>
+
+    <note>
+      <para>En cada sistema de ficheros específico, el nombre también
+indica en el directorio en el que estará almacenado, dentro de los
+directorios donde se suelen almacenar los módulos.</para>
+    </note>
+
+<para>Un módulo es simplemente una biblioteca de utilidades para un fin
+determinado (o ninguno) escritas en Perl, o, al menos, empaquetadas
+para que se pueda acceder a ellas desde un programa en Perl. Una
+librería crea una serie de funciones a las que podemos acceder desde
+nuestros programas. Pero antes hay que instalarla. Y antes todavía,
+hay que ejecutar CPAN por primera vez:
+<screen>
+<userinput>jmerelo@vega:~$ sudo cpan</userinput>
+<computeroutput>
+cpan shell -- CPAN exploration and modules installation (v1.83)
+ReadLine support enabled
+
+cpan> 
+</computeroutput>
+</screen>
+Si realmente es la primera vez que lo ejecutas, te preguntará una
+serie de cosas. En la mayoría es razonable contestar la opción que te
+ofrezcan por defecto, pero en un par de ellas si tienes que
+elegir:<itemizedlist>
+	<listitem>
+	  <para>Si no tienes privilegios de superusuario, tendrás
+	  que elegir un subdirectorio alternativo para colocar los
+	  módulos instalados.</para>
+	</listitem>
+	<listitem>
+	  <para>Es conveniente usar los repositorios más accesibles
+desde tu país por orden de frecuencia de actualización, para tener
+garantía de frescura de los módulos. Por ejemplo, dos buenas opciones
+pueden ser  http://debianitas.net/CPAN/ y
+http://cpan.imasd.elmundo.es/; aunque los otros repositorios con la
+extensión <command>.es</command> también suelen funcionar
+relativamente bien. Ten en cuenta que los basados en
+<filename>ftp</filename> puede que no le gusten a tu cortafuegos; lo
+más seguro es seleccionar primero los que usen el protocolo <filename>http</filename>.
+ </para>
+	</listitem>
+      </itemizedlist>
+
+</para>
+
+<para>Una vez configurado todo, ya se puede instalar el módulo
+susodicho. Lo puedes hacer directamente desde la línea de comandos con
+<screen>
+<userinput>install Lingua::ES::Silabas</userinput>
+<computeroutput>CPAN: Storable loaded ok
+LWP not available
+Fetching with Net::FTP:
+  ftp://ftp.rediris.es/mirror/CPAN/authors/01mailrc.txt.gz
+Going to read /home/jmerelo/.cpan5.9.3/sources/authors/01mailrc.txt.gz
+CPAN: Compress::Zlib loaded ok
+LWP not available
+[...más cosas...]
+Fetching with Net::FTP:
+  ftp://ftp.rediris.es/mirror/CPAN/authors/id/M/MA/MARCOS/CHECKSUMS
+
+  CPAN: Module::Signature security checks disabled because Module::Signature
+  not installed.  Please consider installing the Module::Signature module.  You may also need to be able to connect over the Internet to the public
+  keyservers like pgp.mit.edu (port 11371).
+
+Checksum for /home/jmerelo/.cpan5.9.3/sources/authors/id/M/MA/MARCOS/Lingua-ES-Silabas-0.01.tar.gz ok
+Scanning cache /home/jmerelo/.cpan5.9.3/build for sizes
+Lingua-ES-Silabas-0.01/
+Lingua-ES-Silabas-0.01/Silabas.pm
+Lingua-ES-Silabas-0.01/README
+Lingua-ES-Silabas-0.01/Makefile.PL
+Lingua-ES-Silabas-0.01/Changes
+Lingua-ES-Silabas-0.01/MANIFEST
+Lingua-ES-Silabas-0.01/test.pl
+
+  CPAN.pm: Going to build M/MA/MARCOS/Lingua-ES-Silabas-0.01.tar.gz
+
+Checking if your kit is complete...
+Looks good
+Writing Makefile for Lingua::ES::Silabas
+cp Silabas.pm blib/lib/Lingua/ES/Silabas.pm
+Manifying blib/man3/Lingua::ES::Silabas.3
+  /usr/bin/make  -- OK
+Running make test
+PERL_DL_NONLAZY=1 /usr/local/bin/perl5.9.3 "-Iblib/lib" "-Iblib/arch" test.pl
+1..9
+# Running under perl version 5.009003 for linux
+# Current time local: Mon Jul 10 23:34:36 2006
+# Current time GMT:   Mon Jul 10 21:34:36 2006
+# Using Test.pm version 1.25
+ok 1
+ok 2
+ok 3
+ok 4
+ok 5
+ok 6
+ok 7
+ok 8
+ok 9
+  /usr/bin/make test -- OK
+Running make install
+Installing /usr/local/lib/perl5/site_perl/5.9.3/Lingua/ES/Silabas.pm
+Installing /usr/local/share/man/man3/Lingua::ES::Silabas.3
+Writing /usr/local/lib/perl5/site_perl/5.9.3/i686-linux-thread-multi-ld/auto/Lingua/ES/Silabas/.packlist
+Appending installation info to /usr/local/lib/perl5/5.9.3/i686-linux-thread-multi-ld/perllocal.pod
+  sudo make install  -- OK
+</computeroutput></screen>
+que, efectivamente, descarga el módulo del repositorio espejo de CPAN
+más cercano (en este caso ftp.rediris.es), lo "compila", hace una
+serie de tests (sin los cuales no se instalaría siquiera) y
+efectivamente lo instala para que esté disponible para todos los
+programas que quieran usarlo (que no creo que sean muchos, pero alguno
+puede caer).</para>
+
+<para>Pero, ¿andestá la documentación? se preguntará el preocupado
+(aunque apresurado) lector. No preocuparse. Todo módulo en CPAN está
+documentado y se accede a él usando el mismo sistema que se usa para
+todo Perl: el programa <filename>perldoc</filename>. En este caso,
+<userinput>perldoc Lingua::ES::Silabas</userinput> nos devolverá algo
+así:<screen>
+<computeroutput>Lingua::ES::Silabas(3)User Contributed Perl DocumentatioLingua::ES::Silabas(3)
+
+
+
+NOMBRE
+       Lingua::ES::Silabas - Divide una palabra en silabas
+
+SINOPSIS
+         use Lingua::ES::Silabas;
+
+         $palabra = âexternocleidomastoideoâ; # muchas silabas ;-)
+
+         ## en contexto de lista,
+         ## lista de silabas que componen la palabra
+         @silabas = silabas($palabra);
+
+         ## en contexto escalar,
+         ## el numero de silabas que componen la palabra
+         $num_silabas = silabas($palabra);
+</computeroutput></screen>
+  </para>
+
+<para>Todos los módulos en CPAN están documentados con un pequeño
+manual de referencia y ejemplos; es conveniente tener este manual
+abierto cuando se programe, o usar directamente los ejemplos incluidos
+en la SINOPSIS para comenzar a programar con él.</para>
+
+<para>Vamos a ver ahora como se usa ese pozo de sabiduría para
+bajarnos una página web</para>
+    <programlistingco id='prog.web'>
+      <areaspec>
+	<area coords="1" id="area.cpan.use" >
+	<area coords="3" id="area.cpan.getprint" >
+      </areaspec>
+      <programlisting>
+<constant>use</constant> <function>LWP::Simple</function>;
+
+getprint('<literal>http://localhost:8020/</literal>');
+
+</programlisting>
+      <calloutlist>
+	<callout arearefs="area.cpan.use">
+	  <para>En esta línea lo único que se hace es cargar la
+librería que tendrá que estar instalada; no es el caso con esta,
+porque forma parte del núcleo o
+<emphasis>core</emphasis>. <emphasis>Cargar</emphasis> implica
+incorporar las funciones que ese módulo exporte; para saber qué
+funciones son esas habrá que consultar la página de manual,
+claro. </para> 
+
+<para>Si te das cuenta, no ha habido que especificar dónde diablos se
+busca ese módulo para incorporarlo al programa. Mágicamente, el
+intérprete de Perl busca que te busca en todos los directorios
+razonables, hasta que lo encuentra. Pero aunque mágico, no es
+telepático y no sabe donde tú, precisamente, has podido instalar ese
+módulo. Especialmente si no tienes privilegios de superusuario y has
+tenido que instalarlo en tu <varname>${HOME}</varname>, tendrás que
+especificarle en qué directorio buscar, de esta forma:
+ <programlisting>
+<emphasis role="bold"><function>use lib</function> "/home/esesoyyo/lib/perl";</emphasis>  
+<constant>use</constant> <function>LWP::Simple</function>;</programlisting>
+Es decir, <emphasis>antes</emphasis> de tratar de cargar el módulo.</para>
+	</callout>
+
+	<callout arearefs="area.cpan.getprint">
+	  <para>Sin dar muchas más vueltas, aquí está la orden que se
+baja la página web y la imprime. <function>getprint</function> es
+precisamente una de esas funciones que el módulo ha importado. </para>
+	</callout>
+      </calloutlist>
+    </programlistingco>
+
+    <para>Por otra parte, hay una forma más simple de hacer lo mismo,
+directamente desde la línea de comandos
+<screen><userinput> perl -MLWP::Simple -e 'getprint("http://localhost:8020")'
+</userinput></screen>
+La opción <command>-M</command> carga el módulo que la sigue, y
+<command>-e</command> ejecuta el código Perl que le sigue. Es
+conveniente para programas cortos, o si se quiere hacer un alias del
+shell, por ejemplo.<footnote>
+<para>En cuanto que yo averigüe cómo diablos se hace, lo comunicaré oportunamente.</para>
+      </footnote>
+<command></command>
+</para>
+<important>
+      
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Hay gigas y gigas de módulos, a cada cuál más útil y
+sorprendente. Los módulos <filename>Acme::</filename>, por ejemplo,
+son absolutamente inútiles y no tienen equivalente en ningún otro
+lenguaje. Instalar el módulo <literal>Acme::Clouseau</literal> por
+ejemplo y ejecutar el programa de prueba que se incluye en su
+<emphasis>Sinopsis</emphasis>. </para>
+      </formalpara>
+    </important>
+
+</sect1>
+
+  <sect1 id="sect.mal">
+    <title>Ley de Murphy</title>
+    <subtitle>Un poco de <emphasis>troubleshooting</emphasis>: qué
+hacer cuando algo va mal.</subtitle>
+
+<para>Errar es humano, sobre todo cuando uno tiene tantos dedos y tan
+pocas teclas y se juntan todas para que uno se equivoque. Y tampoco
+puede acordarse uno de la sintaxis de un lenguaje que no tiene
+sintaxis. Sería una paradoja que daría lugar al fin del universo tal
+como lo conocemos. Así que uno se equivoca. Pero como llegados los 67
+minutos de este Perl para apresurados tampoco sabe uno mucho (y se nos
+echa el tiempo encima) tampoco puede equivocarse uno mucho. Pero hay
+un par de errores que se cometen con bastante asiduidad. El primero
+puede ser algo así:
+<programlisting><command>#!/usr/bin/pelr</command>
+
+print "Da igual, porque va a petar";
+</programlisting>
+que, al ejecutarse, da un sorprendente:
+<screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados$
+code/peta1.pl</userinput>
+<computeroutput>bash: code/peta1.pl: /usr/bin/pelr: bad interpreter: No existe el fichero o el directorio
+</computeroutput>
+</screen>, que viene a decir que vale, que muy bien, pero que ese
+intérprete no existe. Cambiar alguno de los otros caracteres, la
+admiración (que es una expresión de admiración al creador del programa
+encarnado en el intérprete) o la almohadilla, produce errores
+igualmente pintorescos. Por ejemplo, quitar la admiración o la almohadilla da este:
+<screen><computeroutput>Warning: unknown mime-type for "Da igual, porque va a petar" -- using "application/*"
+Error: no such file "Da igual, porque va a
+petar"</computeroutput></screen>
+Este error aparecerá también si pasas un fichero de Windows (que
+incluyen al final de línea dos caracteres, retorno de carro y fin de
+línea) a Unix/Linux/GNU (que incluye uno solo). El intérprete de
+órdenes, tan agudo en otras ocasiones, en esta ocasión interpretará el
+carácter extraño (representado con ^M en los editores) como parte del
+nombre y dará el mismo tipo de error.</para>
+
+<para>El segundo tipo de error y el más frecuente, se produce una vez
+que el intérprete se ha cargado correctamente, por ejemplo en el
+siguiente programa:
+<programlisting><function>print</function> "Da igual, porque va a petar\n"
+<function>print</function> "Pero solo si el error no está en la última
+línea\n";</programlisting>
+que hace que el intérprete responda con un informativo
+<screen><computeroutput>syntax error at code/peta2.pl line 4, near "print"
+Execution of code/peta2.pl aborted due to compilation errors.
+</computeroutput></screen>
+y todo eso, por un humilde punto y coma. Si Guido van Rossum levantara
+la cabeza.</para>
+
+<para>Evidentemente, otros errores de sintaxis darán su mensaje
+correspondiente. En general, serán bastante más informativos. Y, en
+todo caso, Google es tu amigo.</para>
+
+    <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Este bloque no tiene ejercicios. No te voy a pedir que
+escribas un fichero con errores y digas <emphasis>Um, parece que tiene
+un error</emphasis>. Pero acuérdate de lo leído, te será útil. O
+lo será para quien llegue aquí desde <ulink url="http://google.com">Google</ulink>.</para>
+      </formalpara>
+    </important>
+
+  </sect1>
+
+  <sect1>
+    <title>Lo escrito, escrito está</title>
+    <subtitle>Usando y abusando de ficheros y demás facilidades de
+entrada/salida. Variables predefinidas. Interpolación. Expresiones
+condicionales.</subtitle>
+
+    <para><quote>Que si, que mucho Perl para apresurados y mucha gaita
+gallega, pero mira la hora que es y no nos hemos comido un
+jurel</quote>, estará diciendo a estas alturas el (apresurado)
+lector. Tenga paciencia vuecencia, que sin pausa pero sin prisa, todo
+llegará. En particular, llega que, no conforme con escribir cosas que
+estén <emphasis>dentro</emphasis> de un programa, alguien quiera
+escribir algo que esté, por el contrario, fuera de un programa. Y para
+más inri, con spoilers traseros y todo: añadiéndole números de
+línea. Pues para eso estamos (está Perl):
+<programlistingco id='prog.escribe'>
+	<areaspec>
+	  <area coords="1" id="prog.escribe.my">
+	  <areaset coords="" id="prog.escribe.abrecierra">
+	    <area coords="2" id="prog.escribe.abre">
+	    <area coords="7" id="prog.escribe.cierra">
+	  </areaset>
+	  <area coords="3" id="prog.escribe.die">
+	  <area coords="4" id="prog.escribe.bucle">
+	  <area coords="5" id="prog.escribe.en.el.bucle">
+
+	</areaspec>
+<programlisting>
+<!-- Fichero original: code/escrito_pl -->
+<constant>my</constant> <varname>$leyendo</varname> = "<literal>diablocojuelo.txt</literal>";
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$leyendo</varname> 
+  or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> por </literal><varname>$!</varname>\n";
+<constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
+  <function>print</function> "<varname>$.</varname><varname>$_</varname>";
+}
+<function>close</function> <varname>$fh</varname>;
+
+</programlisting>
+	<calloutlist>
+	  <callout arearefs="prog.escribe.my">
+	    <para>Vamos a dejar las cosas claras desde el
+principio. <varname>$leyendo</varname> es una variable. Una variable
+cara, porque lleva el dólar al principio. Y por eso es mía y le he
+puesto el <constant>my</constant>. Sólo mía. Bueno, de hecho, es una
+variable de ámbito léxico, que será invisible fuera del bloque. Este
+bloque abarca todo el programa. Pero el ámbito de una variable puede
+ser cualquier bloque (que
+están encerrados entre llaves (<literal>{}</literal>), como uno que hay un poco
+más abajo).</para>
+
+	    <para>Y en cuanto a la variable propiamente dicha, es una
+variable escalar. Por eso lleva un dólar delante, porque el dinero
+también es escalar. Creo. En todo caso, en las variables escalares
+puede haber números, o cadenas alfanuméricas; a Perl le da igual. La
+interpretará como uno, o como otro, dependiendo del contexto.Por
+ejemplo</para>
+<screen><userinput>$foo="13abc"
+print $foo + 1</userinput>
+<computeroutput>14</computeroutput>
+</screen>
+
+	    <para>En realidad, no es necesario declarar las
+variables. Cuando se usa una variable por primera vez, aparece
+automágicamente con valor nulo, pero el ámbito será global. Y las
+variables globales son <emphasis>una mala cosa</emphasis>.</para>
+	  </callout>
+
+	  <callout arearefs="prog.escribe.abrecierra">
+	    <para>Habrá que abrir (<function>open</function>) el
+fichero, claro. Eso es lo que hacemos aquí. A
+<function>open</function> se le pasa la variable que vamos a usar para
+referirnos al fichero abierto<footnote>
+		<para>Lo que viene siendo un
+<emphasis>filehandle</emphasis> de toda la vida.</para>
+	      </footnote>, que declaramos sobre la marcha, el modo de
+apertura, en este caso <literal>"&lt;"</literal> para lectura (podía ser
+<literal>">"</literal>  para escritura) y, como es natural, el nombre
+del fichero, que tenemos en la variable
+<varname>$leyendo</varname>. Pero las cosas pueden ir mal: puede
+haberse comido el fichero el perro, puede no existir ese fichero, o
+puede haber cascado en ese preciso instante el disco duro. Así que hay
+que prever que la operación pueda ir mal y dejar que el programa
+fallezca, no sin un epitafio adecuado.</para>
+
+	    <para>Los ficheros abiertos hay que cerralos, que si no
+pasa corriente y se puede resfriar el disco duro. Incluso habría que
+comprobar si se han cerrado correctamente, para ser más papistas que
+el camarlengo, pero lo vamos a dejar para mejor ocasión. </para>
+	  </callout>
+
+	  <callout arearefs="prog.escribe.die">
+	    <para>
+Si hay algún problema al abrir el fichero, el programa
+irremisiblemente muere (<function>die</function>). Pero no
+muere por las buenas, sino que te da un mensaje que te demuestra que
+hay una buena razón para hacerlo: 
+<screen><userinput>./escrito.pl
+</userinput>
+<computeroutput>No puedo abrir el fichero diablocojuelo.txt porque No existe el fichero o el directorio</computeroutput>
+</screen>
+El epitafio lo proporciona <varname>$!</varname>, otra de las <emphasis>variables por
+defecto o implícitas</emphasis> de Perl que contiene el último mensaje de error del sistema.</para>
+	    <note>
+	      <para>Las documentación sobre las variables predefinidas
+o implícitas se puede consultar escribiendo <userinput>perldoc
+perlvar</userinput>.</para>
+	    </note>
+	    <para>Pero no hemos dicho nada del
+<literal>or</literal> al principio de la línea. Como esto es un
+lenguaje decente, para terminar una sentencia hace falta el
+<literal>;</literal>, que no está hasta el final de esta línea. Con lo
+que esta línea y la anteriores viene a decir
+<quote>Voy a intentar abrir el fichero, <emphasis>pero si
+no</emphasis> pudiera o pudiese, me muero y dejo este mensaje</quote>
+Ese  <emphasis>pero si no</emphasis>, <literal>or</literal>, que
+representa a la función lógica
+<function>O</function><footnote><para>También se usa ||, pero la
+precedencia es diferente.</para>
+	      </footnote>hace que se ejecute su parte
+derecha solo si la parte izquierda tiene como resultado un valor
+falso, es decir, si <function>open</function> devuelve
+<function>undef</function>, lo que ocurrirá si con cualquier problema
+a la hora de abrir el fichero. </para>
+
+<para>Esta construcción viene a ser un condicional y el caso más
+general es &lt;expresión> &lt;condicional> &lt;sentencia>. Lo veremos
+mucho. </para>
+
+	    <para> Y de camino hemos visto como funciona la
+interpolación de variables en cadenas: una variable dentro de
+una cadena se sustituirá por su valor al ejecutar el programa.</para>
+	  </callout>
+
+	  <callout arearefs="prog.escribe.bucle">
+	    <para>Esto es un bucle <function>while</function>. Un
+pirulí para quien lo haya averiguado. Pero es un bucle raro, porque
+dentro de la condición de bucle (lo que hay entre paréntesis), lo que
+decide si se sigue o no, tiene lo que parece una etiqueta HTML. Pues
+no lo es. Por alguna razón ignota, los paréntesis angulares (que así
+se llaman) es un operador que, entre otras cosas, lee la siguiente
+línea del filehandle incluido dentro. Y devuelve verdadero; cuando no
+puede leer más líneas, devuelve falso. Como era de esperar, este bucle
+va a recorrer las líneas del fichero. Detrás de while siempre va un
+bloque y los bloques siempre llevan llaves. Como los coches. Aunque
+tengan una sola línea. Quién sabe qué podría pasarle a un bloque
+indefenso, si no llevara llaves.</para>
+	  </callout>
+	  <callout arearefs="prog.escribe.en.el.bucle">
+	    <para>Se interpolan dos variables en una cadena, también
+predefinidas. El bucle recorre las líneas del fichero, pero no
+sabemos dónde las va metiendo. Pues van a parar a
+<varname>$_</varname>, la variable por defecto por excelencia, donde
+van a parar un montón de cosas que sabemos y otras muchas que
+ignoramos. Muchas funciones actúan sobre esta variable por defecto sin
+necesidad de explicitarla y si hay un bucle huérfano sin variable de
+bucle, allí que te va esa variable por defecto para ayudarla. Y para
+que, a su vez, no se quede solita, le ponemos delante la
+<varname>$.</varname>, que contiene el número de línea del fichero que
+se está leyendo. Y ni le ponemos el retorno de carro detrás, porque en
+Perl, cuando se lee de un fichero, se lee con sus retornos de carro y
+todo, para que uno haga con ellos lo que quiera (quitárselos de
+en medio y no acordarse de que están ahí, en la mayor parte de los casos).</para>
+	  </callout>
+
+	</calloutlist>
+
+      </programlistingco>
+</para>
+
+<para>El resultado que obtenemos, será tal que así:</para>
+    <screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ ./escrito.pl ../diablocojuelo.txt | head</userinput>
+<computeroutput>1 The Project Gutenberg EBook of El Diablo Cojuelo, by Luis Vélez de Guevara
+2
+3 This eBook is for the use of anyone anywhere at no cost and with
+4 almost no restrictions whatsoever.  You may copy it, give it away or
+5 re-use it under the terms of the Project Gutenberg License included
+6 with this eBook or online at www.gutenberg.net
+7
+8
+9 Title: El Diablo Cojuelo
+10</computeroutput>
+</screen>
+
+    <para>Pero lo cierto es que en Perl <productname>hay otra forma de
+hacerlo</productname>. Leer ficheros es  una de las principales
+aplicaciones de Perl, así que el programa anterior se puede
+simplificar al siguiente:
+<programlisting><emphasis>#!/usr/bin/perl</emphasis>
+<constant>while</constant> (&lt;&gt;) {
+  <function>print</function> "<varname>$.</varname> <varname>$_</varname>";
+}</programlisting>
+Programa minimalista donde los haya. Cuando Perl se encuentra los
+paréntesis angulares en un programa, hace todo lo siguiente: toma el
+primer argumento de la línea de comandos, lo abre como fichero y mete
+la primera línea en la variable por defecto
+<varname>$_</varname>. Si no se ha pasado nada por la línea de
+comandos, se sienta ahí, a verlas venir, esperando que uno escriba
+cosas desde teclado (entrada estándar) y le dé a
+<literal>Ctrl-D</literal>, que equivale al carácter
+<constant>EOF</constant>, fin de fichero. Lo que equivale exactamente
+a leer de la entrada estándar, que se puede hacer de alguna de las
+múltiples formas posibles: <userinput>cat diablocojuelo.txt|
+./escrito2.pl</userinput> o <userinput>./escrito2.pl &lt;
+diablocojuelo.txt</userinput>, sin ir más lejos. . Pero es que todavía se puede
+simplificar más, usando argumentos de línea de comandos:
+<programlisting><emphasis>#!/usr/bin/perl -n</emphasis>
+<function>print</function> "<varname>$.</varname> <varname>$_</varname>";
+</programlisting>
+que se quita de en medio hasta el while, que queda implícito por la
+opción <literal>-n</literal> que le pasamos al intérprete. </para>
+
+    <note>
+<para>Y si se puede hacer eso en Python, que venga Guido Van Rossum y
+lo vea.</para> 
+    </note>
+
+
+<para>También se puede complicar más, claro. Por ejemplo, no me
+negaréis que esas líneas vacías con el numerito delante ofenden a la
+vista. No hay nada en esas líneas, nadie va a decir "Por favor, lean
+esta línea" porque está vacía. Así que lo mejor es quitarle también
+los números. Y, de camino, no está de más curarnos en salud antes de
+abrir un fichero comprobando si se puede leer o no:
+<programlistingco>
+	<areaspec>
+	  <area coords="2" id="prog.escrito.if.readable">
+	  <area coords="9" id="prog.escrito.if.chop">
+	</areaspec>
+	<programlisting>
+<!-- Fichero original: code/escrito-if_pl -->
+<constant>my</constant> <varname>$leyendo</varname> = "<literal>diablocojuelo.txt</literal>";
+<constant>if</constant> ( ! -r <varname>$leyendo</varname> ) {
+  <function>die</function> "<literal>El fichero </literal><varname>$leyendo</varname><literal> no es legible</literal>\n";
+}
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$leyendo</varname> 
+  or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> porque </literal><varname>$!</varname>\n";
+<constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
+  <function>chop</function>; <function>chop</function>;
+  <function>print</function> "<varname>$.</varname>" <constant>if</constant> <varname>$_</varname>;
+  <function>print</function> "<varname>$_</varname>\n";
+}
+<function>close</function> <varname>$fh</varname>;
+
+</programlisting>
+	<calloutlist>
+	  <callout arearefs="prog.escrito.if.readable">
+	    <para>En este caso, usamos el <function>if</function> en
+su forma más tradicional, <programlisting>if (condición)
+{bloque}</programlisting>. Lo que no es tan tradicional es la
+condición: el operador <function>-r</function> comprueba si el fichero
+es legible (para el usuario) y devuelve falso si no lo es. De forma
+que:
+<screen><userinput>jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ chmod -r diablocojuelo.txt
+jmerelo@vega:~/txt/tutoriales/perl-apresurados/code$ ./escrito-if.pl</userinput>
+<computeroutput>El fichero diablocojuelo.txt no es legible</computeroutput></screen>
+</para>
+	  </callout>
+	  <callout arearefs="prog.escrito.if.chop">
+	    <para>Para quitar de enmedio las líneas vacías, primero
+hay que tener en cuenta que no lo están. Tienen al final dos
+caracteres (los de retorno de carro y salto de línea), que hay que
+eliminar con sendos <function>chop</function>, que hace precisamente
+eso, elimina un carácter al final de la línea. Y con eso, en la línea
+siguiente escribimos el número de línea, pero sólo si queda algo en la
+variable por defecto.</para>
+	  </callout>
+	</calloutlist>
+	</programlistingco>
+</para>
+
+<para>En Perl siempre hay más de una forma de hacer las cosas. Se
+puede elegir la más elegante, o la más divertida. O la que uno conozca
+mejor, claro. Por eso no tenemos que limitarnos a abrir ficheros y
+escribir porquería en pantalla, que luego se ponen los terminales
+perdidos y parecen el salvapantallas de Matrix. Así que vamos a
+escribir la salida en un fichero, como hacemos en el siguiente
+programa</para>
+    <programlisting>
+<!-- Fichero original: code/escrito-if-escribe_pl -->
+<constant>my</constant> <varname>$leyendo</varname> = "<literal>diablocojuelo.txt</literal>";
+<constant>if</constant> ( ! -r <varname>$leyendo</varname> ) {
+  <function>die</function> "<literal>El fichero </literal><varname>$leyendo</varname><literal> no es legible</literal>\n";
+}
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$leyendo</varname> 
+  or <function>die</function> "<literal>No puedo abrir el fichero </literal><varname>$leyendo</varname><literal> por </literal><varname>$!</varname>\n";
+<emphasis><function>open</function> <constant>my</constant> <varname>$fh_out</varname>, "<literal>&gt;</literal>", "<varname>$leyendo</varname><literal>-out</literal>";</emphasis>
+<constant>while</constant> (&lt;<varname>$fh</varname>&gt;) {
+  <function>chop</function>; <function>chop</function>;
+<emphasis>  <function>print</function> <varname>$fh_out</varname> "<varname>$.</varname>" <constant>if</constant> <varname>$_</varname>;
+  <function>print</function> <varname>$fh_out</varname> "<varname>$_</varname>\n";</emphasis>
+}
+<function>close</function> <varname>$fh</varname>;
+<function>close</function> <varname>$fh_out</varname>;
+
+
+</programlisting>
+
+    <para>Este programa es igual que el anterior, salvo por las líneas
+resaltadas, que abren el fichero y escriben en él. La única diferencia
+entre abrir y cerrar un fichero es el símbolo de menor
+(<literal>&lt;</literal>) que ahora mira para el otro lado. El nombre
+del fichero de salida lo hemos creado a partir del de entrada
+añadiéndole <literal>-out</literal>. Y en
+cuanto a escribir un fichero, se diferencia de escribir en pantalla
+(en salida estándar, en realidad) sólo en la inserción del filehandle
+(<command>print $fh_out</command>) tras la orden. Sin coma detrás,
+ojo. </para>
+
+    <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Ahora ya no tenemos excusa para no hacer nada. Vamos a
+hacerlo simple: un programa que cuente el número de líneas que
+no estén en blanco en un fichero, y lo escriba en un fichero de salida
+cuyo nombre se cree a partir del nombre del fichero original, con la
+extensión <filename>lc</filename>.</para>
+      </formalpara>
+    </important>
+  </sect1>
+
+  <sect1>
+    <title>Partiendo de una base</title>
+    <subtitle>Usando vectores.</subtitle>
+
+<para>En realidad, sólo hemos rascado la superficie del diablo
+cojuelo, unas pocas líneas del principio. Pero hay que tragárselo
+todo, asimilarlo, sintetizarlo y volverlo a asimilar. Y para hacerlo,
+lo mejor es dividirlo en cachos fácilmente deglutibles, no vayamos a
+empacharnos. Y eso es lo que vamos a hacer con el programa siguiente,
+que divide la novela en cada uno de los <emphasis>trancos</emphasis>
+que la componen</para>
+    <programlistingco id='prog.trancos'>
+      <areaspec>
+	<areaset  id="prog.trancos.slurp" coords="">
+	  <area  id="prog.trancos.s1" coords="2">
+	  <area  id="prog.trancos.s2" coords="5">
+	</areaset>
+	<areaset  id="prog.trancos.array" coords="">
+	  <area  id="prog.trancos.a1" coords="4">	
+	  <area  id="prog.trancos.a2" coords="5">	
+	  <area  id="prog.trancos.a3" coords="6">
+	  <area  id="prog.trancos.a4" coords="8">
+	</areaset>
+	<area  id="prog.trancos.bucle" coords="8">
+      </areaspec>
+      <programlisting>
+<emphasis>#!/usr/bin/perl</emphasis>
+<constant>use</constant> <function>File::Slurp</function>;
+
+<varname>@ARGV</varname> || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;fichero a dividir trancos&gt;</literal>\n";
+<constant>my</constant> <varname>$text</varname> = read_file( <varname>$ARGV</varname>[<constant>0</constant>] ) ;
+<constant>my</constant> <varname>@trancos</varname>=<function>split</function>("<literal>TRANCO</literal>", <varname>$text</varname>);
+
+<constant>for</constant> (<varname>@trancos</varname>[<constant>1.</constant>.<varname>$#trancos</varname>]){
+  <function>print</function> <function>substr</function>(<varname>$_</varname>,<constant>0</constant>,<constant>40</constant>), "\n", "<literal>-</literal>"x40, "\n";
+}
+
+</programlisting>
+      <calloutlist>
+	<callout arearefs="prog.trancos.slurp"><para>Esta vez, para
+variar, usamos otro módulo diferente para leer ficheros: uno que se
+traga el fichero sin rechistar y en una sola línea, y lo mete en una
+variable (<varname>$text</varname>). El módulo <filename>File::Slurp</filename> tendrás que
+instalarlo previamente, claro, de tu bienamada y nunca suficientemente
+ponderada <ulink url='http://search.cpan.org'>CPAN</ulink>.</para>
+	</callout>
+	<callout arearefs="prog.trancos.array">
+	  <para>Pero vamos al meollo del asunto, es decir, la
+matriz. Que es lo que aparece en esta línea, una matriz y como el
+asunto es de 11 arrobas, tiene una arroba delante. Una
+<literal>@</literal>, vamos. Todo lo <emphasis>vectorial</emphasis> en
+Perl tiene una @ delante. Los vectores/matrices<footnote>
+	      <para>Serían, en realidad, vectores o matrices
+unidimensionales, aunque no es difícil crear matrices
+multidimensionales en Perl.</para>
+	    </footnote>
+ son variables y es aconsejable
+ declararlos, como hacemos con <varname>@trancos</varname>; también
+hay vectores predefinidos, como <varname>@ARGV</varname>, que contiene
+los argumentos que se le pasan al programa. Precisamente en la primera
+de las líneas aquí referenciadas lo que se hace es comprobar si existe
+ese vector de argumentos. Si no hay ninguno, se sale con un mensaje de
+error. </para>
+
+	  <para>El vector <varname>@trancos</varname> se define a
+partir del texto, partiéndolo (<function>split</function>) por la
+palabra <literal>TRANCO</literal>, que es la que hay al principio de
+cada capítulo de <emphasis>El Diablo Cojuelo</emphasis>. </para>
+
+	  <para>Los elementos de un vector se pueden sacar uno por
+uno, como en <varname>$ARGV[0]</varname>, que como es un e$calar lleva
+el $ delante. Los vectores empiezan por 0 y se puede trabajar con
+ellos elemento por elemento o a puñados, como
+en <varname>@trancos[1..$#trancos]</varname>, que extrae del segundo
+elemento (que tiene índice uno) hasta el último (que no es otra cosa
+lo que representa <varname>$#trancos</varname>); el operador
+<literal>..</literal> genera en Perl una vector que contiene una secuencia ascendente del
+primer elemento al último (incluidos). Es decir, 
+<computeroutput>
+1..5 == qw( 1 2 3 4 5)
+</computeroutput></para>
+
+	  <note>
+<para>Las estructuras de datos de Perl vienen explicadas en la página
+de manual <filename>perldata</filename> (ya sabéis, <userinput>perldoc
+perldata</userinput>) incluyendo muy al principio
+los vectores.</para>
+	  </note>
+	</callout>
+
+	<callout arearefs="prog.trancos.bucle">
+	  <para>El bucle sigue el esquema habitual (en Perl). La
+variable de bucle no está declarada por que es <varname>$_</varname>;
+dentro del bucle, mediante <function>substr</function>, se extraen los
+primeros 40 caracteres y se imprimen y luego, usando el operador
+<function>x</function> de multiplicación de cadenas
+(<literal>"ab"x3</literal> dará <computeroutput>"ababab"</computeroutput>), se completa este bonito y
+útil programa.</para>
+
+	  <note>
+	    <para>Más información sobre los operadores de perl
+tecleando <userinput>perldoc perlop</userinput>, inclusive reglas de
+asociatividad y precedencia. </para>	    
+	  </note>
+
+	</callout>
+      </calloutlist>
+    </programlistingco>
+
+<para>Pero no hemos visto cómo se asignan valores directamente a los
+vectores. El programa siguiente, que modifica el anterior poniendo
+nuestro propio ordinal a los capítulos, usa una de las formas
+posibles:</para>
+    <programlisting>
+<constant>use</constant> <function>File::Slurp</function>;
+
+<emphasis><constant>my</constant> <varname>@ordinales</varname> = qw( primero segundo tercero cuarto quinto 
+		    sexto séptimo octavo noveno décimo );</emphasis>
+
+<varname>@ARGV</varname> || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;fichero a partir por trancos&gt;</literal>\n";
+<constant>my</constant> <varname>$text</varname> = read_file( <varname>$ARGV</varname>[<constant>0</constant>] ) ;
+<constant>my</constant> <varname>@trancos</varname>=<function>split</function>("<literal>TRANCO</literal>", <varname>$text</varname>);
+
+<constant>for</constant> (<varname>@trancos</varname>[<constant>1.</constant>.<varname>$#trancos</varname>]){
+<emphasis>  <function>print</function> <function>shift</function> <varname>@ordinales</varname>, "", <function>substr</function>(<varname>$_</varname>,<constant>0</constant>,<constant>40</constant>), "\n", "<literal>-</literal>"x40, "\n";</emphasis>
+}
+
+</programlisting>
+
+    <para>El vector se declara al principio del programa, usando la
+forma menos incómoda, que se ahorra comillas y espacios y
+cosas. Siempre que cada uno de los elementos del vector sea un
+<emphasis>bloque</emphasis> sin espacios en medio, se puede usar
+<literal>qw()</literal>. La forma más general, sin embargo, sería 
+<programlisting>my @ordinales= ('Primero','Segundo',...)</programlisting> 
+</para>
+
+    <para>Para ir recorriendo ese vector y escribiendo sus contenidos
+por orden, usamos <function>shift</function>, que extrae el primer elemento
+de un vector, es decir:
+<screen>
+<userinput>DB&lt;1> @vector = qw( primero segundo tercero );
+
+  DB&lt;2> print shift @vector</userinput>
+<computeroutput>primero</computeroutput>
+<userinput>  DB&lt;3> x @vector</userinput>
+<computeroutput>0  'segundo'
+1  'tercero'</computeroutput>
+</screen>
+. <command>x</command> muestra el contenido de una variable en el
+depurador de Perl. Por tanto, en cada
+iteración del bucle el vector <varname>ordinales</varname> perderá su
+primer elemento. Por lo demás, <function>print</function> escribirá
+todo lo que le pasemos, separado por comas. Es así de
+obediente.</para>
+
+    <note>
+      <para>Esta forma de recorrer un vector es más eficiente que usar
+un índice sobre los elementos del mismo, como suele hacerse en C. Y
+sólo es incomprensible si no estás acostumbrado.</para>
+    </note>
+
+    <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Una vez hechos los trancos, lo suyo sería dividir por
+párrafos cada uno. Y añadirle etiquetas HTML, qué diablos. Así que el
+ejercicio consiste en modificar el programa anterior para que divida
+cada tranco en párrafos y le añada etiquetas HTML, teniendo en cuenta
+que los párrafos comienzan (o terminan) con dos retornos de carro,
+pero que dependiendo del sistema operativo origen, los dos retornos de
+carro pueden ser <literal>\n\n</literal> o <literal>\r\n\r\n</literal>
+(que será el caso, si usáis el mismo fichero que yo).</para>
+      </formalpara>
+    </important>
+  </sect1>
+
+  <sect1>
+    <title>Ni bien ni mal, sino regular</title>
+    <subtitle>Matrices asociativas (<emphasis>hashes</emphasis>) y
+expresiones regulares.</subtitle>
+
+    <para>A trancos y barrancos llegamos a un punto en que el tema se
+pone interesante. Si todavía estás con nosotros, agárrate, que ahora
+viene lo gordo: hacer un índice onomástico, es decir, los nombres de
+las gentes que aparecen en la novela y dónde diablos aparecen. Lo
+bueno es que allá por el siglo XVIII la gente era muy educada y a
+todo el mundo lo trataban de <emphasis>Don</emphasis>, así que un
+nombre será algo en mayúsculas después de un Don. Ahí vamos</para>
+    <programlistingco>
+      <areaspec>
+	<area coords="1" id="prog.indice.shift">
+	<areaset coords="" id="prog.indice.hash">
+	  <area coords="5" id="prog.indice.h1">
+	  <area coords="8" id="prog.indice.h2">
+	  <area coords="12" id="prog.indice.h3">
+	</areaset>
+	<area coords="7" id="prog.indice.regexp">
+      </areaspec>
+      <programlisting>
+<constant>my</constant> <varname>$fichero_a_procesar</varname> = <function>shift</function> 
+  || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;nombre de fichero&gt;n</literal>";
+<function>open</function> <constant>my</constant> <varname>$fh</varname>, "<literal>&lt;</literal>", <varname>$fichero_a_procesar</varname>  || <function>die</function> "<literal>No puedo abrir el fichero. Error </literal><varname>$!</varname>\n";
+
+<constant>my</constant> <varname>%indice</varname>;
+<constant>while</constant>(&lt;<varname>$fh</varname>&gt;) {
+  <constant>if</constant> ( <literal>/[Dd]on ([A-Z][a-záéíóúñ]+)/</literal> ) {
+    <varname>$indice</varname>{<varname>$1</varname>} .= "<varname>$.</varname>";
+  }
+}
+
+<constant>for</constant> (<function>sort</function> {<varname>$a</varname> cmp <varname>$b</varname>} <function>keys</function> <varname>%indice</varname> ) {
+  <function>print</function> "<literal>*Don </literal><varname>$_</varname>\n\t<varname>$indice</varname><literal>{</literal><varname>$_</varname><literal>}</literal>\n";
+}
+</programlisting>
+      <calloutlist>
+	<callout arearefs="prog.indice.shift">
+<para>He aquí una forma alternativa de leer los argumentos de la línea
+de comandos. Sin dejar de usar <varname>@ARGV</varname>, en este caso
+echamos mano de <function>shift</function>, que, si no tiene argumento
+al que hincarle el diente, lo hace directamente sobre él. O séase, la
+línea anterior sería exactamente igual que:
+<programlisting>
+<constant>my</constant> <varname>$fichero_a_procesar</varname> = <function>shift</function> <varname>@ARGV</varname>
+</programlisting>.</para>
+	</callout>
+	<callout arearefs="prog.indice.hash">
+	  <para>Los diccionarios son útiles entre otras cosas para
+equilibrar una mesa, pero también para almacenar definiciones. Son
+muy rápidos para buscar información: vas directamente a la letra y
+buscas secuencialmente. Los vectores no lo son: tienes que ir
+examinando uno por uno todos los elementos para encontrar lo que
+buscas, si no sabes su índice. Los vectores son útiles
+para almacenar información a la que se va a acceder secuencialmente,
+sin embargo, los diccionarios sirven para almacenar información a la
+que se va a acceder usando una palabra clave. En Perl, los
+diccionarios se llaman <emphasis>hashes</emphasis> o variables
+asociativas y a la palabra clave que se usa para acceder a su
+contenido, se le llama <emphasis>key</emphasis> o clave<footnote>
+	      <para>En realidad, los vectores serían un tipo especial
+de diccionarios, que sólo admitirían números como palabra clave; así
+es, además, como se implementan internamente en Perl</para>
+	    </footnote>. Los <emphasis>hashes</emphasis> tienen un
+<literal>%</literal> delante, que es lo más parecido a una K si se
+mira de lejos y con los ojos entrecerrados. Eso es lo que declaramos
+en esta referencia; sin embargo, cada uno de los contenidos de estos
+hashes son escalares y se usa la misma convención que en los
+vectores, como sucede en el resto de las líneas marcadas. 
+</para>
+
+<para>En este programa se va creando un hash con los nombres que se
+van encontrando y el contenido del mismo son las líneas en las que
+aparece el nombre (para las que usamos la variable predefinida
+<varname>$.</varname>).</para>
+
+<para>El índice se imprime una vez recorrido el
+fichero, en las últimas líneas del programa. Para empezar, el comienzo
+del bucle es de esos que le dan al Perl un mal nombre, pero
+recorriéndolo de derecha a izquierda podemos irlo decodificando. A la
+derecha está el nombre del hash; y un poco más allá la función
+<function>keys</function>, que devuelve un vector con las claves del
+hash. Recorrer una matriz es fácil: empiezas por 0 y acabas por el
+último vector, pero para recorrer un hash necesitas saber cuáles son
+las claves que tiene. Y resulta más útil si lo recorres siguiendo un
+orden determinado. En este caso,
+<programlisting>sort {$a cmp $b}</programlisting> clasifica (<function>sort</function>) usando un
+bloque (<literal>$a cmp $b</literal>). <varname>$a</varname> y
+<varname>$b</varname> representan los dos elementos que se comparan en
+la clasificación y <function>cmp</function> es una comparación
+alfabética, que devuelve -1, 0 o 1 dependiendo de si el primero es
+mayor, son iguales o lo es el segundo. <function>sort</function> toma
+como argumento un vector y lo devuelve clasificado, numéricamente si
+no se le indica ninguna expresión y usando la expresión si la
+hay. Por ejemplo, si quisiéramos que recorriera el hash por orden de
+número de apariciones (que equivalen a la longitud de la cadena que
+las representa), podríamos poner
+<programlisting>sort {length($indice{$a}) cmp length($indice{$b})</programlisting>.</para>
+
+	  <para>Dentro del bucle, nada inesperado: la variable por
+defecto <varname>$_</varname> toma el valor de cada una de las claves
+del hash y se escribe tal clave (con el Don por delante, que no
+falte) y el contenido de la misma
+(<literal>$indice{$_}</literal>).</para>
+
+    <note>
+      <para>Una vez más, como <link linkend='prog.trancos'>aconsejamos
+para los vectores</link>, se puede ampliar información escribiendo
+<userinput>perldoc perldata</userinput></para>
+    </note>
+
+	</callout>
+
+	<callout arearefs="prog.indice.regexp">
+	  <para>Si algo caracteriza al lenguaje Perl, son las
+expresiones regulares. Posiblemente fue el primer lenguaje de
+programación que las introdujo de forma nativa, hasta el punto que
+lenguajes posteriores han adoptado su formato. Una expresión regular
+es una forma sintética de expresar la estructura de una cadena
+alfanumérica. Las expresiones regulares usan símbolos para representar
+grupos de caracteres (por ejemplo, números, o espacios en blanco) y
+repeticiones de los mismos (que aparezcan 1, n o más veces) y, lo que
+es más importante, qué parte de la cadena nos interesa para hacer algo
+con ella (por ejemplo, extraerla o sustituirla por otra).</para>
+
+<para>En Perl, la forma más común de encontrarse las expresiones
+regulares entre dos <emphasis>slash</emphasis>
+<literal>//</literal>. En la expresión regular siguiente (a veces abreviada
+como <emphasis>regexp</emphasis> o <emphasis>regex</emphasis>):
+<programlisting>/[Dd]on ([A-ZÁÉÍÓÚ][a-záéíóúñ]+)/</programlisting>
+La primera parte concidirá con cualquier cadena que empiece por
+<literal>don</literal> o <literal>Don</literal>;
+<literal>[Dd]</literal> coincide con un solo carácter que esté entre
+el grupo entre corchetes. Y algo similar es la expresión entre
+paréntesis (que indican que es la parte que queremos guardar para
+luego), comienza con <literal>[A-ZÁÉÍÓÚ]</literal>, que es una serie de
+caracteres que comienzan por A y terminan por Z (más las mayúsculas
+acentuadas, aunque en este texto no sirven de mucho), lo que vienen siendo
+las mayúsculas y luego cualquier letra minúscula (inclusive letras
+con acento y la ñ, que no están dentro del alfabeto anglosajón), pero
+que aparezcan una o más veces (de ahí el <literal>+</literal>; un
+<literal>*</literal> habría significado 0 o más veces y una
+<literal>?</literal> un elemento opcional, que puede aparecer o
+no). En resumen, esta expresión regular coincidirá con <literal>Don
+Cleofás</literal> o <literal>don Domingo</literal>, pero no con
+<literal>Sir James</literal>, ni con <literal>don dinero</literal> (la
+segunda palabra no está en mayúsculas), ni siquiera con <literal>Don
+Dinero</literal> (porque tiene dos espacios, aunque no se vean). Coincidirá precisamente
+con lo que queremos que coincida.</para>
+
+	  <para>Una forma fácil de visualizar las expresiones
+regulares es el programa <filename>kregexpeditor</filename>, que
+aparece abajo con la expresión regular anterior.</para>
+
+<figure id='fig.kregexpeditor'>
+      <title>Programa <filename>kregexpeditor</filename> presentando
+la expresión regular <literal>([A-Z][a-záéíóúñ]+)</literal>, y
+mostrando subrayado en rojo una cadena que cumple la expresión. En el
+panel superior se muestra una explicación de los diferentes elementos
+de la regex.</title>
+	<screenshot>
+	  <graphic fileref="img/kregexpeditor.png" scale="60" >
+	</screenshot>
+    </figure>
+    <note>
+	      <para>Una vez más, la documentación incluida en perl es nuestra amiga:
+<userinput>perldoc perlrequick</userinput> es una referencia
+rápida,<userinput>perldoc perlretut</userinput>   un tutorial más
+extenso y <userinput>perldoc perlre</userinput> un manual de
+referencia.</para> 
+	    </note>
+	</callout>
+
+      </calloutlist>
+    </programlistingco>
+
+<para>Ejecutado sobre el diablo cojuelo, este programa dará una salida
+tal que así:<screen><computeroutput>*Don Adolfo
+	258 293 476 3487 3652 5864 9392 
+*Don Agustín
+	3794 5462 8955 
+*Don Alfonso
+	8830 
+*Don Alonso
+	2858 3562 3676 6061 6771 
+*Don Alonsos
+	1198 
+*Don Alvaro
+	1233 2043 3534 
+*Don Ambrosio
+	7703 
+*Don Américo
+	5513 
+*Don Antonio
+	2110 2611 2657 2983 3472 5335 5460 5800 6133 9048 
+*Don Apolo
+	3219 
+*Don Baltasar
+	2647 2653 
+*Don Beltrane
+	7439 7457 
+*Don Beltrán
+	7436 7451 
+*Don Bueso
+	6906 
+*Don Carlos
+	2671 4238 
+*Don Cayetano
+	3463 
+*Don Clarian
+	5846 
+*Don Claudio
+	2697 
+*Don Cleofas
+	323 
+*Don Cleofás
+	658 694 719 727 735 763 782 792 807 810 825 844 860 869 914 936 950 961 979 993 1007 1020 1045 1052 1061 1109 1114 1156 1160 1172 1183 1190 1219 1235 1280 1292 1302 1323 1339 1382 1442 1452 1589 1611 1626 1639 1648 1694 1698 1704 1711 1716 1721 1740 1746 1751 1757 1798 1847 1856 1938 1947 1955 1957 1958 1963 1970 1980 1993 1998 2002 2055 2115 2126 2144 2169 2224 2251 2318 2335 2340 2348 2350 2358 2370 2373 2381 2437 2479 2488 2549 2738 2746 2754 2768 2780 2793 2811 2827 2833 2838 2868 2876 2907 2971 2975 2988 2996 3010 3020 3037 3039 3053 3124 3158 3168 3175 3182 3195 3365 3368 3446 3852 4206 5452 5625 5640 6417 8274 8504 8609 9003 9430 
+*Don Cristóbal
+	2894 3459 8950 
+</computeroutput></screen>, donde queda bastante claro quién es el
+prota (aparte del Diablo Cojuelo, que por ser diablo no tiene
+Don). Y que no poner un acento pasa hasta en las mejores
+familias. </para> 
+
+<para>Pero la utilidad de matrices asociativas y expresiones regulares
+no acaba ahí. Ni la del dominio público: vamos a modificar
+<emphasis>El Diablo Cojuelo</emphasis> para sustituir unos cuantos
+nombres, a gusto del consumidor. Y lo haremos con el siguiente
+programa:</para>
+
+    <programlistingco id='prog.cambiando'>
+      <areaspec>
+	<area coords="3 7" units='linerange' id="prog.cambiando.defhash" >
+	<area coords="15" id="prog.cambiando.usahash">
+      </areaspec>
+      <programlisting>
+<constant>use</constant> <function>File::Slurp</function>;
+
+<constant>my</constant> <varname>%roles</varname> = (
+	     Madrid =&gt; '<literal>el foro</literal>',
+	     '<literal>Cleof[áa]s</literal>' =&gt; '<literal>El prota</literal>',
+	     '<literal>[Ee]l [Dd]iablo [Cc]ojuelo</literal>' =&gt; '<literal>Su Satánica Majestad</literal>' ,
+	    );
+
+<constant>my</constant> <varname>$fichero_a_procesar</varname> = <function>shift</function> 
+  || <function>die</function> "<literal>Uso: </literal><varname>$0</varname><literal> &lt;nombre de fichero&gt;n</literal>";
+
+<constant>my</constant> <varname>$texto</varname>=read_file(<varname>$fichero_a_procesar</varname>);
+
+<constant>for</constant> ( <function>keys</function> <varname>%roles</varname> ) {
+  <varname>$texto</varname> =~ s/<varname>$_</varname>/<varname>$roles</varname><literal>{</literal><varname>$_</varname><literal>}</literal>/g;
+}
+
+<function>print</function> <varname>$texto</varname>;
+</programlisting>
+      <calloutlist>
+	<callout arearefs="prog.cambiando.defhash">
+	  <para>Aquí definimos los  cambios. Más claro no
+puede estar: lo que está a la izquierda de la flechica, se convertirá
+en lo que hay a la derecha de la flechica. Y lo definimos usando un
+hash, que usan un paréntesis tal como los vectores. Las claves están a
+la izquierda y si son amazacotadas (sin espacios ni caracteres raros
+en medio; de hecho, si tienen la misma sintaxis que un nombre de variable en Perl), se les pueden quitar las comillas (como pasa con
+<literal>Madrid</literal>. La última coma, por cierto, no es
+necesaria, pero si conveniente.</para>
+
+	  <para>La <emphasis>coma gorda
+(<literal>=></literal>)</emphasis> sustituye a la coma normal cuando
+se definen expresiones regulares; adicionalmente, se pueden omitir las
+comillas. Por supuesto, también se pueden definir como las matrices
+normales, sin más que poner a cada clave seguida por su valor o
+definición. </para>
+	</callout>
+	<callout arearefs="prog.cambiando.usahash">
+	  <para>Las sustituciones se hacen precisamente en esta línea,
+usando el escueto comando <function>s///</function>, que tiene una
+sintaxis un tanto curiosa, procedente del ignoto comando de Unix
+<command>sed</command>. Por lo menos usa la <literal>s</literal> de
+<emphasis>sustituir</emphasis>.
+<function>s/esto/aquello/xyz</function> vendría a ser algo así como
+<function>sustituye(esto,aquello,xyz</function>, donde el último
+argumento son una serie de opciones que modifican su
+comportamiento. El primer argumento puede y debe ser una expresión
+regular; el segundo puede ser cualquier cosa, pero si ponemos una
+expresión que incluya variables, tenemos que añadir al final la opción
+<literal>e</literal> para que la evalúe. Y la <literal>g</literal> es
+para que no se pare en la primera sustitución, sino que siga hasta que
+llegue al final del texto.</para>
+	</callout>
+      </calloutlist>
+    </programlistingco>
+
+<para>Y el resultado (parte de él), sería algo así como esto:
+<screen><computeroutput>--¿Quién es aquí Su Satánica Majestad? Que he tenido soplo que está aquí en
+este garito de los pobres, y no me ha de salir ninguno deste aposento
+hasta reconocellos a todos, porque me importa hacer esta prisión.
+
+Los pobres y las pobras se escarapelaron viendo la justicia en su
+garito, y el verdadero Diablo Cojuelo, como quien deja la capa al toro,
+dejó a Cienllamas cebado con el pobrismo, y por el caracolillo se
+volvieron a salir del garito él y don El prota.</computeroutput>
+</screen> 
+que no es que sea perfecto, pero es un comienzo.</para>
+
+
+    <important>
+      <formalpara>
+	<title>Ejercicios</title>
+	<para>Las humildes palabras, que no tienen título, también
+pueden y deben ser contadas, para llevar una contabilidad exacta. Así
+que contemos todas las palabras en minúscula que aparecen en un texto,
+y hagamos un ránking de las 50 palabras más comunes. Por ejemplo.</para>
+      </formalpara>
+    </important>
+  </sect1>
+
+ <sect1>
+    <title>Sirviendo a la Humanidad</title>
+
+<para>En habiendo una red que abarca todo el mundo, no podemos ser tan
+  egoístas que hagamos programas sólo para nosotros mismos, o para que
+  otros los usen para ellos mismos: hay que abrirse al mundo. Y Perl
+  es muy adecuado para hacerlo; los primeros programasa para la web se
+  hicieron en Perl, principalmente porque otros muy en boga hoy en día
+  no existían. Empecemos por el programa más fácil del mundo: uno que
+  simplemente imprime nuestra novela.</para>
+
+    <sidebar>
+      <para>Vamos a ver una de las formas posibles de ejecutar
+      programas desde un servidor web, la
+      denominada <ulink url='http://es.wikipedia.org/wiki/Common_Gateway_Interface'>Common
+	  Gateway Interface</ulink> o interfaz de pasarela común;
+      define una forma bastante simple de ceder el control del
+      servidor web a un programa, y que este a su vez genere contenido
+      para ser servido por el mismo. Históricamente fue la primera
+      forma de hacerlo, aunque hoy en día hay otras muchas (servlets o
+	módulos del servidor, por ejemplo).</para>
+
+ <programlistingco id='prog.cgi'>
+      <areaspec>
+	<area coords="1" id="prog.cgi.use" >
+	<area coords="3" id="prog.cgi.print" >
+	<area coords="5" id="prog.cgi.data" >
+
+      </areaspec>
+      <programlisting>
+<!-- Fichero original: code/cojuelo_cgi.txt -->
+<function>use CGI qw(:standard);</function>
+
+print <function>header</function>, <function>start_html</function>('<literal>CGI
+  del El diablo cojuelo</literal>'), <function>h1</function>('<literal>El diablo cojuelo</literal>'), &lt;<varname>DATA</varname>&gt;, <function>end_html</function>;
+
+<varname>__DATA__</varname>
+<literal>The Project Gutenberg EBook of El Diablo Cojuelo, by Luis Vélez de Guevara
+...
+</literal>
+      </programlisting>
+
+      <calloutlist>
+	  <callout arearefs="prog.cgi.use">
+<para>Hacer un CGI no es tan complicado; consiste en escribir cosas en
+  salida estándar (como si fuera en pantalla, vamos) con una
+  estructura determinada: primero se escribe <literal>Content-Type:
+  text/html; charset=ISO-8859-1</literal> con dos retornos de carro al
+  final, lo que indica que el contenido que se está enviando es de ese
+  tipo (tipo MIME, para ser exactos) y que se está usando el conjunto
+  de caracteres indicado. Aparte, hay que generar contenido de
+  diversos tipos, pero
+  principalmente <ulink url='http://es.wikipedia.org/wiki/HTML'>HTML</ulink>. Bueno,
+  pues es eso lo que hace esta línea que incluye la
+  librería <ulink url='http://search.cpan.org/dist/CGI.pm/'>CGI de
+    Perl </ulink> con la opción <literal>:standard</literal>, que
+  viene a decir que no se busque uno complicaciones e incluya todo lo
+  habitual.</para></callout>
+
+<callout arearefs='prog.cgi.print'>
+  <para>Aquí es donde realmente se <emphasis>crea</emphasis> la página
+  web en sí. Aunque podemos poner todo el HTML que queramos, el módulo
+  CGI simplifica un poco la generación permitiendo acceder a todo como
+  si se tratara de una función. El programa se hace más legible,más
+    modificable, y más cómodo. La primera
+  función, <command>header</command>, hace lo que hemos explicado más
+  arriba, crear la cabecera (que no es otra cosa lo que significa). A
+  partir de ahí, se comienza el documento HTML (es decir, se imprime
+  la estructura principal de la cabecera, el título y demás (el de la
+    ventana), luego el del documento con <command>h1</command>, el
+    contenido del fichero (lo veremos ahora), y posteriormente se
+  cierra. El resultado, visto en un editor de textos, se muestra a continuación
+<figure>
+  <title>HTML creado por <command>cojuelo.cgi</command></title>
+  <screenshot>
+    <graphic fileref="img/cojuelo-html.png" scale="50" >
+  </screenshot>
+</figure>
+  </para>
+</callout>
+
+<callout arearefs='prog.cgi.data'>
+<para>Cuando hay cadenas muy largas, novelas completas, por ejemplo,
+  Perl permite añadir al final del texto del programa una serie de
+  datos a los que se puede acceder como si se tratara de un fichero
+  abierto. En este caso, como se trata de un texto en el dominio
+  público que se puede distribuir sin restricciones, podemos incluir
+  todo "El Diablo Cojuelo". La sintaxis es la que se ve: se
+  usa <command>__DATA__</command> para a continuación incluir todo el
+  texto que se quiera, y desde el programa se usa como si se hubiera
+  abierto un fichero y se le hubiera asignado al manejador de
+  fichero <command>DATA</command>. Con los paréntesis angulares
+  &lt;&gt; se lee el texto completo, que se saca por pantalla</para>
+</callout>
+      </calloutlist> 
+
+<para>El programa puedes ejecutarlo directamente desde el el editor o la
+  línea de comandos, pero con eso no vas a ningún lado. Para que se
+  sirva como página web tienes que ponerlo en un directorio donde se
+  puedan poner ese tipo de cosas. Puede
+  ser <command>/var/www/cgi-bin</command> o cosas más raras en otros
+  sistemas operativos. Además, habrá que hacerlo ejecutable y darle
+  alguna extensión (como <command>.cgi</command>) para que sea
+  reconocido como eso, un CGI.</para>
+
+<para>Una vez copiado el fichero a su sitio y dado permiso de ejecución
+  al mismo (y a todo el camino que llegue hasta él), lo podemos
+  ejecutar desde Internet
+  con <command>http://direcci.on/cgi-bin/cojuelo.cgi</command>. El
+  resultado será el esperable: una página con el Diablo Cojuelo, ni
+  más ni menos.</para>
+
+<para>Pero claro, se trata de demasiado diablo para tan poca
+  página. Sería conveniente que este programa que estamos ejecutando
+  pudiera funcionar con diferentes opciones, y que pudiéramos imprimir
+  solamente un <emphasis>tranco</emphasis>, uno de los capítulos. O
+  hacer cualquier otra cosa. Precisamente la especificación del CGI
+  permite hacer este tipo de cosas sin mucho problema.
+ </sect1>
+  <sect1>
+    <title>A dónde vamos desde aquí</title>
+
+    <para>Lo que distingue a Perl de los otros lenguajes es la
+comunidad, y la humildad y accesibilidad de los
+<emphasis>gurus</emphasis>; no es extraño encontrárselos en los foros
+o listas de discusión, ni que te acepten un parche para sus
+módulos. Por eso nunca va a faltar información. Si no manejas la
+lengua del imperio, sin embargo, no hay tanta.</para>
+
+    <sect2>
+      <title>Libros</title>
+      <para>Multitud de libros te ayudarán a penetrar en el
+maravilloso mundo del Camello. Puedes empezar por Learning Perl,
+seguir por Programming Perl, continuar con el Perl Cookbook, y acabar
+con High Order Perl o con Perl Hacks. La mayoría de los buenos libros
+de Perl están publicados por <ulink
+url="http://www.oreilly.com">O'Reilly</ulink>, y todos ellos están
+disponibles como e-libros en <ulink url="http://safari.oreilly.com">el
+servicio Safari</ulink>. Puede que tu universidad o tu empresa haya
+comprado acceso a algunos de ellos. Casi cualquier cosa escrita por
+Damien Conway merece la pena ser leída.</para>
+
+
+<para>Por otro lado, si puedes encontrarlo, Professional Perl
+Programming es bastante completo, aunque de estilo un tanto más
+disperso. Sin duda, el capítulo sobre <emphasis>locale</emphasis> e
+internacionalización es el mejor.</para>
+    </sect2>
+
+    <sect2>
+      <title>Tutoriales</title>
+<para>Tampoco faltan los tutoriales en Internet, entre ellos el decano
+en castellano, hecho por un servidor, <ulink
+url="http://merelo.net/tutoperl">un tutorial de Perl</ulink> cuyo
+estilo no difiera mucho de este pero que, por su edad (fue escrito
+cuando Perl iba todavía por la versión 4), quizás haya quedado un
+tanto obsoleto.</para>
+    </sect2>
+
+    <sect2>
+      <title>Listas de correo y foros</title>
+      <para>Hay muchas listas de correo en inglés dedicadas a aspectos
+específicos: Perl y XML, Perl e Inteligencia artificial, Perl y el
+Zen; en español la lista <ulink
+url="http://yahoogroups.com/groups/perl-es"><literal>perl-es</literal></ulink>
+está alojada en Yahoogroups y tiene un tráfico moderado (y un nivel de
+spam relativamente indeseable). Pocas preguntas se quedan sin
+respuesta. También hay un foro bastante activo <ulink url='http://perlenespanol.baboonsoftware.com/foro/index.php'>Perl en
+español</ulink>.</para>
+
+      <para>En inglés, <ulink
+url="http://perlmonks.org">PerlMonks</ulink> actúa como un foro, y
+tiene también un chat incorporado. Sirve tanto para plantear
+cuestiones como para proponer ideas. Abierto 24/7.</para>
+    </sect2>
+
+  <sect2>
+      <title>Cursos</title>
+
+      <para>Periódicamente celebramos en
+      la <ulink url='http://www.ugr.es'>UGR</ulink>
+      un <ulink url='http://cevug.ugr.es/perl'>curso virtual de
+	  introducción al lenguaje Perl</ulink>, de 40 horas, que está
+      bastante maduro (en marzo de 2011 se impartió la 9ª edición) y
+      que está bastante bien para introducirte en el lenguaje y
+      obtener un título que lo acredite. El contenido llega un poco
+      más allá que el impartido en este pequeño tutorial, y también es
+	más detallado. Para más paciente, en resumen.</para>
+
+  </sect2>
+
+
+  </sect1>
+
+  <sect1>
+    <title>Esto es todo</title>
+
+    <para>Bueno, esto es todo, diablillos. Este tutorial tiene <link linkend="ln">licencia
+GFDL</link>, o sea que puedes hacer con él lo que te dé la gana, grabarlo
+en piedra, dárselo a tu abuela, traducirlo al telugu, con las
+condiciones que te marca la licencia. Si encuentras algún fallo, o
+tienes alguna petición o ruego o pregunta, envíame <ulink
+url='mailto:jjmerelo (en) gmail.com'>un correo</ulink>, o cuéntalo en
+alguno de los foros indicados más arriba; suelo pasar por ahí, o ya
+pasará alguien que me lo cuente.</para>
+
+
+  </sect1>
+
+  <sect1>
+    <title>Agradecimientos</title>
+    <para>A <ulink url="http://aprosi.com">Joaquín Ferrero</ulink>,
+por una lectura y múltiples sugerencias (y corrección de errores), y a
+<ulink url="http://barbacana.net">jamarier</ulink>, por ser mi beta
+tester y bug quasher number one. También al <ulink
+url="http://gutenberg.org">proyecto Gutenberg</ulink>, por la <ulink url='http://www.gutenberg.org/etext/12457'>copia de
+El Diablo Cojuelo</ulink> que he usado y de la que he abusado en este
+tutorial. </para>
+  </sect1>
+</article>
